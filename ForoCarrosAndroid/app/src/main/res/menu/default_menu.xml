@@ -4,15 +4,15 @@
     <item
         android:icon="@drawable/ic_message_white"
         android:title="@string/general_menu.messages"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:icon="@drawable/ic_notifications_white"
         android:title="@string/general_menu.notifications"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:icon="@drawable/ic_search_white"
         android:title="@string/general_menu.search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>
