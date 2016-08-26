@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.spaceisstrange.forocarrosandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.LoginActivity" />
+        <activity
+            android:name=".ui.activities.SubforosActivity"
+            android:label="@string/title_activity_subforos"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

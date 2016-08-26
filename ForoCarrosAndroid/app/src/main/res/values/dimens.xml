@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Login activity -->
+    <dimen name="login.vertical_margin">16dp</dimen>
+    <dimen name="login.horizontal_margin">16dp</dimen>
+    <dimen name="login.title.text_size">40sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
