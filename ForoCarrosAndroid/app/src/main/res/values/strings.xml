@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">ForoCarrosAndroid</string>
 
+    <!-- General menu -->
+    <string name="general_menu.messages">Privados</string>
+    <string name="general_menu.notifications">Notificaciones</string>
+
     <!-- Login Activity -->
     <string name="login.title">Iniciar sesión</string>
     <string name="login.hint.username">Nombre de usuario</string>
@@ -11,6 +15,7 @@
     <string name="title_activity_subforos">Subforos</string>
 
     <!-- Datos de ejemplo para rellenar -->
+    <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>
     <string name="dummy.subforo_post">Viva Android cabrones</string>
     <string name="dummy.post_timestamp">Hoy 16:20</string>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_message_white"
+        android:title="@string/general_menu.messages"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/ic_notifications_white"
+        android:title="@string/general_menu.notifications"
+        app:showAsAction="ifRoom" />
+</menu>

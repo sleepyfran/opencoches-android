@@ -39,67 +39,10 @@ class ApiConstants {
         const val LOGIN_URL = "login.php"
 
         /**
-         * IDs de los subforos (ejemplo: 2 para el general), que vienen en la URL.
+         * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
          */
-        // Zona General
-        const val GENERAL_KEY = "GENERAL"
-        const val ELECTRONICA_KEY = "ELECTRONICA"
-        const val EMPLEO_KEY = "EMPLEO"
-        const val VIAJES_KEY = "VIAJES"
-        const val QUEDADAS_KEY = "QUEDADAS"
-
-        // Zona ForoCoches
-        const val FOROCOCHES_KEY = "FOROCOCHES"
-        const val COMPETICION_KEY = "COMPETICION"
-        const val CLASICOS_KEY = "CLASICOS"
-        const val MONOVOLUMENES_KEY = "MONOVOLUMENES"
-        const val OCIO_KEY = "4X4-OCIO"
-        const val MODELISMO_KEY = "MODELISMO"
-        const val CAMIONES_KEY = "CAMIONES"
-        const val MOTOS_KEY = "MOTOS"
-
-        // Zona Técnica
-        const val MECANICA_KEY = "MECANICA"
-        const val CAR_AUDIO_KEY = "CAR_AUDIO"
-        const val SEGUROS_KEY = "SEGUROS"
-        const val TRAFICO_KEY = "TRAFICO"
-        const val TUNING_KEY = "TUNING"
-
-        // Zona Gaming
-        const val JUEGOS_COCHES_KEY = "JUEGOS_COCHES"
-        const val JUEGOS_ONLINE_KEY = "JUEGOS_ONLINE"
-
-        // TODO: Añadir el resto de zonas en un futuro próximo
-
-        val SUBFOROS: HashMap<String, Int> = hashMapOf(
-                // Zona General
-                GENERAL_KEY to 2,
-                ELECTRONICA_KEY to 17,
-                EMPLEO_KEY to 23,
-                VIAJES_KEY to 27,
-                QUEDADAS_KEY to 15,
-
-                // Zona ForoCoches
-                FOROCOCHES_KEY to 4,
-                COMPETICION_KEY to 18,
-                CLASICOS_KEY to 20,
-                MONOVOLUMENES_KEY to 47,
-                OCIO_KEY to 21,
-                MODELISMO_KEY to 28,
-                CAMIONES_KEY to 76,
-                MOTOS_KEY to 48,
-
-                // Zona Técnica
-                MECANICA_KEY to 19,
-                CAR_AUDIO_KEY to 5,
-                SEGUROS_KEY to 31,
-                TRAFICO_KEY to 30,
-                TUNING_KEY to 6,
-
-                // Zona Gaming
-                JUEGOS_COCHES_KEY to 16,
-                JUEGOS_ONLINE_KEY to 43
-        )
+        const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
+        const val MEMBER_LINK_KEY = "/foro/member.php?u="
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo

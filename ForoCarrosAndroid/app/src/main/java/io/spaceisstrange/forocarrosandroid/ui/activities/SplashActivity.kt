@@ -41,8 +41,10 @@ class SplashActivity : AppCompatActivity() {
                     {
                         result ->
 
-                        // TODO: Mostrar la activity con la lista de foros
-                        Log.i(this@SplashActivity.javaClass.canonicalName, "Logueado!")
+                        // Mostramos la activity con la lista de foros
+                        Log.i(this@SplashActivity.javaClass.canonicalName, "¡Logueado!")
+                        startActivity(Intent(this@SplashActivity, SubforosActivity::class.java))
+                        finish()
                     },
                     {
                         error ->
@@ -60,8 +62,7 @@ class SplashActivity : AppCompatActivity() {
         } else {
             // Mostramos la activity para iniciar sesión
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
-
-        finish()
     }
 }

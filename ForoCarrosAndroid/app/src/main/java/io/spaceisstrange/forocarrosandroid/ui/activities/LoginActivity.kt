@@ -1,5 +1,6 @@
 package io.spaceisstrange.forocarrosandroid.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -58,8 +59,9 @@ class LoginActivity : AppCompatActivity() {
                         SharedPreferencesUtils.saveUsername(this, username)
                         SharedPreferencesUtils.savePassword(this, password)
 
-                        // TODO: Mostrar la lista de subforos
-                        Log.i(this@LoginActivity.javaClass.canonicalName, "Logueado!")
+                        // Mostramos la lista de subforos
+                        Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
+                        startActivity(Intent(this@LoginActivity, SubforosActivity::class.java))
                     },
                     {
                         error ->
