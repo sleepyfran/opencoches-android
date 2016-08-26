@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ui.activities.LoginActivity" />
         <activity
-            android:name=".ui.activities.SubforosActivity"
+            android:name=".ui.activities.LandingActivity"
             android:label="@string/title_activity_subforos"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

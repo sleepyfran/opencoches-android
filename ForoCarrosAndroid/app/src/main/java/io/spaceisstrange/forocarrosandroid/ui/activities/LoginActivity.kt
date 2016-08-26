@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
                         // Mostramos la lista de subforos
                         Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
-                        startActivity(Intent(this@LoginActivity, SubforosActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, LandingActivity::class.java))
                     },
                     {
                         error ->
