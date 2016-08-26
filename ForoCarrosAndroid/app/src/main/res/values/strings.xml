@@ -4,6 +4,7 @@
     <!-- General menu -->
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
+    <string name="general_menu.search">Buscar en el foro</string>
 
     <!-- Login Activity -->
     <string name="login.title">Iniciar sesión</string>
