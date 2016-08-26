@@ -2,6 +2,7 @@
     <string name="app_name">ForoCarrosAndroid</string>
 
     <!-- General menu -->
+    <string name="general_menu.sign_out">Cerrar sesión</string>
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
