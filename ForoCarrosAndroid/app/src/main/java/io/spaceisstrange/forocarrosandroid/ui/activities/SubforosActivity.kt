@@ -1,7 +1,6 @@
 package io.spaceisstrange.forocarrosandroid.ui.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -10,10 +9,9 @@ import android.view.MenuItem
 import io.spaceisstrange.forocarrosandroid.R
 import io.spaceisstrange.forocarrosandroid.adapters.SubforosAdapter
 import io.spaceisstrange.forocarrosandroid.api.rx.FCSubforosObservable
-import io.spaceisstrange.forocarrosandroid.utils.SharedPreferencesUtils
 import kotlinx.android.synthetic.main.activity_subforos.*
 
-class SubforosActivity : AppCompatActivity() {
+class SubforosActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +20,7 @@ class SubforosActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Ponemos de título el nombre del usuario
-        supportActionBar?.title = SharedPreferencesUtils.getUsername(this)
+        super.mostrarNombreUsuarioEnToolbar()
 
         // Configuramos la RecyclerView
         val subforoAdapter = SubforosAdapter()
