@@ -1,4 +1,11 @@
-package io.spaceisstrange.forocarrosandroid.api.model
+package io.spaceisstrange.forocarrosandroid.ui.fragments
+
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import io.spaceisstrange.forocarrosandroid.R
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -18,4 +25,15 @@ package io.spaceisstrange.forocarrosandroid.api.model
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Subforo(val title: String, val link: String)
+class SubforoPostsFragment : Fragment() {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_subforo_posts, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // TODO: Cargar los posts
+    }
+}

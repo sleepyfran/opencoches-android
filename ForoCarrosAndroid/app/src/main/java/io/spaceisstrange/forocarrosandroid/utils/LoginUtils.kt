@@ -1,4 +1,7 @@
-package io.spaceisstrange.forocarrosandroid.api.model
+package io.spaceisstrange.forocarrosandroid.utils
+
+import android.content.Context
+import io.spaceisstrange.forocarrosandroid.api.net.CookiesCache
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -18,4 +21,14 @@ package io.spaceisstrange.forocarrosandroid.api.model
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Subforo(val title: String, val link: String)
+class LoginUtils {
+    companion object {
+        /**
+         * Elimina las cookies y los datos guardados del usuario
+         */
+        fun logOutUser(context: Context) {
+            SharedPreferencesUtils.removePreferences(context)
+            CookiesCache.cookies = null
+        }
+    }
+}

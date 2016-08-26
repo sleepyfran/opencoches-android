@@ -53,15 +53,20 @@ class LoginActivity : AppCompatActivity() {
             // Si está correcto, intentamos loguear al usuario
             FCLoginObservable.create(username, password).subscribe(
                     {
-                        result ->
+                        loggedIn ->
 
-                        // Guardamos los datos del usuario
-                        SharedPreferencesUtils.saveUsername(this, username)
-                        SharedPreferencesUtils.savePassword(this, password)
+                        if (loggedIn) {
+                            // Guardamos los datos del usuario
+                            SharedPreferencesUtils.saveUsername(this, username)
+                            SharedPreferencesUtils.savePassword(this, password)
 
-                        // Mostramos la lista de subforos
-                        Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
-                        startActivity(Intent(this@LoginActivity, LandingActivity::class.java))
+                            // Mostramos la lista de subforos
+                            Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
+                            startActivity(Intent(this@LoginActivity, LandingActivity::class.java))
+                        } else {
+                            // TODO: Mostrar un error
+                            Log.e(this@LoginActivity.javaClass.canonicalName, "Error al iniciar sesión")
+                        }
                     },
                     {
                         error ->

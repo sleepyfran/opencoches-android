@@ -1,12 +1,11 @@
 package io.spaceisstrange.forocarrosandroid.ui.activities
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.forocarrosandroid.R
+import io.spaceisstrange.forocarrosandroid.utils.LoginUtils
 import io.spaceisstrange.forocarrosandroid.utils.SharedPreferencesUtils
 
 /*
@@ -46,7 +45,7 @@ open class BaseActivity : AppCompatActivity() {
 
         if (selectedId == R.id.menu_sign_out) {
             // Borramos los datos guardados
-            SharedPreferencesUtils.removePreferences(this)
+            LoginUtils.logOutUser(this)
 
             // Mostramos la activity de iniciar sesión limpiando la pila actual
             val loginIntent = Intent(this, LoginActivity::class.java)
