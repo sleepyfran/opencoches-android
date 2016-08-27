@@ -40,11 +40,13 @@ class FCSubforosList : BaseGetRequest() {
 
         // Iteramos sobre los links para obtener los títulos y posts de los subforos
         for (link in links) {
+            val subforoTitle = link.text()
             val subforoLink = link.attr("href")
 
-            // Filtramos los links que contengan la clave del subforo (forumdisplay blablabla)
-            if (subforoLink.contains(ApiConstants.SUBFORO_LINK_KEY)) {
-                val subforoTitle = link.text()
+            // Filtramos los links que contengan la clave del subforo (forumdisplay blablabla) y
+            // no sea una zona (empieza por Zona u Otros)
+            if (subforoLink.contains(ApiConstants.SUBFORO_LINK_KEY)
+                && !subforoTitle.contains("Zona") && !subforoTitle.contains("Otros")) {
 
                 // Añadimos el nuevo subforo a la lista
                 subforoList.add(Subforo(subforoTitle, subforoLink))
