@@ -1,11 +1,4 @@
-package io.spaceisstrange.forocarrosandroid.ui.fragments
-
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import io.spaceisstrange.forocarrosandroid.R
+package io.spaceisstrange.forocarrosandroid.api.rx
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -25,15 +18,21 @@ import io.spaceisstrange.forocarrosandroid.R
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class SubforoPostsFragment : Fragment() {
+import io.spaceisstrange.forocarrosandroid.api.model.SubforoThread
+import io.spaceisstrange.forocarrosandroid.api.net.FCSubforoThreads
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_subforo_posts, container, false)
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // TODO: Cargar los posts
+class FCSubforoThreadsObservable {
+    companion object {
+        fun create(subforoLink: String, page: Int? = null): Observable<MutableList<SubforoThread>> {
+            return Observable.fromCallable(
+                    {
+                        FCSubforoThreads(subforoLink, page).getThreads()
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+        }
     }
 }

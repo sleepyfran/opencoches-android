@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import io.spaceisstrange.forocarrosandroid.R
 import io.spaceisstrange.forocarrosandroid.adapters.holders.SubforosHolder
 import io.spaceisstrange.forocarrosandroid.api.model.Subforo
+import kotlinx.android.synthetic.main.list_item_subforo.view.*
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -32,6 +33,11 @@ class SubforosAdapter : RecyclerView.Adapter<SubforosHolder>() {
     var subforos: MutableList<Subforo> = mutableListOf()
 
     /**
+     * Método a llamar cuando el usuario hace click en un subforo
+     */
+    var onClick: ((subforo: Subforo) -> Unit)? = null
+
+    /**
      * Actualiza la lista de subforos y notifica al Adapter sobre los cambios
      */
     fun updateSubforos(subs: MutableList<Subforo>) {
@@ -40,17 +46,23 @@ class SubforosAdapter : RecyclerView.Adapter<SubforosHolder>() {
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SubforosHolder {
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_subforo, parent, false)
+        val holder = SubforosHolder(view)
+
+        // Invocamos el onClick (si hay alguno definido) con el subforo que el usuario ha pulsado
+        holder.itemView.llClickable.setOnClickListener {
+            onClick?.invoke(subforos[holder.adapterPosition])
+        }
+
+        return holder
+    }
+
     override fun onBindViewHolder(holder: SubforosHolder?, position: Int) {
         holder?.bindView(subforos[position])
     }
 
     override fun getItemCount(): Int {
         return subforos.size
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SubforosHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_subforo, parent, false)
-
-        return SubforosHolder(view)
     }
 }

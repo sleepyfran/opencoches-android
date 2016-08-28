@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
                             // Mostramos la lista de subforos
                             Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
-                            startActivity(Intent(this@LoginActivity, LandingActivity::class.java))
+                            startActivity(Intent(this@LoginActivity, SubforosActivity::class.java))
                         } else {
                             // TODO: Mostrar un error
                             Log.e(this@LoginActivity.javaClass.canonicalName, "Error al iniciar sesión")

@@ -44,9 +44,12 @@ class FCSubforosList : BaseGetRequest() {
             val subforoLink = link.attr("href")
 
             // Filtramos los links que contengan la clave del subforo (forumdisplay blablabla) y
-            // no sea una zona (empieza por Zona u Otros)
+            // no sea una zona (empieza por Zona u Otros) y no sean los últimos links ni esa cosa
+            // llamada InverForo (que obviamente no funca)
             if (subforoLink.contains(ApiConstants.SUBFORO_LINK_KEY)
-                && !subforoTitle.contains("Zona") && !subforoTitle.contains("Otros")) {
+                && !subforoTitle.contains("Zona") && !subforoTitle.contains("Otros")
+                && !subforoTitle.contains("InverForo") && !subforoTitle.contains("FOROCOCHES")
+                && !subforoTitle.contains("GENERAL")) {
 
                 // Añadimos el nuevo subforo a la lista
                 subforoList.add(Subforo(subforoTitle, subforoLink))

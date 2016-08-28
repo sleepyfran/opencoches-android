@@ -1,6 +1,9 @@
-package io.spaceisstrange.forocarrosandroid.api.model
+package io.spaceisstrange.forocarrosandroid.adapters.holders
 
-import java.io.Serializable
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import io.spaceisstrange.forocarrosandroid.api.model.SubforoThread
+import kotlinx.android.synthetic.main.list_item_subforo_thread.view.*
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -20,4 +23,15 @@ import java.io.Serializable
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Subforo(val title: String, val link: String)
+class SubforoThreadHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    /**
+     * Inserta los datos del hilo en el holder
+     */
+    fun bindView(thread: SubforoThread) {
+        itemView.tvSubforoThreadTitle.text = thread.title
+        itemView.tvSubforoThreadPreview.text = thread.preview
+
+        if (thread.isSticky) itemView.ivSubforoThreadSticky.visibility = View.VISIBLE
+        else itemView.ivSubforoThreadSticky.visibility = View.GONE
+    }
+}

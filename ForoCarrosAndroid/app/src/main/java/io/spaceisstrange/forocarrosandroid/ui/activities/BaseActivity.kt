@@ -29,10 +29,17 @@ import io.spaceisstrange.forocarrosandroid.utils.SharedPreferencesUtils
 open class BaseActivity : AppCompatActivity() {
 
     /**
+     * Como su nombre indica muestra un título personalizado en la toolbar. Difícil. Magic potagic
+     */
+    fun showCustomTitleOnToolbar(title: String) {
+        supportActionBar?.title = title
+    }
+
+    /**
      * Como su nombre indica muestra el nombre de usuario en la toolbar. Difícil. Magic potagic
      */
-    fun mostrarNombreUsuarioEnToolbar() {
-        supportActionBar?.title = SharedPreferencesUtils.getUsername(this)
+    fun showUsernameOnToolbar() {
+        showCustomTitleOnToolbar(SharedPreferencesUtils.getUsername(this))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

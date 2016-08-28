@@ -34,7 +34,7 @@ class ApiConstants {
          * Por lo general las peticiones he decidido hacerlas a la versión móvil de la web para
          * así gastar la menor cantidad de datos posibles
          */
-        const val BASE_URL = "http://m.forocoches.com/foro/"
+        const val BASE_URL = "http://forocoches.com/foro/"
         const val SUBFORO_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
 
@@ -42,7 +42,11 @@ class ApiConstants {
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
          */
         const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
-        const val MEMBER_LINK_KEY = "/foro/member.php?u="
+        const val MEMBER_LINK_KEY = "foro/member.php?u="
+        const val TD_THREAD_TITLE_KEY = "td_threadtitle"
+        const val THREAD_TITLE_KEY = "thread_title_"
+        const val THREAD_LINK_KEY = "showthread.php?t="
+        const val THREAD_PAGE_KEY = "&page="
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo

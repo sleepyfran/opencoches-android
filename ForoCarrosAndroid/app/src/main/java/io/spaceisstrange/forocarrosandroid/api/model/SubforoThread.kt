@@ -1,7 +1,5 @@
 package io.spaceisstrange.forocarrosandroid.api.model
 
-import java.io.Serializable
-
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -20,4 +18,4 @@ import java.io.Serializable
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Subforo(val title: String, val link: String)
+class SubforoThread(val title: String, val preview: String, val link: String, val isSticky: Boolean)

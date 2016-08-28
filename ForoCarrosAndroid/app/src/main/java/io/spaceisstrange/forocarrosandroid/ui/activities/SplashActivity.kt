@@ -43,7 +43,7 @@ class SplashActivity : AppCompatActivity() {
 
                         // Mostramos la activity con la lista de foros
                         Log.i(this@SplashActivity.javaClass.canonicalName, "¡Logueado!")
-                        startActivity(Intent(this@SplashActivity, LandingActivity::class.java))
+                        startActivity(Intent(this@SplashActivity, SubforosActivity::class.java))
                         finish()
                     },
                     {
