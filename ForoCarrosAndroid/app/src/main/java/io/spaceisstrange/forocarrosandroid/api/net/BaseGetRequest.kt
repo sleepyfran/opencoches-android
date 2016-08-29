@@ -33,8 +33,12 @@ abstract class BaseGetRequest : BaseRequest() {
                 .method(Connection.Method.GET)
                 .execute()
 
-        // Save the cookies
-        CookiesCache.cookies = response.cookies()
+        // Guardamos las cookies si contiene alguna más de la que ya tenemos
+        val actualCookies = CookiesCache.cookies
+
+        if (actualCookies == null || response.cookies().size >= actualCookies.size) {
+            CookiesCache.cookies = response.cookies()
+        }
 
         return response
     }

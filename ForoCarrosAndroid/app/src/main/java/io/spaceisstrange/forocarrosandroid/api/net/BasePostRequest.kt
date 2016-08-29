@@ -32,14 +32,18 @@ abstract class BasePostRequest : BaseRequest() {
                 .timeout(TIMEOUT)
                 .method(Connection.Method.POST)
 
-        if (CookiesCache.cookies != null) {
+        val actualCookies = CookiesCache.cookies
+
+        if (actualCookies != null && actualCookies.size > 0) {
             connection.cookies(CookiesCache.cookies)
         }
 
         val response = connection.execute()
 
-        // Save the cookies
-        CookiesCache.cookies = response.cookies()
+        // Guardamos las cookies si contiene alguna más de la que ya tenemos
+        if (actualCookies == null || response.cookies().size >= actualCookies.size) {
+            CookiesCache.cookies = response.cookies()
+        }
 
         return response
     }
