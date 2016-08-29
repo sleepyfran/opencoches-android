@@ -42,11 +42,18 @@ class ApiConstants {
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
          */
         const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
-        const val MEMBER_LINK_KEY = "foro/member.php?u="
+        const val MEMBER_LINK_KEY = "member.php?u="
         const val TD_THREAD_TITLE_KEY = "td_threadtitle"
         const val THREAD_TITLE_KEY = "thread_title_"
         const val THREAD_LINK_KEY = "showthread.php?t="
         const val THREAD_PAGE_KEY = "&page="
+        const val SUBFORO_PAGE_KEY = "&page="
+        const val POST_USER_INFO_CLASS_KEY = "alt2"
+        const val POST_ROOT_ID_KEY = "post"
+        const val POST_TIMESTAMP_CLASS_KEY = "thead"
+        const val POST_USER_USERNAME_CLASS_KEY = "bigusername"
+        const val POST_USER_IMAGE_CLASS_KEY = "avatar"
+        const val POST_CONTENT_ID_KEY = "post_message_"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo

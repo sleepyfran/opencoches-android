@@ -59,7 +59,7 @@ class FCSubforoThreads(val subforoLink: String, val page: Int? = null) : BaseGet
         val baseUrl = ApiConstants.BASE_URL + subforoLink
 
         // Si la variable page no es null entonces es que queremos cargar otra página
-        if (page != null) return baseUrl + ApiConstants.THREAD_PAGE_KEY + page.toString()
+        if (page != null) return baseUrl + ApiConstants.SUBFORO_PAGE_KEY + page.toString()
         else return baseUrl
     }
 }
