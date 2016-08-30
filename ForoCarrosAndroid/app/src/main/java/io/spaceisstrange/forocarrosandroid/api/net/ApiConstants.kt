@@ -34,7 +34,7 @@ class ApiConstants {
          * Por lo general las peticiones he decidido hacerlas a la versión móvil de la web para
          * así gastar la menor cantidad de datos posibles
          */
-        const val BASE_URL = "http://forocoches.com/foro/"
+        const val BASE_URL = "http://www.forocoches.com/foro/"
         const val SUBFORO_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
 
@@ -84,7 +84,7 @@ class ApiConstants {
                     VB_LOGIN_USERNAME_PARAMETER to username,
                     VB_LOGIN_PASSWORD_PARAMETER to password,
                     COOKIE_USER_PARAMETER to "1",
-                    LOGB2_PARAMETER to "+++Acceder+++"
+                    LOGB2_PARAMETER to "   Acceder   "
             )
         }
 

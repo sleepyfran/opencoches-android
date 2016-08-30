@@ -25,6 +25,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activities.SubforoThreadsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.activities.ThreadActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

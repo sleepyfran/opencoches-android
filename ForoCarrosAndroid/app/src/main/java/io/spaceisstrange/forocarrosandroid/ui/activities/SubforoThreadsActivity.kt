@@ -1,5 +1,6 @@
 package io.spaceisstrange.forocarrosandroid.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -64,7 +65,10 @@ class SubforoThreadsActivity : BaseActivity() {
         threadsAdapter.onClick = {
             thread ->
 
-            // TODO: Completar
+            val threadIntent = Intent(this, ThreadActivity::class.java)
+            threadIntent.putExtra(ApiConstants.THREAD_TITLE_KEY, thread.title)
+            threadIntent.putExtra(ApiConstants.THREAD_LINK_KEY, thread.link)
+            startActivity(threadIntent)
         }
 
         rvThreadList.adapter = threadsAdapter
