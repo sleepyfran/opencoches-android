@@ -1,5 +1,6 @@
 package io.spaceisstrange.forocarrosandroid.api.net
 
+import android.util.Log
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 
@@ -39,6 +40,9 @@ abstract class BaseGetRequest : BaseRequest() {
         if (actualCookies == null || response.cookies().size >= actualCookies.size) {
             CookiesCache.cookies = response.cookies()
         }
+
+        // Al log las cookies
+        Log.i("Cookies ${javaClass.simpleName}", actualCookies?.size.toString())
 
         return response
     }

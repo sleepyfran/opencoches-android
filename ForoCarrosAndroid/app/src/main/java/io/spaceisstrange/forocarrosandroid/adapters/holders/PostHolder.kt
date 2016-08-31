@@ -10,6 +10,7 @@ import com.bumptech.glide.load.model.LazyHeaders
 import io.spaceisstrange.forocarrosandroid.R
 import io.spaceisstrange.forocarrosandroid.api.model.Post
 import io.spaceisstrange.forocarrosandroid.api.net.BaseRequest
+import io.spaceisstrange.forocarrosandroid.utils.HtmlParseUtils
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
 /*
@@ -39,17 +40,18 @@ class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         Glide.with(itemView.context)
                 .load("http:" + post.posterPictureLink)
                 .crossFade()
-                .into(itemView.ivPostProfilePic) // TODO: Añadir imagen de error
+                .placeholder(android.R.drawable.progress_horizontal)
+                .error(R.drawable.ic_error_black)
+                .into(itemView.ivPostProfilePic)
 
         itemView.tvPostUsername.text = itemView.context.getString(R.string.post_username_details,
                 post.posterUsername, post.posterDescription)
 
         // Parseamos el HTML para que sea visible (o algo visible al menos) en el TextView
-        itemView.tvPostContent.text = Html.fromHtml(post.postText)
+        itemView.tvPostContent.text = Html.fromHtml(post.postText,
+                HtmlParseUtils.getImageGetter(itemView.tvPostContent), null)
 
         // Hacemos los links clicables
         itemView.tvPostContent.movementMethod = LinkMovementMethod.getInstance()
-
-        // TODO: Cargar imágenes también
     }
 }

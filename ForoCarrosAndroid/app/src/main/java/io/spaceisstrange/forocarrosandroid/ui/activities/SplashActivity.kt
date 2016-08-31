@@ -56,6 +56,10 @@ class SplashActivity : AppCompatActivity() {
 
                             // TODO: Mostrar un error
                             Log.e(this@SplashActivity.javaClass.canonicalName, "Error al iniciar sesión")
+
+                            // Mandamos al usuario a iniciar sesión
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
                         }
                     }
             )
