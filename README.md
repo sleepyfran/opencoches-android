@@ -1,4 +1,4 @@
-# ForoCarrosAndroid (A.K.A. una aplicación para ForoCoches)
+# OpenCoches (A.K.A. una aplicación para ForoCoches)
 :red_car: Una aplicación de Forocoches para Android, al menos hasta que el jefe nos la cape.
 
 Para el funcionamiento de la misma, dado que ilitri no quiere darnos herramientas para acceder al contenido del foro de forma digna, imito el acceso desde un navegador y parseo los datos para que sean más fáciles de leer dentro de la aplicación.
