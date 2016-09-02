@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.spaceisstrange.forocarrosandroid">
+    package="io.spaceisstrange.opencoches">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name="io.spaceisstrange.opencoches.ui.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.LoginActivity" />
+        <activity android:name="io.spaceisstrange.opencoches.ui.activities.LoginActivity" />
         <activity
-            android:name=".ui.activities.SubforosActivity"
+            android:name="io.spaceisstrange.opencoches.ui.activities.SubforosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.activities.SubforoThreadsActivity"
+        <activity android:name="io.spaceisstrange.opencoches.ui.activities.SubforoThreadsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.activities.ThreadActivity"
+        <activity android:name="io.spaceisstrange.opencoches.ui.activities.ThreadActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
