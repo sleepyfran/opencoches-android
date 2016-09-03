@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ForoCarrosAndroid</string>
+    <string name="app_name">OpenCoches</string>
 
     <!-- General menu -->
     <string name="general_menu.sign_out">Cerrar sesión</string>

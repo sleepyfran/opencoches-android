@@ -6,7 +6,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
     defaultConfig {
-        applicationId "io.spaceisstrange.forocarrosandroid"
+        applicationId "io.spaceisstrange.opencoches"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
