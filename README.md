@@ -22,4 +22,5 @@ Si eres desarrollador y quieres colaborar: adelante, esta es tu casa. El código
 Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba el proyecto. Aquí iré poniendo los discos, canciones y *playlists* que vaya escuchando mientras pico código, por si alguno quiere venirse arriba y escucharlo también:
 
 - [Oceansize: Frames](https://www.youtube.com/watch?v=nJ2Oj26-0Zs)
+- [Casualties Of Cool: Casualties Of Cool](https://www.youtube.com/watch?v=m1vOGSG4Og0)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
