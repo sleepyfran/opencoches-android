@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
@@ -47,11 +48,6 @@ class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvPostUsername.text = itemView.context.getString(R.string.post_username_details,
                 post.posterUsername, post.posterDescription)
 
-        // Parseamos el HTML para que sea visible (o algo visible al menos) en el TextView
-        itemView.tvPostContent.text = Html.fromHtml(post.postText,
-                HtmlParseUtils.getImageGetter(itemView.tvPostContent), null)
-
-        // Hacemos los links clicables
-        itemView.tvPostContent.movementMethod = LinkMovementMethod.getInstance()
+        itemView.pvPostContent.addContent(post.parsedPost)
     }
 }

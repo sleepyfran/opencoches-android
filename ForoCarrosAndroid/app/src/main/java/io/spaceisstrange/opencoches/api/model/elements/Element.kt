@@ -1,8 +1,7 @@
-package io.spaceisstrange.opencoches.api.model
+package io.spaceisstrange.opencoches.api.model.elements
 
-import io.spaceisstrange.opencoches.api.model.elements.Element
-import io.spaceisstrange.opencoches.api.parser.PostParser
-import org.jsoup.nodes.Node
+import android.content.Context
+import android.view.View
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -22,21 +21,14 @@ import org.jsoup.nodes.Node
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Post(val posterUsername: String,
-           val posterPictureLink: String,
-           val posterDescription: String,
-           val posterLink: String,
-           val postTimestamp: String,
-           val isOp: Boolean,
-           postNodes: MutableList<Node>) {
+abstract class Element {
+    /**
+     * View cacheada por si se llama varias veces al getView
+     */
+    var cachedView: View? = null
 
     /**
-     * Propiedad donde guardaremos el contenido del post parseado
+     * Método a llamar cuando necesitemos obtener la view del elemento con toda su información
      */
-    val parsedPost: MutableList<Element>
-
-    init {
-        // Parseamos el contenido del post
-        parsedPost = PostParser.parse(postNodes, isOp)
-    }
+    abstract fun getView(context: Context): View
 }

@@ -44,7 +44,7 @@ class ThreadActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Mostramos el título del hilo
-        tvPostTitle.text = threadTitle
+        supportActionBar?.title = threadTitle
 
         // Configuramos la RecyclerView
         val postAdapter = PostAdapter()

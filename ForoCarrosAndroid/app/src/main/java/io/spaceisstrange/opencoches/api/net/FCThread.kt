@@ -41,24 +41,23 @@ class FCThread(val threadLink: String) : BaseGetRequest() {
             // Hay veces que la info del usuario puede variar de posición si este está baneado
             var userInfo: String
             try {
-                userInfo = post.select("td[class=alt2]").select("div[class=smallfont]")[2].text()
+                userInfo = post.select("td[class=alt2]")
+                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO + "]")[2].text()
             } catch (e: IndexOutOfBoundsException) {
-                userInfo = post.select("td[class=alt2]").select("div[class=smallfont]")[1].text()
+                userInfo = post.select("td[class=alt2]")
+                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO + "]")[1].text()
             }
 
             val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()
-            val postTitle = post.select("td[id^=td_post_]").select("div[class=smallfont]").html()
-            var postContent = post.select("td[id^=td_post_]").html()
+            val postContent = post.select("td[id^=td_post_]").first().childNodes()
 
-            // Si es el OP, retiramos el título del mensaje
-            // Sí, esto es súper chustero, pero no encontré otra forma de sacar el texto del post.
-            // Si a alguien se le ocurre una mejor forma los pull requests están abiertos ;)
-            if (index == 0) {
-                postContent = postContent.slice(postTitle.length..postContent.length - 1)
-                // TODO: Mejorar el recorte del título (o quitarlo mejor)
-            }
-
-            postList.add(Post(userUsername, userPicture, userInfo, userLink, postTimestamp, postContent))
+            postList.add(Post(userUsername,
+                    userPicture,
+                    userInfo,
+                    userLink,
+                    postTimestamp,
+                    index == 0,
+                    postContent))
         }
 
         return postList

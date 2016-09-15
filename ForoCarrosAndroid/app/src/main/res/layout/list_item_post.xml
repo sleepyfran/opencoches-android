@@ -29,16 +29,12 @@
 
     <View style="@style/Divider" />
 
-    <TextView
-        android:id="@+id/tvPostContent"
+    <io.spaceisstrange.opencoches.ui.views.PostView
+        android:id="@+id/pvPostContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:scrollHorizontally="true"
-        android:text="@string/dummy.post_content"
-        android:textSize="18sp" />
+        android:layout_margin="10dp"
+        android:orientation="vertical" />
 
     <View style="@style/Divider" />
 

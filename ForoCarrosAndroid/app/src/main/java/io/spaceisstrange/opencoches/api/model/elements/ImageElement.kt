@@ -1,8 +1,9 @@
-package io.spaceisstrange.opencoches.api.model
+package io.spaceisstrange.opencoches.api.model.elements
 
-import io.spaceisstrange.opencoches.api.model.elements.Element
-import io.spaceisstrange.opencoches.api.parser.PostParser
-import org.jsoup.nodes.Node
+import android.content.Context
+import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -22,21 +23,25 @@ import org.jsoup.nodes.Node
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class Post(val posterUsername: String,
-           val posterPictureLink: String,
-           val posterDescription: String,
-           val posterLink: String,
-           val postTimestamp: String,
-           val isOp: Boolean,
-           postNodes: MutableList<Node>) {
+class ImageElement(val imageSource: String) : Element() {
+    override fun getView(context: Context): View {
+        val cached = cachedView
 
-    /**
-     * Propiedad donde guardaremos el contenido del post parseado
-     */
-    val parsedPost: MutableList<Element>
+        if (cached != null) {
+            return cached
+        } else {
+            val imageView = ImageView(context)
 
-    init {
-        // Parseamos el contenido del post
-        parsedPost = PostParser.parse(postNodes, isOp)
+            // Cargamos la imagen con Glide
+            Glide.with(context)
+                    .load(imageSource)
+                    .crossFade()
+                    .into(imageView)
+
+            // Cacheamos la view para la próxima
+            cachedView = imageView
+
+            return imageView
+        }
     }
 }

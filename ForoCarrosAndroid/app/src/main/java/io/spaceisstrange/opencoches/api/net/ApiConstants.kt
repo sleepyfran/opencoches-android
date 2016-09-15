@@ -1,7 +1,5 @@
 package io.spaceisstrange.opencoches.api.net
 
-import java.util.*
-
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -54,6 +52,7 @@ class ApiConstants {
         const val POST_USER_USERNAME_CLASS_KEY = "bigusername"
         const val POST_USER_IMAGE_CLASS_KEY = "avatar"
         const val POST_CONTENT_ID_KEY = "post_message_"
+        const val POST_CONTENT_USER_INFO = "smallfont"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo
