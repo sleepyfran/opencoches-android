@@ -1,17 +1,19 @@
 package io.spaceisstrange.opencoches.adapters.holders
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.api.model.Post
+import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.net.BaseRequest
-import io.spaceisstrange.opencoches.utils.HtmlParseUtils
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
 /*
@@ -33,6 +35,14 @@ import kotlinx.android.synthetic.main.list_item_post.view.*
  */
 
 class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    init {
+        // Configuramos el contenido del post
+        itemView.wvPostContent.setBackgroundColor(Color.TRANSPARENT)
+        itemView.wvPostContent.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        itemView.wvPostContent.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+    }
+
     /**
      * Inserta los datos del post en el holder
      */
@@ -48,6 +58,10 @@ class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvPostUsername.text = itemView.context.getString(R.string.post_username_details,
                 post.posterUsername, post.posterDescription)
 
-        itemView.pvPostContent.addContent(post.parsedPost)
+        val headHtml = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>"
+        val postHtml = post.postHtml
+        val contentHtml = "$headHtml<body>$postHtml</body>"
+
+        itemView.wvPostContent.loadDataWithBaseURL(null, contentHtml, "text/html", "utf-8", null)
     }
 }

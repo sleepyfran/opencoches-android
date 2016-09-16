@@ -29,12 +29,10 @@
 
     <View style="@style/Divider" />
 
-    <io.spaceisstrange.opencoches.ui.views.PostView
-        android:id="@+id/pvPostContent"
+    <io.spaceisstrange.opencoches.ui.views.OpenCochesWebView
+        android:id="@+id/wvPostContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content" />
 
     <View style="@style/Divider" />
 

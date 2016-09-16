@@ -49,14 +49,13 @@ class FCThread(val threadLink: String) : BaseGetRequest() {
             }
 
             val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()
-            val postContent = post.select("td[id^=td_post_]").first().childNodes()
+            val postContent = post.select("td[id^=td_post_]").first().html()
 
             postList.add(Post(userUsername,
                     userPicture,
                     userInfo,
                     userLink,
                     postTimestamp,
-                    index == 0,
                     postContent))
         }
 

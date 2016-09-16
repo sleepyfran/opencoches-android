@@ -1,7 +1,9 @@
-package io.spaceisstrange.opencoches.api.model.elements
+package io.spaceisstrange.opencoches.ui.views
 
 import android.content.Context
-import android.view.View
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.webkit.WebView
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -21,14 +23,21 @@ import android.view.View
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-abstract class Element {
-    /**
-     * View cacheada por si se llama varias veces al getView
-     */
-    var cachedView: View? = null
+class OpenCochesWebView : WebView {
 
-    /**
-     * Método a llamar cuando necesitemos obtener la view del elemento con toda su información
-     */
-    abstract fun getView(context: Context): View
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        return true
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            return false
+        } else {
+            return true
+        }
+    }
 }

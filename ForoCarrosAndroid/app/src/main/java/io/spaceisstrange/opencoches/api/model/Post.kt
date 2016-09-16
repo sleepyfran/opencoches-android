@@ -1,9 +1,5 @@
 package io.spaceisstrange.opencoches.api.model
 
-import io.spaceisstrange.opencoches.api.model.elements.Element
-import io.spaceisstrange.opencoches.api.parser.PostParser
-import org.jsoup.nodes.Node
-
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -27,16 +23,4 @@ class Post(val posterUsername: String,
            val posterDescription: String,
            val posterLink: String,
            val postTimestamp: String,
-           val isOp: Boolean,
-           postNodes: MutableList<Node>) {
-
-    /**
-     * Propiedad donde guardaremos el contenido del post parseado
-     */
-    val parsedPost: MutableList<Element>
-
-    init {
-        // Parseamos el contenido del post
-        parsedPost = PostParser.parse(postNodes, isOp)
-    }
-}
+           val postHtml: String)
