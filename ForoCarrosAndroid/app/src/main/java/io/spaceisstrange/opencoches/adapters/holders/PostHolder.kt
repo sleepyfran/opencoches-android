@@ -14,6 +14,7 @@ import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.api.model.Post
 import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.net.BaseRequest
+import io.spaceisstrange.opencoches.utils.HtmlUtils
 import kotlinx.android.synthetic.main.list_item_post.view.*
 
 /*
@@ -58,10 +59,6 @@ class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.tvPostUsername.text = itemView.context.getString(R.string.post_username_details,
                 post.posterUsername, post.posterDescription)
 
-        val headHtml = "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"></head>"
-        val postHtml = post.postHtml
-        val contentHtml = "$headHtml<body>$postHtml</body>"
-
-        itemView.wvPostContent.loadDataWithBaseURL(null, contentHtml, "text/html", "utf-8", null)
+        itemView.wvPostContent.loadContent(post.postHtml)
     }
 }

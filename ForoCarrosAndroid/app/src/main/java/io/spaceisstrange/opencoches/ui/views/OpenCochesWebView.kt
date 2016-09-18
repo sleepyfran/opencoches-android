@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.webkit.WebView
+import io.spaceisstrange.opencoches.utils.HtmlUtils
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -28,6 +29,15 @@ class OpenCochesWebView : WebView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+
+    /**
+     * Carga el contenido HTML especificado en el webview
+     */
+    fun loadContent(content: String) {
+        val headHtml = HtmlUtils.ADJUST_SIZE_HEAD
+        val contentHtml = "$headHtml<body>$content</body>"
+        loadDataWithBaseURL(null, contentHtml, "text/html", "utf-8", null)
+    }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return true
