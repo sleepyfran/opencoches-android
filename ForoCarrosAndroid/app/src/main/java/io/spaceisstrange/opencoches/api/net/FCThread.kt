@@ -33,7 +33,7 @@ class FCThread(val threadLink: String) : BaseGetRequest() {
         val posts = document.select("table[id^=" + ApiConstants.POST_ROOT_ID_KEY + "]")
 
         // Iteramos sobre cada post obteniendo su información
-        for ((index, post) in posts.withIndex()) {
+        for (post in posts) {
             val userUsername = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").text()
             val userLink = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").attr("href")
             val userPicture = post.select("img[class=" + ApiConstants.POST_USER_IMAGE_CLASS_KEY + "]").attr("src")
