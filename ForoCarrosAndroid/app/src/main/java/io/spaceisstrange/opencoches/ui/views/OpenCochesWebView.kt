@@ -34,8 +34,11 @@ class OpenCochesWebView : WebView {
      * Carga el contenido HTML especificado en el webview
      */
     fun loadContent(content: String) {
+        // Reemplazamos las URLs "falsas" de FC
+        val htmlContent = content.replace("//st.forocoches.com/", "http://st.forocoches.com/")
+
         val headHtml = HtmlUtils.ADJUST_SIZE_HEAD
-        val contentHtml = "$headHtml<body>$content</body>"
+        val contentHtml = "$headHtml<body>$htmlContent</body>"
         loadDataWithBaseURL(null, contentHtml, "text/html", "utf-8", null)
     }
 
