@@ -1,8 +1,6 @@
 package io.spaceisstrange.opencoches.ui.activities
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.adapters.PostAdapter
 import io.spaceisstrange.opencoches.api.net.ApiConstants
@@ -40,12 +38,10 @@ class ThreadActivity : BaseActivity() {
         val threadLink = intent?.extras?.getString(ApiConstants.THREAD_LINK_KEY)!!
 
         // Mostramos la X en la toolbar
-        val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)
-        supportActionBar?.setHomeAsUpIndicator(closeButton)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        showCloseButtonOnToolbar()
 
         // Mostramos el título del hilo
-        supportActionBar?.title = threadTitle
+        showCustomTitleOnToolbar(threadTitle)
 
         // Configuramos la RecyclerView
         val postAdapter = PostAdapter()

@@ -1,6 +1,7 @@
 package io.spaceisstrange.opencoches.ui.activities
 
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -42,6 +43,15 @@ open class BaseActivity : AppCompatActivity() {
         showCustomTitleOnToolbar(SharedPreferencesUtils.getUsername(this))
     }
 
+    /**
+     * Como su nombre indica muestra la "X" como acción del botón home de la toolbar
+     */
+    fun showCloseButtonOnToolbar() {
+        val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)
+        supportActionBar?.setHomeAsUpIndicator(closeButton)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.default_menu, menu)
         return true
@@ -50,7 +60,10 @@ open class BaseActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val selectedId = item?.itemId
 
-        if (selectedId == R.id.menu_sign_out) {
+        if (selectedId == android.R.id.home) {
+            onBackPressed()
+            return true
+        } else if (selectedId == R.id.menu_sign_out) {
             // Borramos los datos guardados
             LoginUtils.logOutUser(this)
 
@@ -59,6 +72,8 @@ open class BaseActivity : AppCompatActivity() {
             loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(loginIntent)
             finish()
+
+            return true
         }
 
         // TODO: Hacerse cargo del resto del menú
