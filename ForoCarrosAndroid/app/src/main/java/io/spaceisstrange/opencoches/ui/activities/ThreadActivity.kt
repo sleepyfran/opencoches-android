@@ -7,6 +7,7 @@ import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.adapters.PostAdapter
 import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.rx.FCThreadObservable
+import io.spaceisstrange.opencoches.utils.PreCacheLayoutManager
 import kotlinx.android.synthetic.main.activity_thread.*
 
 /*
@@ -49,7 +50,7 @@ class ThreadActivity : BaseActivity() {
         // Configuramos la RecyclerView
         val postAdapter = PostAdapter()
         rvPostList.adapter = postAdapter
-        rvPostList.layoutManager = LinearLayoutManager(this)
+        rvPostList.layoutManager = PreCacheLayoutManager(this)
 
         // Obtenemos los posts del hilo y populamos la RecyclerView con ellos
         FCThreadObservable.create(threadLink).subscribe(
