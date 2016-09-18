@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/dummy.subforo_icon"
-                android:textColor="@color/text"
+                android:textColor="@color/primary_light"
                 android:textSize="30sp" />
 
         </FrameLayout>
