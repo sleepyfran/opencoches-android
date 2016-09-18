@@ -27,6 +27,35 @@ import kotlinx.android.synthetic.main.activity_thread.*
  */
 
 class ThreadActivity : BaseActivity() {
+    /**
+     * Adapter del post encargado de darnos esas preciosas vistas en forma de post
+     */
+    val postAdapter = PostAdapter()
+
+    /**
+     * Carga el hilo del link especificado y añade el contenido al adapter
+     */
+    fun loadThread(link: String) {
+        FCThreadObservable.create(link).subscribe(
+                {
+                    posts ->
+
+                    // ¡Hemos cargado el hilo!
+                    srlPostList.isRefreshing = false
+                    postAdapter.updatePosts(posts)
+                },
+                {
+                    error ->
+
+                    // Whoops!
+                    srlPostList.isRefreshing = false
+
+                    error.printStackTrace()
+
+                    // TODO: Hacerse cargo, una vez más, de los malditos errores
+                }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,24 +73,18 @@ class ThreadActivity : BaseActivity() {
         showCustomTitleOnToolbar(threadTitle)
 
         // Configuramos la RecyclerView
-        val postAdapter = PostAdapter()
         rvPostList.adapter = postAdapter
         rvPostList.layoutManager = PreCacheLayoutManager(this)
 
+        // Mostramos el hilo como cargando
+        srlPostList.isRefreshing = true
+
         // Obtenemos los posts del hilo y populamos la RecyclerView con ellos
-        FCThreadObservable.create(threadLink).subscribe(
-                {
-                    posts ->
+        loadThread(threadLink)
 
-                    postAdapter.updatePosts(posts)
-                },
-                {
-                    error ->
-
-                    error.printStackTrace()
-
-                    // TODO: Hacerse cargo, una vez más, de los malditos errores
-                }
-        )
+        // Cargamos también el hilo cuando el usuario haga un swipe to refresh
+        srlPostList.setOnRefreshListener {
+            loadThread(threadLink)
+        }
     }
 }

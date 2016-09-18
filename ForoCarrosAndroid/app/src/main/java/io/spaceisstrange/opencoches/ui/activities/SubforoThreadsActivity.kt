@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.adapters.SubforoThreadsAdapter
+import io.spaceisstrange.opencoches.api.model.SubforoThread
 import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.rx.FCSubforoThreadsObservable
 import kotlinx.android.synthetic.main.activity_subforo_threads.*
@@ -45,6 +46,33 @@ class SubforoThreadsActivity : BaseActivity() {
     var totalItemCount = 0
     var loadingContent = true
 
+    /**
+     * Adapter de los hilos
+     */
+    val threadsAdapter = SubforoThreadsAdapter()
+
+    /**
+     * Carga los hilos del subforo especificado en la página especificada y realiza la acción
+     * que se especifica en el método pasado cuando se haya terminado de cargar el contenido
+     */
+    fun loadThreads(subforoLink: String, onLoad: (threads: MutableList<SubforoThread>) -> Unit) {
+        FCSubforoThreadsObservable.create(subforoLink, subforoActualPage).subscribe(
+                {
+                    threads ->
+
+                    // Hemos terminado de cargar el contenido
+                    srlThreadList.isRefreshing = false
+                    onLoad(threads)
+                },
+                {
+                    error ->
+
+                    srlThreadList.isRefreshing = false
+
+                    // TODO: Hacerse cargo de los malditos errores
+                }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,9 +85,6 @@ class SubforoThreadsActivity : BaseActivity() {
 
         // Mostramos el título del foro en la toolbar
         showCustomTitleOnToolbar(subforoTitle)
-
-        // Configuramos la RecyclerView
-        val threadsAdapter = SubforoThreadsAdapter()
 
         // Configuramos el onClick del adapter para que abra el hilo que el usuario ha pulsado
         threadsAdapter.onClick = {
@@ -76,18 +101,8 @@ class SubforoThreadsActivity : BaseActivity() {
         rvThreadList.layoutManager = layoutManager
 
         // Obtenemos los hilos del subforo y populamos la recycler view con ellos
-        FCSubforoThreadsObservable.create(subforoLink, subforoActualPage).subscribe(
-                {
-                    threads ->
-
-                    threadsAdapter.updateThreads(threads)
-                },
-                {
-                    error ->
-
-                    // TODO: Hacerse cargo de los malditos errores
-                }
-        )
+        srlThreadList.isRefreshing = true
+        loadThreads(subforoLink, { threads -> threadsAdapter.updateThreads(threads) })
 
         // Configuramos la RecyclerView para ser "infinita"
         // Basado en: http://stackoverflow.com/a/26561717
@@ -112,26 +127,27 @@ class SubforoThreadsActivity : BaseActivity() {
                     loadingContent = true
                     subforoActualPage++
 
-                    FCSubforoThreadsObservable.create(subforoLink, subforoActualPage).subscribe(
-                            {
-                                threads ->
+                    srlThreadList.isRefreshing = true
+                    loadThreads(subforoLink, {
+                        threads ->
 
-                                threadsAdapter.addThreads(threads, {
-                                    thread ->
+                        threadsAdapter.addThreads(threads, {
+                            thread ->
 
-                                    // Evitamos los stickies ya que los tenemos añadidos ya
-                                    if (thread.isSticky) false
-                                    else true
-                                })
-                            },
-                            {
-                                error ->
-
-                                // TODO: Hacerse cargo de los malditos errores
-                            }
-                    )
+                            // Evitamos los stickies ya que los tenemos añadidos ya
+                            if (thread.isSticky) false
+                            else true
+                        })
+                    })
                 }
             }
         })
+
+        // Ponemos a 1 el contador de la página y volvemos a cargar el contenido con el swipe
+        srlThreadList.setOnRefreshListener {
+            subforoActualPage = 1
+
+            loadThreads(subforoLink, { threads -> threadsAdapter.updateThreads(threads) })
+        }
     }
 }
