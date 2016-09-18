@@ -2,6 +2,7 @@ package io.spaceisstrange.opencoches.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
@@ -64,7 +65,12 @@ class LoginActivity : AppCompatActivity() {
                             Log.i(this@LoginActivity.javaClass.canonicalName, "¡Logueado!")
                             startActivity(Intent(this@LoginActivity, SubforosActivity::class.java))
                         } else {
-                            // TODO: Mostrar un error
+                            AlertDialog.Builder(this)
+                                    .setTitle(getString(R.string.error_general_title))
+                                    .setMessage(getString(R.string.error_login_message))
+                                    .setPositiveButton(getString(R.string.error_general_ok), null)
+                                    .show()
+
                             Log.e(this@LoginActivity.javaClass.canonicalName, "Error al iniciar sesión")
                         }
                     },
@@ -76,7 +82,11 @@ class LoginActivity : AppCompatActivity() {
                             // Los eliminamos y mostramos un error
                             SharedPreferencesUtils.removePreferences(this)
 
-                            // TODO: Mostrar un error
+                            AlertDialog.Builder(this)
+                                    .setTitle(getString(R.string.error_general_title))
+                                    .setMessage(getString(R.string.error_login_message))
+                                    .setPositiveButton(getString(R.string.error_general_ok), null)
+                                    .show()
                             Log.e(this@LoginActivity.javaClass.canonicalName, "Error al iniciar sesión")
                         }
                     }

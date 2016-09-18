@@ -3,6 +3,7 @@ package io.spaceisstrange.opencoches.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.adapters.SubforosAdapter
@@ -40,12 +41,17 @@ class SubforosActivity : BaseActivity() {
                 {
                     subforos ->
 
+                    // Ocultamos la carita del error si no lo está ya
+                    hideErrorMessage(vError)
+
                     subforoAdapter.updateSubforos(subforos)
                 },
                 {
                     error ->
 
-                    // TODO: Hacerse cargo de los malditos errors
+                    // Mostramos la carita cuca con el error
+                    subforoAdapter.updateSubforos(mutableListOf())
+                    showErrorMessage(vError)
                 }
         )
     }

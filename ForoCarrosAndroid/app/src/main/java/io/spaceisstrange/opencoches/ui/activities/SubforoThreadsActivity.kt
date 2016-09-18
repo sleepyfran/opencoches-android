@@ -60,6 +60,9 @@ class SubforoThreadsActivity : BaseActivity() {
                 {
                     threads ->
 
+                    // Ocultamos la carita del error si no lo está ya
+                    hideErrorMessage(vError)
+
                     // Hemos terminado de cargar el contenido
                     srlThreadList.isRefreshing = false
                     onLoad(threads)
@@ -69,7 +72,9 @@ class SubforoThreadsActivity : BaseActivity() {
 
                     srlThreadList.isRefreshing = false
 
-                    // TODO: Hacerse cargo de los malditos errores
+                    // Mostramos la carita cuca con el error
+                    threadsAdapter.updateThreads(mutableListOf())
+                    showErrorMessage(vError)
                 }
         )
     }

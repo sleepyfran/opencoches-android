@@ -53,8 +53,6 @@ class SplashActivity : AppCompatActivity() {
                         if (error is SocketTimeoutException) {
                             // Los eliminamos y mostramos un error
                             SharedPreferencesUtils.removePreferences(this)
-
-                            // TODO: Mostrar un error
                             Log.e(this@SplashActivity.javaClass.canonicalName, "Error al iniciar sesión")
 
                             // Mandamos al usuario a iniciar sesión

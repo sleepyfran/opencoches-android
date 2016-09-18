@@ -1,6 +1,5 @@
 package io.spaceisstrange.opencoches.api.net
 
-import android.util.Log
 import io.spaceisstrange.opencoches.api.model.Subforo
 
 /*

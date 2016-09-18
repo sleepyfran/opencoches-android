@@ -7,6 +7,12 @@
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
 
+    <!-- Mensajes de error -->
+    <string name="error.general_title">Error</string>
+    <string name="error.general_ok">Aceptar</string>
+    <string name="error.general_big">Ha habido un error cargando esto. Puede ser que Forocoches esté caído o muy probablemente el jefe nos haya chafado el juguete. En cualquier caso, vuelve a intentarlo o reporta el error</string>
+    <string name="error.login_message">Ha habido un error al iniciar sesión. Comprueba los datos que has puesto.</string>
+
     <!-- Login Activity -->
     <string name="login.title">Iniciar sesión</string>
     <string name="login.hint.username">Nombre de usuario</string>

@@ -40,6 +40,9 @@ class ThreadActivity : BaseActivity() {
                 {
                     posts ->
 
+                    // Ocultamos la carita del error si no lo está ya
+                    hideErrorMessage(vError)
+
                     // ¡Hemos cargado el hilo!
                     srlPostList.isRefreshing = false
                     postAdapter.updatePosts(posts)
@@ -47,12 +50,11 @@ class ThreadActivity : BaseActivity() {
                 {
                     error ->
 
-                    // Whoops!
                     srlPostList.isRefreshing = false
 
-                    error.printStackTrace()
-
-                    // TODO: Hacerse cargo, una vez más, de los malditos errores
+                    // Mostramos la carita cuca con el error
+                    postAdapter.updatePosts(mutableListOf())
+                    showErrorMessage(vError)
                 }
         )
     }

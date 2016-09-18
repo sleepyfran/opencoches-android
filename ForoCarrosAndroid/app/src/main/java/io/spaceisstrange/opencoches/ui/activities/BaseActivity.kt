@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.utils.LoginUtils
 import io.spaceisstrange.opencoches.utils.SharedPreferencesUtils
@@ -50,6 +51,20 @@ open class BaseActivity : AppCompatActivity() {
         val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)
         supportActionBar?.setHomeAsUpIndicator(closeButton)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    /**
+     * Muestra la carita cuca con el error. Esto es malo. Aunque sea cuca
+     */
+    fun showErrorMessage(errorView: View) {
+        errorView.visibility = View.VISIBLE
+    }
+
+    /**
+     * Oculta la carita cuca con el error. Esto es bueno
+     */
+    fun hideErrorMessage(errorView: View) {
+        errorView.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
