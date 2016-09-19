@@ -40,6 +40,14 @@ class PostAdapter : RecyclerView.Adapter<PostHolder>() {
         notifyDataSetChanged()
     }
 
+    /**
+     * Añade una nueva lista de posts
+     */
+    fun addPosts(threads: MutableList<Post>) {
+        posts.addAll(threads)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PostHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_post, parent, false)
         val holder = PostHolder(view)

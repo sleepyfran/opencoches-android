@@ -1,5 +1,10 @@
 package io.spaceisstrange.opencoches.api.rx
 
+import io.spaceisstrange.opencoches.api.net.FCThreadPages
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
+
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -18,18 +23,12 @@ package io.spaceisstrange.opencoches.api.rx
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import io.spaceisstrange.opencoches.api.model.Post
-import io.spaceisstrange.opencoches.api.net.FCThread
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-
-class FCThreadObservable {
+class FCThreadPagesObservable {
     companion object {
-        fun create(threadLink: String, page: Int?): Observable<MutableList<Post>> {
+        fun create(threadLink: String): Observable<Int> {
             return Observable.fromCallable(
                     {
-                        FCThread(threadLink, page).getThreadPosts()
+                        FCThreadPages(threadLink).getPages()
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

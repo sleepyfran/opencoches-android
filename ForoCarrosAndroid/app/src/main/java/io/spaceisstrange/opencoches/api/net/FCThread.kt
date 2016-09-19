@@ -20,7 +20,7 @@ import io.spaceisstrange.opencoches.api.model.Post
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class FCThread(val threadLink: String) : BaseGetRequest() {
+class FCThread(val threadLink: String, val page: Int?) : BaseGetRequest() {
 
     fun getThreadPosts(): MutableList<Post> {
         val response = super.doRequest()
@@ -63,6 +63,12 @@ class FCThread(val threadLink: String) : BaseGetRequest() {
     }
 
     override fun getUrl(): String {
-        return ApiConstants.BASE_URL + threadLink
+        var url = ApiConstants.BASE_URL + threadLink
+
+        if (page != null) {
+            url += ApiConstants.THREAD_PAGE_KEY + page
+        }
+
+        return url
     }
 }

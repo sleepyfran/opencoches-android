@@ -1,10 +1,13 @@
 package io.spaceisstrange.opencoches.ui.activities
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.adapters.PostAdapter
+import io.spaceisstrange.opencoches.api.model.Post
 import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.rx.FCThreadObservable
+import io.spaceisstrange.opencoches.api.rx.FCThreadPagesObservable
 import io.spaceisstrange.opencoches.utils.PreCacheLayoutManager
 import kotlinx.android.synthetic.main.activity_thread.*
 
@@ -33,10 +36,30 @@ class ThreadActivity : BaseActivity() {
     val postAdapter = PostAdapter()
 
     /**
+     * Layout manager de la recycler view
+     */
+    val layoutManager = PreCacheLayoutManager(this)
+
+    /**
+     * Página actual del hilo
+     */
+    var threadActualPage = 1
+
+    /**
+     * Variables para hacer el RecyclerView infinito
+     */
+    var previousTotalItemCount = 0
+    var visibleItemThreshold = 15
+    var firstVisibleItemPosition = 0
+    var visibleItemCount = 0
+    var totalItemCount = 0
+    var loadingContent = true
+
+    /**
      * Carga el hilo del link especificado y añade el contenido al adapter
      */
-    fun loadThread(link: String) {
-        FCThreadObservable.create(link).subscribe(
+    fun loadThread(link: String, page: Int?, onLoad: (posts: MutableList<Post>) -> Unit) {
+        FCThreadObservable.create(link, page).subscribe(
                 {
                     posts ->
 
@@ -45,7 +68,7 @@ class ThreadActivity : BaseActivity() {
 
                     // ¡Hemos cargado el hilo!
                     srlPostList.isRefreshing = false
-                    postAdapter.updatePosts(posts)
+                    onLoad(posts)
                 },
                 {
                     error ->
@@ -76,17 +99,64 @@ class ThreadActivity : BaseActivity() {
 
         // Configuramos la RecyclerView
         rvPostList.adapter = postAdapter
-        rvPostList.layoutManager = PreCacheLayoutManager(this)
+        rvPostList.layoutManager = layoutManager
 
         // Mostramos el hilo como cargando
         srlPostList.isRefreshing = true
 
         // Obtenemos los posts del hilo y populamos la RecyclerView con ellos
-        loadThread(threadLink)
+        loadThread(threadLink, null, { posts -> postAdapter.updatePosts(posts) })
 
         // Cargamos también el hilo cuando el usuario haga un swipe to refresh
         srlPostList.setOnRefreshListener {
-            loadThread(threadLink)
+            loadThread(threadLink, null, { posts -> postAdapter.updatePosts(posts) })
         }
+
+        // Configuramos la RecyclerView para ser "infinita"
+        // Basado en: http://stackoverflow.com/a/26561717
+        rvPostList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                totalItemCount = layoutManager.itemCount
+                visibleItemCount = recyclerView.childCount
+
+                if (loadingContent) {
+                    if (totalItemCount > previousTotalItemCount) {
+                        loadingContent = false
+                        previousTotalItemCount = totalItemCount
+                    }
+                }
+
+                if (!loadingContent && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItemPosition + visibleItemThreshold)) {
+                    // Estamos en el final, así que cargamos más contenido de la siguiente página
+                    loadingContent = true
+                    threadActualPage++
+
+                    // Obtenemos el número total de páginas que tiene el hilo. Puede haber cambiado
+                    // según hacíamos scroll, por lo que tenemos que comprobarlo cada vez que
+                    // se recarga
+                    FCThreadPagesObservable.create(threadLink).subscribe(
+                            {
+                                pages ->
+
+                                if (threadActualPage <= pages) {
+                                    // Cargamos más posts si hay más páginas
+                                    srlPostList.isRefreshing = true
+
+                                    loadThread(threadLink, threadActualPage, { posts -> postAdapter.addPosts(posts) })
+                                }
+                            },
+                            {
+                                error ->
+
+                                // Silenciamos los errores :)
+                            }
+                    )
+                }
+            }
+        })
     }
 }
