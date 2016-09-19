@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General -->
+    <dimen name="text.normal">16sp</dimen>
+    <dimen name="text.big">18sp</dimen>
+    <dimen name="text.ultra_big">24sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
     <!-- Login activity -->
     <dimen name="login.vertical_margin">16dp</dimen>
     <dimen name="login.horizontal_margin">16dp</dimen>
     <dimen name="login.title.text_size">40sp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Bottom Sheets -->
+    <dimen name="bottom_sheet.horizontal_margin">16dp</dimen>
+    <dimen name="bottom_sheet.vertical_margin">8dp</dimen>
+    <dimen name="bottom_sheet.default_action_vertical">48dp</dimen>
+    <dimen name="bottom_sheet.text_horizontal_padding">32dp</dimen>
+    <dimen name="bottom_sheet.icon_size">24dp</dimen>
 </resources>
