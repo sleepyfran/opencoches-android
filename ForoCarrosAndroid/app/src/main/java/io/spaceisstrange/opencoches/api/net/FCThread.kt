@@ -1,6 +1,7 @@
 package io.spaceisstrange.opencoches.api.net
 
 import io.spaceisstrange.opencoches.api.model.Post
+import io.spaceisstrange.opencoches.utils.RegexUtils
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -36,6 +37,12 @@ class FCThread(val threadLink: String, val page: Int?) : BaseGetRequest() {
         for (post in posts) {
             val userUsername = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").text()
             val userLink = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").attr("href")
+            var userId = RegexUtils.getUserIdFromLinkRegex().matchEntire(userLink)?.groups?.get(1)?.value
+
+            if (userId == null) {
+                userId = ""
+            }
+
             val userPicture = post.select("img[class=" + ApiConstants.POST_USER_IMAGE_CLASS_KEY + "]").attr("src")
 
             // Hay veces que la info del usuario puede variar de posición si este está baneado
@@ -54,7 +61,7 @@ class FCThread(val threadLink: String, val page: Int?) : BaseGetRequest() {
             postList.add(Post(userUsername,
                     userPicture,
                     userInfo,
-                    userLink,
+                    userId,
                     postTimestamp,
                     postContent))
         }

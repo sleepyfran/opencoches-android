@@ -26,5 +26,12 @@ class RegexUtils {
         fun getPagesRegex(): Regex {
             return "Pág \\d de (\\d+)".toRegex()
         }
+
+        /**
+         * Retorna un Regex que selecciona el ID dado un link de usuario
+         */
+        fun getUserIdFromLinkRegex(): Regex {
+            return "member\\.php\\?u=(\\d+)".toRegex()
+        }
     }
 }
