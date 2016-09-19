@@ -24,6 +24,15 @@
     <!-- Hilo del foro -->
     <string name="post.username_details">%1$s | %2$s</string>
 
+    <!-- Perfil del usuario -->
+    <string name="user_profile.username">\@%1$s</string>
+
+    <!-- Acciones al clicar sobre un usuario -->
+    <string name="user_actions.title">Usuario: %1$s</string>
+    <string name="user_actions.show_profile">Ver perfil</string>
+    <string name="user_actions.add_friend">Añadir a amigos</string>
+    <string name="user_actions.send_message">Enviar mensaje privado</string>
+
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>

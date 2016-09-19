@@ -8,6 +8,7 @@ import io.spaceisstrange.opencoches.api.model.Post
 import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.api.rx.FCThreadObservable
 import io.spaceisstrange.opencoches.api.rx.FCThreadPagesObservable
+import io.spaceisstrange.opencoches.ui.dialogs.UserProfileDialog
 import io.spaceisstrange.opencoches.utils.PreCacheLayoutManager
 import kotlinx.android.synthetic.main.activity_thread.*
 
@@ -103,6 +104,15 @@ class ThreadActivity : BaseActivity() {
 
         // Mostramos el hilo como cargando
         srlPostList.isRefreshing = true
+
+        // Configuramos la opción del onClick sobre la foto del usuario
+        postAdapter.onUserClick = {
+            post ->
+
+            // Mostramos el Bottom Sheet con las opciones
+            UserProfileDialog.newInstance(post.posterUsername, post.posterId, post.posterPictureLink)
+                    .show(supportFragmentManager, null)
+        }
 
         // Obtenemos los posts del hilo y populamos la RecyclerView con ellos
         loadThread(threadLink, null, { posts -> postAdapter.updatePosts(posts) })

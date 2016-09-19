@@ -18,4 +18,7 @@
     <dimen name="bottom_sheet.default_action_vertical">48dp</dimen>
     <dimen name="bottom_sheet.text_horizontal_padding">32dp</dimen>
     <dimen name="bottom_sheet.icon_size">24dp</dimen>
+
+    <!-- Bottom Sheet UserData -->
+    <dimen name="bottom_sheet.user.image_size">75dp</dimen>
 </resources>

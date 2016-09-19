@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.list_item_post.view.*
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PostHolder(itemView: View, val onUserClick: (post: Post) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
     init {
         // Configuramos el contenido del post
@@ -55,6 +55,9 @@ class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 .placeholder(android.R.drawable.progress_horizontal)
                 .error(R.drawable.ic_error_black)
                 .into(itemView.ivPostProfilePic)
+
+        // Llamamos el onClick con los datos del usuario cuando se presione sobre su foto
+        itemView.ivPostProfilePic.setOnClickListener { onUserClick(post) }
 
         itemView.tvPostUsername.text = itemView.context.getString(R.string.post_username_details,
                 post.posterUsername, post.posterDescription)

@@ -23,10 +23,12 @@
         <activity
             android:name="io.spaceisstrange.opencoches.ui.activities.SubforosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="io.spaceisstrange.opencoches.ui.activities.SubforoThreadsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="io.spaceisstrange.opencoches.ui.activities.ThreadActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="io.spaceisstrange.opencoches.ui.activities.SubforoThreadsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="io.spaceisstrange.opencoches.ui.activities.ThreadActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

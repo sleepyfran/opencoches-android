@@ -32,6 +32,11 @@ class PostAdapter : RecyclerView.Adapter<PostHolder>() {
     var posts: MutableList<Post> = mutableListOf()
 
     /**
+     * Callback al pulsar sobre la imagen del usuario
+     */
+    lateinit var onUserClick: (post: Post) -> Unit
+
+    /**
      * Actualiza la lista de posts y notifica al Adapter sobre los cambios
      */
     fun updatePosts(subs: MutableList<Post>) {
@@ -50,7 +55,7 @@ class PostAdapter : RecyclerView.Adapter<PostHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): PostHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_post, parent, false)
-        val holder = PostHolder(view)
+        val holder = PostHolder(view, onUserClick)
 
         // Espacio a propósito por si en el futuro queremos hacer algo con el holder
 
