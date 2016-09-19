@@ -1,4 +1,6 @@
 # OpenCoches (A.K.A. una aplicación para ForoCoches)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?maxAge=2592000)](https://gitter.im/OpenCoches/Lobby)
+
 :red_car: Una aplicación de Forocoches para Android, al menos hasta que el jefe nos la cape.
 
 Para el funcionamiento de la misma, dado que ilitri no quiere darnos herramientas para acceder al contenido del foro de forma digna, imito el acceso desde un navegador y parseo los datos para que sean más fáciles de leer dentro de la aplicación.
