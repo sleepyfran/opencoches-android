@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.webkit.WebView
+import android.webkit.WebViewClient
+import io.spaceisstrange.opencoches.api.net.ApiConstants
 import io.spaceisstrange.opencoches.utils.HtmlUtils
 
 /*
@@ -39,18 +41,6 @@ class OpenCochesWebView : WebView {
 
         val headHtml = HtmlUtils.ADJUST_SIZE_HEAD
         val contentHtml = "$headHtml<body>$htmlContent</body>"
-        loadDataWithBaseURL(null, contentHtml, "text/html", "utf-8", null)
-    }
-
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        return true
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (event?.action == MotionEvent.ACTION_DOWN) {
-            return false
-        } else {
-            return true
-        }
+        loadDataWithBaseURL(ApiConstants.BASE_URL,contentHtml, "text/html", "utf-8", null)
     }
 }
