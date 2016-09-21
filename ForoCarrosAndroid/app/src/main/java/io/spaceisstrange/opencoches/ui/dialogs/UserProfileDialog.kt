@@ -1,14 +1,18 @@
 package io.spaceisstrange.opencoches.ui.dialogs
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.api.rx.FCPrivateMessageSecurityTokenObservable
 import io.spaceisstrange.opencoches.api.rx.FCUserObservable
 import io.spaceisstrange.opencoches.ui.BottomSheetItem
+import io.spaceisstrange.opencoches.ui.activities.MessageActivity
+import io.spaceisstrange.opencoches.utils.IntentUtils
 import kotlinx.android.synthetic.main.bottom_sheet_user.view.*
 
 /*
@@ -113,6 +117,13 @@ class UserProfileDialog : BottomSheetDialog() {
         super.onClick(selectedItem)
 
         // TODO: Añadir como amigo y mandar mensajes
+        if (selectedItem.drawable == R.drawable.ic_mail_black) {
+            // Mostramos la activity de envío de mensajes
+            val pmIntent = Intent(context, MessageActivity::class.java)
+            pmIntent.putExtra(IntentUtils.USERNAME_KEY, userUsername)
+            pmIntent.putExtra(IntentUtils.USER_ID_KEY, userId)
+            startActivity(pmIntent)
+        }
     }
 
     override fun getItems(): MutableList<BottomSheetItem> {

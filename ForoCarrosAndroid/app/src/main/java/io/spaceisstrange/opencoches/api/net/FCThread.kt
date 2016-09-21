@@ -49,10 +49,10 @@ class FCThread(val threadLink: String, val page: Int?) : BaseGetRequest() {
             var userInfo: String
             try {
                 userInfo = post.select("td[class=alt2]")
-                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO + "]")[2].text()
+                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO_KEY + "]")[2].text()
             } catch (e: IndexOutOfBoundsException) {
                 userInfo = post.select("td[class=alt2]")
-                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO + "]")[1].text()
+                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO_KEY + "]")[1].text()
             }
 
             val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()

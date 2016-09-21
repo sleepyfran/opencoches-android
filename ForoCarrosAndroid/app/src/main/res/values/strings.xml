@@ -33,6 +33,16 @@
     <string name="user_actions.add_friend">Añadir a amigos</string>
     <string name="user_actions.send_message">Enviar mensaje privado</string>
 
+    <!-- Activity de envío de un mensaje -->
+    <string name="message.recipient">Mensaje para %1$s</string>
+    <string name="message.hint_title">Título</string>
+    <string name="message.hint_message">Escribe aquí tu mensaje</string>
+    <string name="message.menu.send">Enviar</string>
+    <string name="message.error.empty_title">¡El título no puede estar vacío!</string>
+    <string name="message.error.empty_body">¡El mensaje no puede estar vacío!</string>
+    <string name="message.error.general">Ha habido un error enviando el mensaje :(</string>
+    <string name="message.sent">Mensaje enviado</string>
+
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>

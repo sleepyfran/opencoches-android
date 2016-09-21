@@ -46,6 +46,6 @@ class FCUser(val userId: String) : BaseGetRequest() {
     }
 
     override fun getUrl(): String {
-        return ApiConstants.BASE_URL + ApiConstants.MEMBER_LINK_KEY + userId
+        return ApiConstants.BASE_URL + ApiConstants.USER_PROFILE_URL + userId
     }
 }

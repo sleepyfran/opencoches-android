@@ -27,14 +27,14 @@ class ApiConstants {
 
         /**
          * Constantes de URLs donde hacer peticiones
-         * (ejemplo: http://m.forocoches.com/foro/forumdisplay.php?f= para los subforos).
-         *
-         * Por lo general las peticiones he decidido hacerlas a la versión móvil de la web para
-         * así gastar la menor cantidad de datos posibles
+         * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
         const val SUBFORO_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
+        const val USER_PROFILE_URL = "member.php?u="
+        const val MESSAGE_URL = "private.php?do=newpm&u="
+        const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
@@ -52,12 +52,12 @@ class ApiConstants {
         const val POST_USER_USERNAME_CLASS_KEY = "bigusername"
         const val POST_USER_IMAGE_CLASS_KEY = "avatar"
         const val POST_CONTENT_ID_KEY = "post_message_"
-        const val POST_CONTENT_USER_INFO = "smallfont"
+        const val POST_CONTENT_USER_INFO_KEY = "smallfont"
+        const val MESSAGE_SECURITY_TOKEN_KEY = "securitytoken"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo
          */
-        // Parámetros del login
         const val URL_PARAMETER = "url"
         const val DO_PARAMETER = "do"
         const val VB_LOGIN_MD5_PASSWORD_PARAMETER = "vb_login_md5password"
@@ -68,6 +68,16 @@ class ApiConstants {
         const val VB_LOGIN_PASSWORD_PARAMETER = "vb_login_password"
         const val COOKIE_USER_PARAMETER = "cookieuser"
         const val LOGB2_PARAMETER = "logb2"
+        const val RECIPIENTS_PARAMETER = "recipients"
+        const val TITLE_PARAMETER = "title"
+        const val MESSAGE_PARAMETER = "message"
+        const val WYSIWYG_PARAMETER = "wysiwyg"
+        const val ICON_ID_PARAMETER = "iconid"
+        const val PM_ID_PARAMETER = "pmid"
+        const val FORWARD_PARAMETER = "forward"
+        const val S_BUTTON_PARAMETER = "sbutton"
+        const val SAVE_COPY_PARAMETER = "savecopy"
+        const val PARSE_URL_PARAMETER = "parseurl"
 
         /**
          * Parámetros de la petición POST de Login
@@ -84,6 +94,26 @@ class ApiConstants {
                     VB_LOGIN_PASSWORD_PARAMETER to password,
                     COOKIE_USER_PARAMETER to "1",
                     LOGB2_PARAMETER to "   Acceder   "
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST de mandar mensajes privados
+         */
+        fun getPmParameters(recipient: String, title: String, message: String, securityToken: String): Map<String, String> {
+            return hashMapOf(
+                    RECIPIENTS_PARAMETER to recipient,
+                    TITLE_PARAMETER to title,
+                    MESSAGE_PARAMETER to message,
+                    WYSIWYG_PARAMETER to "0",
+                    ICON_ID_PARAMETER to "0",
+                    S_PARAMETER to "",
+                    SECURITY_TOKEN_PARAMETER to securityToken,
+                    DO_PARAMETER to "insertpm",
+                    PM_ID_PARAMETER to "",
+                    S_BUTTON_PARAMETER to "Enviar Mensaje",
+                    SAVE_COPY_PARAMETER to "1",
+                    PARSE_URL_PARAMETER to "1"
             )
         }
 
