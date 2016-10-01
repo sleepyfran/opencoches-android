@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -21,22 +22,51 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srlPostList"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvPostList"
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpThreadPages"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <LinearLayout
+            android:id="@+id/llReply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divider"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
 
-    <include
-        android:id="@+id/vError"
-        layout="@layout/view_error"
-        android:visibility="gone" />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@android:color/transparent"
+                android:hint="@string/thread.reply.hint" />
+
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/thread.reply.send" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/vError"
+            layout="@layout/view_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/llReply"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
