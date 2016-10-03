@@ -26,7 +26,7 @@
                 android:layout_margin="5dp"
                 android:tint="@color/accent"
                 android:visibility="gone"
-                app:srcCompat="@drawable/ic_star_black" />
+                app:srcCompat="@drawable/ic_star_white" />
 
             <TextView
                 android:id="@+id/tvSubforoThreadTitle"

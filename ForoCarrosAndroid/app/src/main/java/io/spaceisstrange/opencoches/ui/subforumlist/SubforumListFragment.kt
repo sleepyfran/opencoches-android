@@ -88,9 +88,15 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
         // TODO: Mostrar activity del subforo
     }
 
-    override fun showError() {
-        loading.visibility = View.GONE
-        rvSubforumList.visibility = View.GONE
-        vError.visibility = View.VISIBLE
+    override fun showError(show: Boolean) {
+        if (show) {
+            loading.visibility = View.GONE
+            rvSubforumList.visibility = View.GONE
+            vError.visibility = View.VISIBLE
+        } else {
+            loading.visibility = View.VISIBLE
+            rvSubforumList.visibility = View.VISIBLE
+            vError.visibility = View.GONE
+        }
     }
 }

@@ -45,7 +45,7 @@ interface SubforumListContract {
         /**
          * Método a llamar para cuando se produce algún error crítico
          */
-        fun showError()
+        fun showError(show: Boolean)
     }
 
     interface Presenter : BasePresenter {

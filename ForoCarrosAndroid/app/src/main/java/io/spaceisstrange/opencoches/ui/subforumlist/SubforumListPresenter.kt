@@ -47,12 +47,14 @@ class SubforumListPresenter @Inject constructor(val view: SubforumListContract.V
                 {
                     subforums ->
 
+                    view.showError(false)
+                    view.showLoading(false)
                     view.showSubforums(subforums)
                 },
                 {
                     error ->
 
-                    view.showError()
+                    view.showError(true)
                 }
         )
 
