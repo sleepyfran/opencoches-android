@@ -1,9 +1,4 @@
-package io.spaceisstrange.opencoches.api.rx
-
-import io.spaceisstrange.opencoches.api.net.FCPrivateMessageSecurityToken
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+package io.spaceisstrange.opencoches.ui.common
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -23,15 +18,17 @@ import rx.schedulers.Schedulers
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-class FCPrivateMessageSecurityTokenObservable {
-    companion object {
-        fun create(userId: String): Observable<String> {
-            return Observable.fromCallable(
-                    {
-                        FCPrivateMessageSecurityToken(userId).getSecurityToken()
-                    })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
+/**
+ * Interfaz que representa la base de los Presenters de la aplicación
+ */
+interface BasePresenter {
+    /**
+     * Método a llamar cada vez que se inicialice el Presenter
+     */
+    fun init()
+
+    /**
+     * Método a llamar cada vez que se vaya a cerrar la activity o fragment actual
+     */
+    fun finish()
 }

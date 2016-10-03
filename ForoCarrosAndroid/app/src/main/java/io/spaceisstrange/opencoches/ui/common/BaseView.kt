@@ -1,4 +1,4 @@
-package io.spaceisstrange.opencoches.api.rx
+package io.spaceisstrange.opencoches.ui.common
 
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
@@ -18,21 +18,12 @@ package io.spaceisstrange.opencoches.api.rx
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import io.spaceisstrange.opencoches.api.model.Post
-import io.spaceisstrange.opencoches.api.net.FCThread
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-
-class FCThreadObservable {
-    companion object {
-        fun create(threadLink: String, page: Int?): Observable<MutableList<Post>> {
-            return Observable.fromCallable(
-                    {
-                        FCThread(threadLink, page).getThreadPosts()
-                    })
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
+/**
+ * Interfaz que representa la base de todas las Views del proyecto
+ */
+interface BaseView<in T: BasePresenter> {
+    /**
+     * Método por el cual se pasará el Presenter asociado a esta View
+     */
+    fun setPresenter(presenter: T)
 }
