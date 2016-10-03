@@ -20,7 +20,7 @@ package io.spaceisstrange.opencoches.ui.login
 
 import android.text.TextUtils
 import io.spaceisstrange.opencoches.data.api.login.Login
-import io.spaceisstrange.opencoches.util.SharedPreferencesUtils
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.subscriptions.CompositeSubscription
 import java.net.SocketTimeoutException
 import javax.inject.Inject

@@ -25,9 +25,10 @@ import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.subforumlist.SubforumListActivity
-import io.spaceisstrange.opencoches.util.SharedPreferencesUtils
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.Subscription
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
     /**
@@ -39,10 +40,15 @@ class SplashActivity : AppCompatActivity() {
             field = value
         }
 
+    @Inject lateinit var sharedPreferences: SharedPreferencesUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferences = (application as App).sharedPreferencesUtils
+        DaggerSplashComponent.builder()
+                .sharedPreferencesUtilsComponent((application as App).sharedPrefsComponent)
+                .build()
+                .inject(this)
 
         // Comprobamos si el usuario se ha logueado anteriormente
         if (sharedPreferences.isLoggedIn()) {

@@ -16,15 +16,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.login
+package io.spaceisstrange.opencoches.util
 
-import dagger.Component
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
-import io.spaceisstrange.opencoches.util.ActivityScoped
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
+import javax.inject.Scope
 
-@ActivityScoped
-@Component(dependencies = arrayOf(SharedPreferencesUtilsComponent::class),
-        modules = arrayOf(LoginModule::class))
-interface LoginComponent {
-    fun inject(activity: LoginActivity)
-}
+@Scope
+@Retention(RetentionPolicy.RUNTIME)
+annotation class ActivityScoped

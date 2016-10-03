@@ -21,12 +21,10 @@ package io.spaceisstrange.opencoches
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.spaceisstrange.opencoches.util.SharedPreferencesUtils
+import javax.inject.Singleton
 
 @Module
 class AppModule(val context: Context) {
     @Provides
-    fun providesSharedPreferencesUtils(): SharedPreferencesUtils {
-        return SharedPreferencesUtils(context)
-    }
+    fun providesContext(): Context = context
 }

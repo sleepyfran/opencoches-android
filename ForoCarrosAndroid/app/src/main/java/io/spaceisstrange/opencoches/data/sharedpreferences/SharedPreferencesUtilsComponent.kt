@@ -16,11 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches
+package io.spaceisstrange.opencoches.data.sharedpreferences
 
 import dagger.Component
+import io.spaceisstrange.opencoches.AppModule
+import javax.inject.Singleton
 
-@Component(modules = arrayOf(AppModule::class))
-interface AppComponent {
-    fun inject(app: App)
+@Singleton
+@Component(modules = arrayOf(SharedPreferencesUtilsModule::class, AppModule::class))
+interface SharedPreferencesUtilsComponent {
+    fun getSharedPreferencesUtils(): SharedPreferencesUtils
 }

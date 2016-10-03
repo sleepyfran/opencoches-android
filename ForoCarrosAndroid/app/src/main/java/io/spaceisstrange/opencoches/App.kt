@@ -19,18 +19,22 @@
 package io.spaceisstrange.opencoches
 
 import android.app.Application
-import io.spaceisstrange.opencoches.util.SharedPreferencesUtils
-import javax.inject.Inject
+import io.spaceisstrange.opencoches.data.sharedpreferences.DaggerSharedPreferencesUtilsComponent
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsModule
 
 class App : Application() {
-    @Inject lateinit var sharedPreferencesUtils: SharedPreferencesUtils
+    /**
+     * Componente con las SharedPreferences
+     */
+    lateinit var sharedPrefsComponent: SharedPreferencesUtilsComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder()
+        sharedPrefsComponent = DaggerSharedPreferencesUtilsComponent.builder()
                 .appModule(AppModule(applicationContext))
+                .sharedPreferencesUtilsModule(SharedPreferencesUtilsModule())
                 .build()
-                .inject(this)
     }
 }

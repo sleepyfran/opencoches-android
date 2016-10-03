@@ -16,15 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.login
+package io.spaceisstrange.opencoches.ui.splash
 
 import dagger.Component
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
 import io.spaceisstrange.opencoches.util.ActivityScoped
 
 @ActivityScoped
-@Component(dependencies = arrayOf(SharedPreferencesUtilsComponent::class),
-        modules = arrayOf(LoginModule::class))
-interface LoginComponent {
-    fun inject(activity: LoginActivity)
+@Component(dependencies = arrayOf(SharedPreferencesUtilsComponent::class))
+interface SplashComponent {
+    fun inject(activity: SplashActivity)
 }

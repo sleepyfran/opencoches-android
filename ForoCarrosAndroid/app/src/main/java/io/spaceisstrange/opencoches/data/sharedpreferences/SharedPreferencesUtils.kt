@@ -16,15 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.util
+package io.spaceisstrange.opencoches.data.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import javax.inject.Inject
 
 /**
  * Set de utilidades de las SharedPreferences
  */
-class SharedPreferencesUtils(val context: Context) {
+class SharedPreferencesUtils @Inject constructor(val context: Context) {
     /**
      * Clave general de las SharedPreferences
      */
