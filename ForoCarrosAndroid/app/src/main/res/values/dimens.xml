@@ -10,7 +10,7 @@
     <!-- Login activity -->
     <dimen name="login.vertical_margin">16dp</dimen>
     <dimen name="login.horizontal_margin">16dp</dimen>
-    <dimen name="login.title.text_size">40sp</dimen>
+    <dimen name="login.title.text_size">35sp</dimen>
 
     <!-- Bottom Sheets -->
     <dimen name="bottom_sheet.horizontal_margin">16dp</dimen>

@@ -14,7 +14,7 @@
     <string name="error.login_message">Ha habido un error al iniciar sesión. Comprueba los datos que has puesto.</string>
 
     <!-- Login Activity -->
-    <string name="login.title">Iniciar sesión</string>
+    <string name="login.title">Bienvenido, shurmano</string>
     <string name="login.hint.username">Nombre de usuario</string>
     <string name="login.hint.password">Contraseña</string>
     <string name="login.login_button">Iniciar sesión</string>
