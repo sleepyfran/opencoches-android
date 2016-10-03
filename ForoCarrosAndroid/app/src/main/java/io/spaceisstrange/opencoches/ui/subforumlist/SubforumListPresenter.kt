@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.subforumlist
 
+import io.spaceisstrange.opencoches.data.api.subforumlist.SubforumList
 import io.spaceisstrange.opencoches.data.model.Subforum
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -35,14 +36,32 @@ class SubforumListPresenter @Inject constructor(val view: SubforumListContract.V
 
         // Inicializamos la CompositeSubscription
         compositeSubscription = CompositeSubscription()
+
+        // Cargamos los subforos
+        loadSubforums()
     }
 
     override fun loadSubforums() {
-        // TODO: Completar
+        // Cargamos los subforos y se los pasamos a la view
+        val subforumSubscription = SubforumList().getSubforumsObservable().subscribe(
+                {
+                    subforums ->
+
+                    view.showSubforums(subforums)
+                },
+                {
+                    error ->
+
+                    view.showError()
+                }
+        )
+
+        // Añadimos la subscripción al Composite para poder desubscribirnos cuando recibamos finish
+        compositeSubscription.add(subforumSubscription)
     }
 
     override fun openSubforum(subforum: Subforum) {
-        // TODO: Completar
+        view.showSubforum(subforum)
     }
 
     override fun finish() {

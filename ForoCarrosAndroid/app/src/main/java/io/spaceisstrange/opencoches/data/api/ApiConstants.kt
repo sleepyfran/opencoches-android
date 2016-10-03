@@ -32,6 +32,11 @@ class ApiConstants {
         const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
 
         /**
+         * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
+         */
+        const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
+
+        /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo
          */
         const val URL_PARAMETER = "url"

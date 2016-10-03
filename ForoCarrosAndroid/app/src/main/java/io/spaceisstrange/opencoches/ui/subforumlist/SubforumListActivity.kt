@@ -20,11 +20,15 @@ package io.spaceisstrange.opencoches.ui.subforumlist
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.util.ActivityUtils
+import kotlinx.android.synthetic.main.activity_subforum_list.*
 import javax.inject.Inject
 
-class SubforumListActivity : AppCompatActivity() {
+class SubforumListActivity : BaseActivity() {
     /**
      * Presenter asociado a la activity y al fragment
      */
@@ -33,6 +37,7 @@ class SubforumListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subforum_list)
+        setSupportActionBar(toolbar)
 
         // Creamos el fragment del Login
         val subforumListFragment = SubforumListFragment.newInstance()
@@ -43,6 +48,7 @@ class SubforumListActivity : AppCompatActivity() {
         // Inyectamos las dependencias en la activity y el fragment
         DaggerSubforumListComponent.builder()
                 .subforumListModule(SubforumListModule(subforumListFragment as SubforumListFragment))
+                .sharedPreferencesUtilsComponent((application as App).sharedPrefsComponent)
                 .build()
                 .inject(this)
     }

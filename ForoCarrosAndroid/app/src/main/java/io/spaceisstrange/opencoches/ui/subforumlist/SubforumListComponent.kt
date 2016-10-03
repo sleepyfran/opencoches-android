@@ -19,8 +19,12 @@
 package io.spaceisstrange.opencoches.ui.subforumlist
 
 import dagger.Component
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
+import io.spaceisstrange.opencoches.util.ActivityScoped
 
-@Component(modules = arrayOf(SubforumListModule::class))
+@ActivityScoped
+@Component(dependencies = arrayOf(SharedPreferencesUtilsComponent::class),
+        modules = arrayOf(SubforumListModule::class))
 interface SubforumListComponent {
     fun inject(activity: SubforumListActivity)
 }
