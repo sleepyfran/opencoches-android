@@ -16,11 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.subforumlist
+package io.spaceisstrange.opencoches.ui.subforum
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
@@ -28,26 +28,45 @@ import io.spaceisstrange.opencoches.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_subforum_list.*
 import javax.inject.Inject
 
-class SubforumListActivity : BaseActivity() {
+class SubforumActivity : BaseActivity() {
     /**
      * Presenter asociado a la activity y al fragment
      */
-    @Inject lateinit var loginPresenter: SubforumListPresenter
+    @Inject lateinit var subforumPresenter: SubforumPresenter
+
+    companion object {
+        /**
+         * Clave asociada al extra
+         */
+        val SUBFORUM_LINK = "subforumLink"
+
+        /**
+         * Retorna un Intent con los parámetros necesarios para inicializar la activity
+         */
+        fun getStartIntent(context: Context, subforumLink: String): Intent {
+            val startIntent = Intent(context, SubforumActivity::class.java)
+            startIntent.putExtra(SUBFORUM_LINK, subforumLink)
+            return startIntent
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subforum_list)
+        setContentView(R.layout.activity_subforum)
         setSupportActionBar(toolbar)
 
-        // Creamos el fragment del Login
-        val subforumListFragment = SubforumListFragment.newInstance()
+        // Cargamos el link del subforo de los extras del intent
+        val subforumLink = intent.extras?.getString(SUBFORUM_LINK)
+                ?: throw IllegalArgumentException("No soy mago, no puedo cargar el subforo sin link")
 
-        // Añadimos el fragment
-        ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumListFragment, R.id.fragment)
+        // Creamos el fragment del subforo
+        val subforumFragment = SubforumFragment.newInstance()
 
-        // Inyectamos las dependencias en la activity y el fragment
-        DaggerSubforumListComponent.builder()
-                .subforumListModule(SubforumListModule(subforumListFragment))
+        // Añadimos el fragment a la activity
+        ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumFragment, R.id.fragment)
+
+        DaggerSubforumComponent.builder()
+                .subforumModule(SubforumModule(subforumFragment, subforumLink))
                 .sharedPreferencesUtilsComponent((application as App).sharedPrefsComponent)
                 .build()
                 .inject(this)

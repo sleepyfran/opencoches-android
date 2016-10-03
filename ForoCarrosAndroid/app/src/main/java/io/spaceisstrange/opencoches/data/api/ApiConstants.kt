@@ -25,16 +25,19 @@ class ApiConstants {
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
-        const val SUBFORO_URL = "forumdisplay.php?f="
+        const val SUBFORUM_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
         const val USER_PROFILE_URL = "member.php?u="
         const val MESSAGE_URL = "private.php?do=newpm&u="
         const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
+        const val SUBFORO_PAGE_URL = "&page="
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
          */
         const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
+        const val TD_THREAD_TITLE_KEY = "td_threadtitle"
+        const val THREAD_TITLE_KEY = "thread_title_"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo

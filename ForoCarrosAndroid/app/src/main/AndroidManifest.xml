@@ -24,6 +24,7 @@
             android:name=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.subforumlist.SubforumListActivity" />
+        <activity android:name=".ui.subforum.SubforumActivity" />
     </application>
 
 </manifest>

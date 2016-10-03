@@ -60,6 +60,9 @@ class LoginFragment : Fragment(), LoginContract.View {
             // Nos logueamos
             loginPresenter.login(username, password)
         }
+
+        // Iniciamos el presenter
+        loginPresenter.init()
     }
 
     override fun onDestroy() {

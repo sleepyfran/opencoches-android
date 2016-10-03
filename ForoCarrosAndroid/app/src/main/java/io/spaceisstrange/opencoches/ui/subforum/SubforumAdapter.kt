@@ -16,36 +16,41 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.subforumlist
+package io.spaceisstrange.opencoches.ui.subforum
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.data.model.Subforum
-import kotlinx.android.synthetic.main.list_item_subforum.view.*
+import io.spaceisstrange.opencoches.data.model.Thread
+import kotlinx.android.synthetic.main.list_item_subforum_thread.view.*
 
-/**
- * Adapter de los subforos
- */
-class SubforumAdapter(val onClick: (subforum: Subforum) -> Unit) : RecyclerView.Adapter<SubforumAdapter.SubforumHolder>() {
+class SubforumAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adapter<SubforumAdapter.SubforumHolder>() {
     /**
-     * Lista con los subforos
+     * Lista con los hilos del subforo
      */
-    var subforums: MutableList<Subforum> = mutableListOf()
+    var subforums: MutableList<Thread> = mutableListOf()
 
     /**
-     * Actualiza la lista de subforos y notifica al Adapter sobre los cambios
+     * Actualiza la lista de hilos y notifica al adapter
      */
-    fun update(subs: List<Subforum>) {
+    fun update(threads: List<Thread>) {
         subforums.clear()
-        subforums.addAll(subs)
+        subforums.addAll(threads)
+        notifyDataSetChanged()
+    }
+
+    /**
+     * Añade más hilos a la lista y notifica al adapter
+     */
+    fun addThreads(threads: List<Thread>) {
+        subforums.addAll(threads)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SubforumHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_subforum, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item_subforum_thread, parent, false)
         val holder = SubforumHolder(view)
 
         holder.itemView.llClickable.setOnClickListener {
@@ -70,9 +75,15 @@ class SubforumAdapter(val onClick: (subforum: Subforum) -> Unit) : RecyclerView.
         /**
          * Actualiza el contenido del holder con un nuevo subforo
          */
-        fun bind(subforum: Subforum) {
-            itemView.tvSubforoIcon.text = subforum.title[0].toString()
-            itemView.tvSubforoTitle.text = subforum.title
+        fun bind(thread: Thread) {
+            if (thread.isSticky) {
+                view.ivSubforoThreadSticky.visibility = View.VISIBLE
+            } else {
+                view.ivSubforoThreadSticky.visibility = View.GONE
+            }
+
+            view.tvSubforoThreadTitle.text = thread.title
+            view.tvSubforoThreadPreview.text = thread.preview
         }
     }
 }

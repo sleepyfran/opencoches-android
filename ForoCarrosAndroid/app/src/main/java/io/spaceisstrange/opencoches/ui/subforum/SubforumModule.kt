@@ -1,5 +1,3 @@
-package io.spaceisstrange.opencoches.ui.common
-
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -18,22 +16,16 @@ package io.spaceisstrange.opencoches.ui.common
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/**
- * Interfaz que representa la base de los Presenters de la aplicación
- */
-interface BasePresenter {
-    /**
-     * Método a llamar cuando vayamos a inyectar las dependencias
-     */
-    fun setup()
+package io.spaceisstrange.opencoches.ui.subforum
 
-    /**
-     * Método a llamar cada vez que se inicialice el Presenter
-     */
-    fun init()
+import dagger.Module
+import dagger.Provides
 
-    /**
-     * Método a llamar cada vez que se vaya a cerrar la activity o fragment actual
-     */
-    fun finish()
+@Module
+class SubforumModule(val view: SubforumContract.View, val subforumLink: String) {
+    @Provides
+    fun providesView(): SubforumContract.View = view
+
+    @Provides
+    fun providesLink(): String = subforumLink
 }

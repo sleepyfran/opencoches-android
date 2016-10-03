@@ -30,10 +30,12 @@ class SubforumListPresenter @Inject constructor(val view: SubforumListContract.V
     lateinit var compositeSubscription: CompositeSubscription
 
     @Inject
-    override fun init() {
+    override fun setup() {
         // Nos declaramos presenters de la view
         view.setPresenter(this)
+    }
 
+    override fun init() {
         // Inicializamos la CompositeSubscription
         compositeSubscription = CompositeSubscription()
 

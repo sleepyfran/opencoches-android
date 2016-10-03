@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.subforumlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Subforum
+import io.spaceisstrange.opencoches.ui.subforum.SubforumActivity
 import kotlinx.android.synthetic.main.fragment_subforum_list.*
 
 class SubforumListFragment : Fragment(), SubforumListContract.View {
@@ -37,7 +39,7 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
     /**
      * Adapter de los subforos
      */
-    val adapter = SubforumAdapter({
+    val adapter = SubforumListAdapter({
         subforum ->
 
         // Notificamos al presenter sobre el click
@@ -48,7 +50,7 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(): Fragment {
+        fun newInstance(): SubforumListFragment {
             val fragment = SubforumListFragment()
             return fragment
         }
@@ -64,6 +66,9 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
         // Configuramos el RecyclerView
         rvSubforumList.adapter = adapter
         rvSubforumList.layoutManager = LinearLayoutManager(context)
+
+        // Iniciamos el presenter
+        subsforumListPresenter.init()
     }
 
     override fun setPresenter(presenter: SubforumListPresenter) {
@@ -85,7 +90,8 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
     }
 
     override fun showSubforum(subforum: Subforum) {
-        // TODO: Mostrar activity del subforo
+        // Mostramos el subforo
+        startActivity(SubforumActivity.getStartIntent(context, subforum.link))
     }
 
     override fun showError(show: Boolean) {
