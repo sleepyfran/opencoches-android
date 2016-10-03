@@ -16,12 +16,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.login
+package io.spaceisstrange.opencoches
 
 import dagger.Component
-import io.spaceisstrange.opencoches.AppModule
 
-@Component(dependencies = arrayOf(AppModule::class), modules = arrayOf(LoginModule::class))
-interface LoginComponent {
-    fun inject(activity: LoginActivity)
+@Component(modules = arrayOf(AppModule::class))
+interface AppComponent {
+    fun inject(app: App)
 }

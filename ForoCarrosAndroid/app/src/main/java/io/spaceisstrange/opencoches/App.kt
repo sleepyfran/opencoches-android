@@ -16,12 +16,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.login
+package io.spaceisstrange.opencoches
 
-import dagger.Component
-import io.spaceisstrange.opencoches.AppModule
+import android.app.Application
+import io.spaceisstrange.opencoches.util.SharedPreferencesUtils
+import javax.inject.Inject
 
-@Component(dependencies = arrayOf(AppModule::class), modules = arrayOf(LoginModule::class))
-interface LoginComponent {
-    fun inject(activity: LoginActivity)
+class App : Application() {
+    @Inject lateinit var sharedPreferencesUtils: SharedPreferencesUtils
+
+    override fun onCreate() {
+        super.onCreate()
+
+        DaggerAppComponent.builder()
+                .appModule(AppModule(applicationContext))
+                .build()
+                .inject(this)
+    }
 }

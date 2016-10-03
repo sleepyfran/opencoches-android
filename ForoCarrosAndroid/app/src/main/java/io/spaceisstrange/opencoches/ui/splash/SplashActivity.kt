@@ -21,6 +21,7 @@ package io.spaceisstrange.opencoches.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.subforumlist.SubforumListActivity
@@ -35,17 +36,19 @@ class SplashActivity : AppCompatActivity() {
     var loginSubscription: Subscription? = null
         set(value) {
             loginSubscription?.unsubscribe()
-            loginSubscription = value
+            field = value
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val sharedPreferences = (application as App).sharedPreferencesUtils
+
         // Comprobamos si el usuario se ha logueado anteriormente
-        if (SharedPreferencesUtils.isLoggedIn(this)) {
+        if (sharedPreferences.isLoggedIn()) {
             // Nos logueamos y lo mandamos a la pantalla de selección de foros
-            val username = SharedPreferencesUtils.getUsername(this)
-            val password = SharedPreferencesUtils.getPassword(this)
+            val username = sharedPreferences.getUsername()
+            val password = sharedPreferences.getPassword()
 
             loginSubscription = Login(username, password).loginObservable().subscribe(
                     {
@@ -61,7 +64,7 @@ class SplashActivity : AppCompatActivity() {
                         // Si recibimos un timeout es porque probablemente los datos del usuario estén mal
                         if (error is SocketTimeoutException) {
                             // Los eliminamos y mostramos un error
-                            SharedPreferencesUtils.removePreferences(this)
+                            sharedPreferences.removePreferences()
 
                             // Mandamos al usuario a iniciar sesión
                             startActivity(Intent(this, LoginActivity::class.java))

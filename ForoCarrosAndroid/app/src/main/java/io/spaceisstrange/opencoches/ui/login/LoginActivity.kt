@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.login
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import io.spaceisstrange.opencoches.AppModule
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.util.ActivityUtils
 import javax.inject.Inject
@@ -43,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
         // Inyectamos las dependencias de la activity y el fragment
         DaggerLoginComponent.builder()
                 .loginModule(LoginModule(loginFragment))
+                .appModule(AppModule(applicationContext))
                 .build()
                 .inject(this)
     }

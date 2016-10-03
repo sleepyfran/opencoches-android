@@ -24,83 +24,81 @@ import android.content.SharedPreferences
 /**
  * Set de utilidades de las SharedPreferences
  */
-class SharedPreferencesUtils {
-    companion object {
-        /**
-         * Clave general de las SharedPreferences
-         */
-        const val SHARED_PREFERENCES_KEY = "foroCarrosAndroid"
+class SharedPreferencesUtils(val context: Context) {
+    /**
+     * Clave general de las SharedPreferences
+     */
+    val SHARED_PREFERENCES_KEY = "foroCarrosAndroid"
 
-        /**
-         * Clave para la contraseña. Sí, guardar la contraseña en las SharedPreferences es chustero
-         * pero qué le vamos a hacer si el jefe no nos da otra opción ni una API. De todos modos
-         * si alguien tiene una mejor sugerencia de cómo guardarlos los Pull Request están abiertos :)
-         */
-        const val USERNAME_KEY = "user"
-        const val PASSWORD_KEY = "pass"
+    /**
+     * Clave para la contraseña. Sí, guardar la contraseña en las SharedPreferences es chustero
+     * pero qué le vamos a hacer si el jefe no nos da otra opción ni una API. De todos modos
+     * si alguien tiene una mejor sugerencia de cómo guardarlos los Pull Request están abiertos :)
+     */
+    val USERNAME_KEY = "user"
+    val PASSWORD_KEY = "pass"
 
-        fun getSharedPreferences(context: Context): SharedPreferences {
-            return context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+    private fun getSharedPreferences(): SharedPreferences {
+        return context.getSharedPreferences(SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE)
+    }
+
+    /**
+     * Retorna true si tenemos datos del usuario guardados y false en caso contrario
+     */
+    fun isLoggedIn(): Boolean {
+        val sharedPrefs = getSharedPreferences()
+
+        return sharedPrefs.contains(USERNAME_KEY) && sharedPrefs.contains(PASSWORD_KEY)
+    }
+
+    /**
+     * Guarda el nombre usuario en las SharedPreferences
+     */
+    fun saveUsername(username: String) {
+        val sharedPrefs = getSharedPreferences()
+        sharedPrefs.edit().putString(USERNAME_KEY, username).apply()
+    }
+
+    /**
+     * Guarda la contraseña del usuario en las SharedPreferences
+     */
+    fun savePassword(password: String) {
+        val sharedPrefs = getSharedPreferences()
+        sharedPrefs.edit().putString(PASSWORD_KEY, password).apply()
+    }
+
+    /**
+     * Retorna el username del usuario de las SharedPreferences. Lanza un IllegalArguments
+     * si no encuentra los datos
+     */
+    fun getUsername(): String {
+        val sharedPrefs = getSharedPreferences()
+
+        if (!sharedPrefs.contains(USERNAME_KEY)) {
+            throw IllegalArgumentException("No tenemos datos guardados en las SharedPreferences")
         }
 
-        /**
-         * Retorna true si tenemos datos del usuario guardados y false en caso contrario
-         */
-        fun isLoggedIn(context: Context): Boolean {
-            val sharedPrefs = getSharedPreferences(context)
+        return sharedPrefs.getString(USERNAME_KEY, "")
+    }
 
-            return sharedPrefs.contains(USERNAME_KEY) && sharedPrefs.contains(PASSWORD_KEY)
+    /**
+     * Retorna la contraseña del usuario de las SharedPreferences. Lanza un IllegalArguments
+     * si no encuentra los datos
+     */
+    fun getPassword(): String {
+        val sharedPrefs = getSharedPreferences()
+
+        if (!sharedPrefs.contains(PASSWORD_KEY)) {
+            throw IllegalArgumentException("No tenemos datos guardados en las SharedPreferences")
         }
 
-        /**
-         * Guarda el nombre usuario en las SharedPreferences
-         */
-        fun saveUsername(context: Context, username: String) {
-            val sharedPrefs = getSharedPreferences(context)
-            sharedPrefs.edit().putString(USERNAME_KEY, username).apply()
-        }
+        return sharedPrefs.getString(PASSWORD_KEY, "")
+    }
 
-        /**
-         * Guarda la contraseña del usuario en las SharedPreferences
-         */
-        fun savePassword(context: Context, password: String) {
-            val sharedPrefs = getSharedPreferences(context)
-            sharedPrefs.edit().putString(PASSWORD_KEY, password).apply()
-        }
-
-        /**
-         * Retorna el username del usuario de las SharedPreferences. Lanza un IllegalArguments
-         * si no encuentra los datos
-         */
-        fun getUsername(context: Context): String {
-            val sharedPrefs = getSharedPreferences(context)
-
-            if (!sharedPrefs.contains(USERNAME_KEY)) {
-                throw IllegalArgumentException("No tenemos datos guardados en las SharedPreferences")
-            }
-
-            return sharedPrefs.getString(USERNAME_KEY, "")
-        }
-
-        /**
-         * Retorna la contraseña del usuario de las SharedPreferences. Lanza un IllegalArguments
-         * si no encuentra los datos
-         */
-        fun getPassword(context: Context): String {
-            val sharedPrefs = getSharedPreferences(context)
-
-            if (!sharedPrefs.contains(PASSWORD_KEY)) {
-                throw IllegalArgumentException("No tenemos datos guardados en las SharedPreferences")
-            }
-
-            return sharedPrefs.getString(PASSWORD_KEY, "")
-        }
-
-        /**
-         * Borra todos los datos de las SharedPreferences
-         */
-        fun removePreferences(context: Context) {
-            getSharedPreferences(context).edit().clear().apply()
-        }
+    /**
+     * Borra todos los datos de las SharedPreferences
+     */
+    fun removePreferences() {
+        getSharedPreferences().edit().clear().apply()
     }
 }
