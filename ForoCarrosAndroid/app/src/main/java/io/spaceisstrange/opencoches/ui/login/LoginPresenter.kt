@@ -58,8 +58,6 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
                 {
                     loggedIn ->
 
-                    view.showLoading(false)
-
                     if (loggedIn) {
                         // Guardamos los datos en las SharedPreferences
                         sharedPreferences.saveUsername(username)
@@ -67,6 +65,7 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
 
                         view.showSubforumList()
                     } else {
+                        view.showLoading(false)
                         view.showWrongDataError()
                     }
                 },
