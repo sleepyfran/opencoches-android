@@ -59,11 +59,14 @@ class SubforumActivity : BaseActivity() {
         val subforumLink = intent.extras?.getString(SUBFORUM_LINK)
                 ?: throw IllegalArgumentException("No soy mago, no puedo cargar el subforo sin link")
 
-        // Creamos el fragment del subforo
-        val subforumFragment = SubforumFragment.newInstance()
+        // Intentamos conseguir de nuevo el fragment anterior si existe
+        var subforumFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? SubforumFragment
 
-        // Añadimos el fragment a la activity
-        ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumFragment, R.id.fragment)
+        if (subforumFragment == null) {
+            // Sino, lo creamos el fragment y lo añadimos
+            subforumFragment = SubforumFragment.newInstance()
+            ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumFragment, R.id.fragment)
+        }
 
         DaggerSubforumComponent.builder()
                 .subforumModule(SubforumModule(subforumFragment, subforumLink))

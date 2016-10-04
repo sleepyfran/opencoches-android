@@ -35,11 +35,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Creamos el fragment del Login
-        val loginFragment = LoginFragment.newInstance()
+        // Intentamos conseguir de nuevo el fragment anterior si existe
+        var loginFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? LoginFragment
 
-        // Añadimos el fragment
-        ActivityUtils.addFragmentToActivity(supportFragmentManager, loginFragment, R.id.fragment)
+        if (loginFragment == null) {
+            // Sino, lo creamos el fragment y lo añadimos
+            loginFragment = LoginFragment.newInstance()
+            ActivityUtils.addFragmentToActivity(supportFragmentManager, loginFragment, R.id.fragment)
+        }
 
         // Inyectamos las dependencias de la activity y el fragment
         DaggerLoginComponent.builder()

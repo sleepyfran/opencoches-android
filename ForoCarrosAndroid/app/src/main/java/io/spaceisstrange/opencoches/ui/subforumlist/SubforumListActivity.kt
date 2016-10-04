@@ -39,11 +39,15 @@ class SubforumListActivity : BaseActivity() {
         setContentView(R.layout.activity_subforum_list)
         setSupportActionBar(toolbar)
 
-        // Creamos el fragment del Login
-        val subforumListFragment = SubforumListFragment.newInstance()
+        // Intentamos conseguir de nuevo el fragment anterior si existe
+        var subforumListFragment =
+                supportFragmentManager.findFragmentById(R.id.fragment) as? SubforumListFragment
 
-        // Añadimos el fragment
-        ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumListFragment, R.id.fragment)
+        if (subforumListFragment == null) {
+            // Sino, lo creamos el fragment y lo añadimos
+            subforumListFragment = SubforumListFragment.newInstance()
+            ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumListFragment, R.id.fragment)
+        }
 
         // Inyectamos las dependencias en la activity y el fragment
         DaggerSubforumListComponent.builder()
