@@ -32,7 +32,7 @@ class SubforumListActivity : BaseActivity() {
     /**
      * Presenter asociado a la activity y al fragment
      */
-    @Inject lateinit var loginPresenter: SubforumListPresenter
+    @Inject lateinit var subforumListPresenter: SubforumListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -29,11 +29,6 @@ import kotlinx.android.synthetic.main.activity_subforum_list.*
 import javax.inject.Inject
 
 class SubforumActivity : BaseActivity() {
-    /**
-     * Presenter asociado a la activity y al fragment
-     */
-    @Inject lateinit var subforumPresenter: SubforumPresenter
-
     companion object {
         /**
          * Clave asociada al extra
@@ -49,6 +44,11 @@ class SubforumActivity : BaseActivity() {
             return startIntent
         }
     }
+
+    /**
+     * Presenter asociado a la activity y al fragment
+     */
+    @Inject lateinit var subforumPresenter: SubforumPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
