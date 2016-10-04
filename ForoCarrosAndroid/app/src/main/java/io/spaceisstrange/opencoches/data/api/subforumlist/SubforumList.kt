@@ -29,7 +29,7 @@ class SubforumList : BaseGetRequest() {
     /**
      * Retorna un observable para obtener los subforos
      */
-    fun getSubforumsObservable(): Observable<List<Subforum>> {
+    fun observable(): Observable<List<Subforum>> {
         return Observable.fromCallable({
             getSubforums()
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

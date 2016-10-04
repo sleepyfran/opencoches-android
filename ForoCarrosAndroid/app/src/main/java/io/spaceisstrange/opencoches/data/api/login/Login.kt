@@ -29,7 +29,7 @@ class Login(val username: String, val password: String) : BasePostRequest() {
     /**
      * Retorna un observable para realizar el login
      */
-    fun loginObservable(): Observable<Boolean> {
+    fun observable(): Observable<Boolean> {
         return Observable.fromCallable({
             login()
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

@@ -45,7 +45,7 @@ class SubforumListPresenter @Inject constructor(val view: SubforumListContract.V
 
     override fun loadSubforums() {
         // Cargamos los subforos y se los pasamos a la view
-        val subforumSubscription = SubforumList().getSubforumsObservable().subscribe(
+        val subforumSubscription = SubforumList().observable().subscribe(
                 {
                     subforums ->
 

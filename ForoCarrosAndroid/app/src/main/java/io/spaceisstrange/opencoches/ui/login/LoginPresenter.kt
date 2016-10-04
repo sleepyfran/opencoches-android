@@ -56,7 +56,7 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
 
         view.showLoading(true)
 
-        val loginSubscription = Login(username, password).loginObservable().subscribe(
+        val loginSubscription = Login(username, password).observable().subscribe(
                 {
                     loggedIn ->
 

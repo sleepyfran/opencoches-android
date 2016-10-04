@@ -29,7 +29,7 @@ class Subforum(val link: String, val page: Int? = null) : BaseGetRequest() {
     /**
      * Retorna un observable para obtener el subforo especificado
      */
-    fun getContentObservable(): Observable<List<Thread>> {
+    fun observable(): Observable<List<Thread>> {
         return Observable.fromCallable({
             getContent()
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

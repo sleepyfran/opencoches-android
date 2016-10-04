@@ -56,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
             val username = sharedPreferences.getUsername()
             val password = sharedPreferences.getPassword()
 
-            loginSubscription = Login(username, password).loginObservable().subscribe(
+            loginSubscription = Login(username, password).observable().subscribe(
                     {
                         result ->
 
