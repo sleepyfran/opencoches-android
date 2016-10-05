@@ -16,26 +16,29 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.model
+package io.spaceisstrange.opencoches.ui.thread
 
-import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.ui.common.BasePresenter
+import io.spaceisstrange.opencoches.ui.common.BaseView
 
-data class Thread(val title: String,
-                  val link: String,
-                  val pages: Int,
-                  val isSticky: Boolean) {
-    companion object {
+interface ThreadContract {
+    interface View : BaseView<ThreadPresenter> {
         /**
-         * Devuelve la cantidad de páginas dado un número de mensajes
+         * Método a llamar cuando el contenido de la página esté cargado
          */
-        fun pagesFromMessages(messages: String): Int {
-            val messagesNumber = messages.replace(".", "").toInt()
+        fun showPage(posts: List<Post>)
 
-            // Si no hay respuestas entonces, por cojones, sólo hay una página
-            if (messagesNumber == 0) return 1
+        /**
+         * Método a llamar cuando se produzca un error
+         */
+        fun showError(show: Boolean)
+    }
 
-            val pagesNumber = Math.ceil((messagesNumber / ApiConstants.THREAD_MAX_POSTS_PER_PAGE))
-            return pagesNumber.toInt()
-        }
+    interface Presenter : BasePresenter {
+        /**
+         * Método a llamar cuando necesitemos cargar el contenido actual de la página
+         */
+        fun loadPage()
     }
 }

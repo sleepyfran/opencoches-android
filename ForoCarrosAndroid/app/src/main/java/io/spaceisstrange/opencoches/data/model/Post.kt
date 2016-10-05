@@ -18,24 +18,9 @@
 
 package io.spaceisstrange.opencoches.data.model
 
-import io.spaceisstrange.opencoches.data.api.ApiConstants
-
-data class Thread(val title: String,
-                  val link: String,
-                  val pages: Int,
-                  val isSticky: Boolean) {
-    companion object {
-        /**
-         * Devuelve la cantidad de páginas dado un número de mensajes
-         */
-        fun pagesFromMessages(messages: String): Int {
-            val messagesNumber = messages.replace(".", "").toInt()
-
-            // Si no hay respuestas entonces, por cojones, sólo hay una página
-            if (messagesNumber == 0) return 1
-
-            val pagesNumber = Math.ceil((messagesNumber / ApiConstants.THREAD_MAX_POSTS_PER_PAGE))
-            return pagesNumber.toInt()
-        }
-    }
-}
+data class Post(val posterUsername: String,
+           val posterPictureLink: String,
+           val posterDescription: String,
+           val posterId: String,
+           val postTimestamp: String,
+           val postHtml: String)

@@ -83,7 +83,7 @@ class SubforumAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adap
             }
 
             view.tvSubforoThreadTitle.text = thread.title
-            view.tvSubforoThreadPreview.text = thread.preview
+            view.tvSubforoThreadPreview.text = view.context.getString(R.string.thread_pages, thread.pages)
         }
     }
 }

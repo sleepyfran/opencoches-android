@@ -21,6 +21,9 @@
     <string name="login.error.username">Introduce un nombre de usuario válido, hombre por dios.</string>
     <string name="login.error.password">Introduce una contraseña válida, hombre por dios.</string>
 
+    <!-- Información sobre el hilo -->
+    <string name="thread.pages">%1$s página(s)</string>
+
     <!-- Hilo del foro -->
     <string name="post.username_details">%1$s | %2$s</string>
 
@@ -52,7 +55,7 @@
     <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>
     <string name="dummy.subforo_post">Viva Android cabrones</string>
-    <string name="dummy.subforo_post_preview">Lo dicho en el título. Android manda y no tú panda</string>
+    <string name="dummy.subforo_post_preview">1290 página(s)</string>
     <string name="dummy.post_timestamp">Hoy 16:20</string>
     <string name="dummy.post_username_details">blablabla | Ago 2010 | 400 mensajes</string>
     <string name="dummy.post_content">

@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
+import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
 import kotlinx.android.synthetic.main.fragment_subforum.*
 
 class SubforumFragment : Fragment(), SubforumContract.View {
@@ -129,7 +130,7 @@ class SubforumFragment : Fragment(), SubforumContract.View {
     }
 
     override fun showThread(thread: Thread) {
-        // TODO: Mostrar hilo
+        startActivity(ThreadActivity.getStartIntent(context, thread.title, thread.link, thread.pages))
     }
 
     override fun showError(show: Boolean) {

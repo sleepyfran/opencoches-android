@@ -30,6 +30,7 @@ class ApiConstants {
         const val USER_PROFILE_URL = "member.php?u="
         const val MESSAGE_URL = "private.php?do=newpm&u="
         const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
+        const val THREAD_PAGE_URL = "&page="
         const val SUBFORO_PAGE_URL = "&page="
 
         /**
@@ -38,6 +39,13 @@ class ApiConstants {
         const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
         const val TD_THREAD_TITLE_KEY = "td_threadtitle"
         const val THREAD_TITLE_KEY = "thread_title_"
+        const val THREAD_PAGES_KEY = "misc.php?do=whoposted&t="
+        const val THREAD_MAX_POSTS_PER_PAGE = 30.toDouble()
+        const val POST_ROOT_ID_KEY = "post"
+        const val POST_USER_USERNAME_CLASS_KEY = "bigusername"
+        const val POST_USER_IMAGE_CLASS_KEY = "avatar"
+        const val POST_CONTENT_USER_INFO_KEY = "smallfont"
+        const val POST_TIMESTAMP_CLASS_KEY = "thead"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo

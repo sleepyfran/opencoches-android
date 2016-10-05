@@ -45,24 +45,48 @@ class Subforum(val link: String, val page: Int? = null) : BaseGetRequest() {
         // Lista donde almacenaremos cada hilo
         val threadList: MutableList<Thread> = mutableListOf()
 
-        // Obtenemos los td del documento. Cada hilo está contenido en una td
-        val threads = document.select("td[id^=" + ApiConstants.TD_THREAD_TITLE_KEY + "]")
+        // Obtenemos primero los hilos con chincheta
+        try {
+            val pinnedThreadsBody = document.select("tbody[id^=collapseobj_st_]")[0]
+            val pinnedThreads = pinnedThreadsBody.select("tr")
+
+            // Eliminamos los que no nos interesan
+            pinnedThreads.removeAt(pinnedThreads.size - 1)
+
+            for (thread in pinnedThreads) {
+                val isSticky = true
+                val threadInfo = thread.select("a[id^=" + ApiConstants.THREAD_TITLE_KEY + "]")[0]
+                val threadPages = thread.select("a[href^=" + ApiConstants.THREAD_PAGES_KEY + "]")[0].text()
+                val threadTitle = threadInfo.text()
+                val threadLink = threadInfo.attr("href")
+
+                // Añadimos el nuevo thread a la lista
+                threadList.add(Thread(threadTitle,
+                        threadLink,
+                        Thread.pagesFromMessages(threadPages),
+                        isSticky))
+            }
+        } catch (exception: IndexOutOfBoundsException) {
+            // Hay algunos subforos que no tienen temas con chincheta, así que a silenciar se ha dicho
+        }
+
+        // Y después los que no tienen chincheta
+        val nonPinnedThreadsBody = document.select("tbody[id^=threadbits_forum_]")[0]
+        val nonPinnedThreads = nonPinnedThreadsBody.select("tr")
 
         // Iteramos sobre cada uno de los hilos obteniendo el contenido
-        for (thread in threads) {
-            var isSticky = false
-            val threadPreview = thread.attr("title")
+        for (thread in nonPinnedThreads) {
+            val isSticky = false
             val threadInfo = thread.select("a[id^=" + ApiConstants.THREAD_TITLE_KEY + "]")[0]
+            val threadPages = thread.select("a[href^=" + ApiConstants.THREAD_PAGES_KEY + "]")[0].text()
             val threadTitle = threadInfo.text()
             val threadLink = threadInfo.attr("href")
 
-            // Comprobamos si contiene "chincheta" por alguna parte
-            if (thread.getElementsContainingText("Chincheta").size > 0) {
-                isSticky = true
-            }
-
             // Añadimos el nuevo thread a la lista
-            threadList.add(Thread(threadTitle, threadPreview, threadLink, isSticky))
+            threadList.add(Thread(threadTitle,
+                    threadLink,
+                    Thread.pagesFromMessages(threadPages),
+                    isSticky))
         }
 
         return threadList

@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.common.baseactivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -34,6 +35,15 @@ open class BaseActivity : AppCompatActivity() {
      * SharedPreferences de la aplicación
      */
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
+
+    /**
+     * Como su nombre indica muestra la "X" como acción del botón home de la toolbar
+     */
+    fun showCloseButtonOnToolbar() {
+        val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)
+        supportActionBar?.setHomeAsUpIndicator(closeButton)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.default_menu, menu)
