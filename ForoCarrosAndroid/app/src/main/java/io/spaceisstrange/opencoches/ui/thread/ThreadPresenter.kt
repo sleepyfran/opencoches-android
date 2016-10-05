@@ -45,16 +45,20 @@ class ThreadPresenter @Inject constructor(var view: ThreadContract.View,
 
     override fun loadPage() {
         // Cargamos los posts del hilo y los mostramos
+        view.showLoading(true)
+
         val postsSubscription = ThreadPage(link, currentPage).observable().subscribe(
                 {
                     posts ->
 
+                    view.showLoading(false)
                     view.showError(false)
                     view.showPage(posts)
                 },
                 {
                     error ->
 
+                    view.showLoading(false)
                     view.showError(true)
                 }
         )

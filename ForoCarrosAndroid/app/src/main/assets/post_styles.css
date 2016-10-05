@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+}
+
+.post {
+    word-wrap: break-word;
+    background: #424242;
+}
+
+.post-toolbar {
+    font-family: 'Roboto Light', sans-serif-light;
+    background: #212121;
+    color: #F5F5F5;
+    height: 48px;
+    padding-bottom: 10px
+    box-sizing: border-box;
+}
+
+.post-toolbar p {
+    color: #F5F5F5;
+}
+
+.profile-picture {
+    float:left;
+    max-height: 48px;
+    max-width: 48px;
+}
+
+.post-details {
+    float: right;
+    padding: 8px 4px 0px 4px;
+    color: #757575;
+}
+
+.post-content {
+    color: #F5F5F5;
+    padding-bottom: 10px
+}
+
+.post-content a {
+    color: #00BCD4;
+}
+
+.post-content img {
+    max-width: 100%;
+    width:auto;
+    height: auto;
+}

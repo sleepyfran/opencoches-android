@@ -23,4 +23,4 @@ data class Post(val posterUsername: String,
            val posterDescription: String,
            val posterId: String,
            val postTimestamp: String,
-           val postHtml: String)
+           var postHtml: String)

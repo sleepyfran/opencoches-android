@@ -16,34 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.thread
+package io.spaceisstrange.opencoches.ui.templates
 
+import android.content.Context
+import com.squareup.phrase.Phrase
 import io.spaceisstrange.opencoches.data.model.Post
-import io.spaceisstrange.opencoches.ui.common.BasePresenter
-import io.spaceisstrange.opencoches.ui.common.BaseView
 
-interface ThreadContract {
-    interface View : BaseView<ThreadPresenter> {
-        /**
-         * Método a llamar cuando el contenido de la página esté cargado
-         */
-        fun showPage(posts: List<Post>)
-
-        /**
-         * Método a llamar cuando se estén cargando los datos
-         */
-        fun showLoading(show: Boolean)
-
-        /**
-         * Método a llamar cuando se produzca un error
-         */
-        fun showError(show: Boolean)
-    }
-
-    interface Presenter : BasePresenter {
-        /**
-         * Método a llamar cuando necesitemos cargar el contenido actual de la página
-         */
-        fun loadPage()
+class PostTemplate(context: Context) : HtmlTemplate<Post>(context, "post_template.html") {
+    override fun render(content: Post, template: Phrase): String {
+        return template.put("picture_src", content.posterPictureLink)
+                .put("poster_username", content.posterUsername)
+                .put("poster_link", content.posterId)
+                .put("post_date", content.postTimestamp)
+                .put("content", content.postHtml)
+                .format()
+                .toString()
     }
 }

@@ -16,34 +16,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.thread
+package io.spaceisstrange.opencoches.ui.templates
 
+import android.content.Context
+import com.squareup.phrase.Phrase
 import io.spaceisstrange.opencoches.data.model.Post
-import io.spaceisstrange.opencoches.ui.common.BasePresenter
-import io.spaceisstrange.opencoches.ui.common.BaseView
 
-interface ThreadContract {
-    interface View : BaseView<ThreadPresenter> {
-        /**
-         * Método a llamar cuando el contenido de la página esté cargado
-         */
-        fun showPage(posts: List<Post>)
+class PostsTemplate(context: Context) : HtmlTemplate<List<Post>>(context, "post_list.html") {
+    /**
+     * Dependencias utilizadas
+     */
+    val postTemplate = PostTemplate(context)
 
-        /**
-         * Método a llamar cuando se estén cargando los datos
-         */
-        fun showLoading(show: Boolean)
+    override fun render(content: List<Post>, template: Phrase): String {
+        val buffer = StringBuilder()
 
-        /**
-         * Método a llamar cuando se produzca un error
-         */
-        fun showError(show: Boolean)
-    }
+        for (post in content) {
+            // Reemplazamos primero las URLs "falsas" de FC
+            post.postHtml = post.postHtml.replace("//st.forocoches.com/", "http://st.forocoches.com/")
+            buffer.append(postTemplate.render(post))
+        }
 
-    interface Presenter : BasePresenter {
-        /**
-         * Método a llamar cuando necesitemos cargar el contenido actual de la página
-         */
-        fun loadPage()
+        return template.put("css", readFromAssets("post_styles.css"))
+                .put("posts", buffer)
+                .format()
+                .toString()
     }
 }

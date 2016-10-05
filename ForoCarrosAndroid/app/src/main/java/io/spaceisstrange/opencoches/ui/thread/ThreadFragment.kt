@@ -37,11 +37,6 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     @Inject lateinit var threadPresenter: ThreadPresenter
 
     /**
-     * Adapter de los posts
-     */
-    lateinit var threadAdapter: ThreadAdapter
-
-    /**
      * Información general del post a pasar al presenter
      */
     var currentPage: Int = 1
@@ -60,11 +55,7 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_thread, container, false)
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val view = inflater.inflate(R.layout.fragment_thread, container, false)
 
         // Inyectamos el fragment
         DaggerThreadComponent.builder()
@@ -73,16 +64,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
                 .build()
                 .inject(this)
 
-        // Configuramos la RecyclerView
-        threadAdapter = ThreadAdapter()
-        val layoutManager = PreCacheLayoutManager(context)
-        rvThreadPostList.adapter = threadAdapter
-        rvThreadPostList.layoutManager = layoutManager
+        return view
+    }
 
-        // Establecemos el onClick
-        threadAdapter.onUserClick = {
-            // Nada por ahora
-        }
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Inicializamos el presenter
         threadPresenter.init()
@@ -93,16 +79,33 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     }
 
     override fun showPage(posts: List<Post>) {
-        threadAdapter.updatePosts(posts)
+        // Actualizamos el contenido del web view
+        wvPostContent.loadContent(posts)
+    }
+
+    override fun showLoading(show: Boolean) {
+        if (wvPostContent == null || llReply == null || loading == null) return
+
+        if (show) {
+            wvPostContent.visibility = View.GONE
+            llReply.visibility = View.GONE
+            loading.visibility = View.VISIBLE
+        } else {
+            wvPostContent.visibility = View.VISIBLE
+            llReply.visibility = View.VISIBLE
+            loading.visibility = View.GONE
+        }
     }
 
     override fun showError(show: Boolean) {
+        if (wvPostContent == null || llReply == null || vError == null) return
+
         if (show) {
-            rvThreadPostList.visibility = View.GONE
+            wvPostContent.visibility = View.GONE
             llReply.visibility = View.GONE
             vError.visibility = View.VISIBLE
         } else {
-            rvThreadPostList.visibility = View.VISIBLE
+            wvPostContent.visibility = View.VISIBLE
             llReply.visibility = View.VISIBLE
             vError.visibility = View.GONE
         }
