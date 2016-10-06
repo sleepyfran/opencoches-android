@@ -21,6 +21,7 @@ package io.spaceisstrange.opencoches.ui.views
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.model.Post
@@ -32,9 +33,18 @@ class OpenCochesWebView : WebView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    /**
+     * Método a llamar cuando el usuario presione en un usuario
+     */
+    var onUserClick: ((username: String, link: String, pictureSrc: String) -> Unit)? = null
+
     init {
         // Hacemos el fondo transparente para que sea del color de la App
         setBackgroundColor(Color.TRANSPARENT)
+
+        // Habilitamos JavaScript y nos declaramos como interfaz
+        settings.javaScriptEnabled = true
+        addJavascriptInterface(this, "Android")
     }
 
     /**
@@ -43,5 +53,10 @@ class OpenCochesWebView : WebView {
     fun loadContent(content: List<Post>) {
         val contentHtml = PostsTemplate(context).render(content)
         loadDataWithBaseURL(ApiConstants.BASE_URL, contentHtml, "text/html", "utf-8", null)
+    }
+
+    @JavascriptInterface
+    fun showProfile(username: String, link: String, pictureSrc: String) {
+        onUserClick?.invoke(username, link, pictureSrc)
     }
 }

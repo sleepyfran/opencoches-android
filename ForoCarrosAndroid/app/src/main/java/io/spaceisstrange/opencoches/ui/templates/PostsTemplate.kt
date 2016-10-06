@@ -37,7 +37,10 @@ class PostsTemplate(context: Context) : HtmlTemplate<List<Post>>(context, "post_
             buffer.append(postTemplate.render(post))
         }
 
-        return template.put("css", readFromAssets("post_styles.css"))
+        // Añadimos el JS y CSS de los posts
+        return template
+                .put("js", readFromAssets("open_coches_script.js"))
+                .put("css", readFromAssets("post_styles.css"))
                 .put("posts", buffer)
                 .format()
                 .toString()

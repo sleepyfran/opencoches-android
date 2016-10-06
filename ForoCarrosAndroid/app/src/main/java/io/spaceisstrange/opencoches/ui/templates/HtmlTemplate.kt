@@ -56,10 +56,10 @@ abstract class HtmlTemplate<in T>(val context: Context, val template: String) {
     }
 
     /**
-     * Compila la template en un Phrase
+     * Compila la templateFromAssets en un Phrase
      */
-    fun compileTemplate(template: String): Phrase {
-        return Phrase.from(template)
+    fun compileTemplate(templateFromAssets: String): Phrase {
+        return Phrase.from(templateFromAssets)
     }
 
     /**
