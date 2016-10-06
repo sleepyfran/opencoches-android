@@ -76,11 +76,11 @@ class LoginFragment : Fragment(), LoginContract.View {
 
     override fun showLoading(enabled: Boolean) {
         if (enabled) {
-            llLogin.visibility = View.GONE
-            loading.visibility = View.VISIBLE
+            llLogin?.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
         } else {
-            llLogin.visibility = View.VISIBLE
-            loading.visibility = View.GONE
+            llLogin?.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
         }
     }
 
@@ -90,11 +90,11 @@ class LoginFragment : Fragment(), LoginContract.View {
     }
 
     override fun showUsernameError() {
-        etLoginUsername.error = getString(R.string.login_error_username)
+        etLoginUsername?.error = getString(R.string.login_error_username)
     }
 
     override fun showPasswordError() {
-        etLoginPassword.error = getString(R.string.login_error_password)
+        etLoginPassword?.error = getString(R.string.login_error_password)
     }
 
     override fun showWrongDataError() {

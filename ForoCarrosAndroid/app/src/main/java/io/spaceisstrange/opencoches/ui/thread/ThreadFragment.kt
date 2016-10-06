@@ -23,10 +23,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tinsuke.icekick.freezeInstanceState
+import com.tinsuke.icekick.state
+import com.tinsuke.icekick.unfreezeInstanceState
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
-import io.spaceisstrange.opencoches.util.PreCacheLayoutManager
 import kotlinx.android.synthetic.main.fragment_thread.*
 import javax.inject.Inject
 
@@ -39,8 +41,8 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     /**
      * Información general del post a pasar al presenter
      */
-    var currentPage: Int = 1
-    lateinit var link: String
+    var currentPage: Int by state(1)
+    var link: String? by state()
 
     companion object {
         /**
@@ -57,12 +59,8 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_thread, container, false)
 
-        // Inyectamos el fragment
-        DaggerThreadComponent.builder()
-                .threadModule(ThreadModule(this, link, currentPage))
-                .sharedPreferencesUtilsComponent((activity.application as App).sharedPrefsComponent)
-                .build()
-                .inject(this)
+        // Intentamos restaurar los valores anteriores, si los hay
+        unfreezeInstanceState(savedInstanceState)
 
         return view
     }
@@ -70,8 +68,25 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inyectamos el fragment
+        DaggerThreadComponent.builder()
+                .threadModule(ThreadModule(this, link!!, currentPage))
+                .sharedPreferencesUtilsComponent((activity.application as App).sharedPrefsComponent)
+                .build()
+                .inject(this)
+
         // Inicializamos el presenter
         threadPresenter.init()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        freezeInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        threadPresenter.finish()
     }
 
     override fun setPresenter(presenter: ThreadPresenter) {
@@ -84,30 +99,26 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     }
 
     override fun showLoading(show: Boolean) {
-        if (wvPostContent == null || llReply == null || loading == null) return
-
         if (show) {
-            wvPostContent.visibility = View.GONE
-            llReply.visibility = View.GONE
-            loading.visibility = View.VISIBLE
+            wvPostContent?.visibility = View.GONE
+            llReply?.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
         } else {
-            wvPostContent.visibility = View.VISIBLE
-            llReply.visibility = View.VISIBLE
-            loading.visibility = View.GONE
+            wvPostContent?.visibility = View.VISIBLE
+            llReply?.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
         }
     }
 
     override fun showError(show: Boolean) {
-        if (wvPostContent == null || llReply == null || vError == null) return
-
         if (show) {
-            wvPostContent.visibility = View.GONE
-            llReply.visibility = View.GONE
-            vError.visibility = View.VISIBLE
+            wvPostContent?.visibility = View.GONE
+            llReply?.visibility = View.GONE
+            vError?.visibility = View.VISIBLE
         } else {
-            wvPostContent.visibility = View.VISIBLE
-            llReply.visibility = View.VISIBLE
-            vError.visibility = View.GONE
+            wvPostContent?.visibility = View.VISIBLE
+            llReply?.visibility = View.VISIBLE
+            vError?.visibility = View.GONE
         }
     }
 }

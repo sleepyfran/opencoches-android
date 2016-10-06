@@ -71,17 +71,22 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
         subsforumListPresenter.init()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        subsforumListPresenter.finish()
+    }
+
     override fun setPresenter(presenter: SubforumListPresenter) {
         subsforumListPresenter = presenter
     }
 
     override fun showLoading(enabled: Boolean) {
         if (enabled) {
-            rvSubforumList.visibility = View.GONE
-            loading.visibility = View.VISIBLE
+            rvSubforumList?.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
         } else {
-            rvSubforumList.visibility = View.VISIBLE
-            loading.visibility = View.GONE
+            rvSubforumList?.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
         }
     }
 
@@ -96,13 +101,13 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
 
     override fun showError(show: Boolean) {
         if (show) {
-            loading.visibility = View.GONE
-            rvSubforumList.visibility = View.GONE
-            vError.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
+            rvSubforumList?.visibility = View.GONE
+            vError?.visibility = View.VISIBLE
         } else {
-            loading.visibility = View.VISIBLE
-            rvSubforumList.visibility = View.VISIBLE
-            vError.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
+            rvSubforumList?.visibility = View.VISIBLE
+            vError?.visibility = View.GONE
         }
     }
 }

@@ -113,6 +113,11 @@ class SubforumFragment : Fragment(), SubforumContract.View {
         subforumPresenter.init()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        subforumPresenter.finish()
+    }
+
     override fun setPresenter(presenter: SubforumPresenter) {
         subforumPresenter = presenter
     }
@@ -135,11 +140,11 @@ class SubforumFragment : Fragment(), SubforumContract.View {
 
     override fun showError(show: Boolean) {
         if (show) {
-            rvSubforumThreads.visibility = View.GONE
-            vError.visibility = View.VISIBLE
+            rvSubforumThreads?.visibility = View.GONE
+            vError?.visibility = View.VISIBLE
         } else {
-            rvSubforumThreads.visibility = View.VISIBLE
-            vError.visibility = View.GONE
+            rvSubforumThreads?.visibility = View.VISIBLE
+            vError?.visibility = View.GONE
         }
     }
 }
