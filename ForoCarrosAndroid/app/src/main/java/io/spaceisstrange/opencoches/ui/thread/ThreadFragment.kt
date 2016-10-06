@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.tinsuke.icekick.freezeInstanceState
 import com.tinsuke.icekick.state
 import com.tinsuke.icekick.unfreezeInstanceState
@@ -77,6 +78,29 @@ class ThreadFragment : Fragment(), ThreadContract.View {
 
         // Inicializamos el presenter
         threadPresenter.init()
+
+        // Ocultamos la barra de respuesta al hacer scroll
+        wvPostContent.setOnScrollChangeListener {
+            view, x, y, oldX, oldY ->
+
+            if (oldY - y < 0) {
+                // Ocultamos la barra
+                llReply.animate()
+                        .translationY(llReply.bottom.toFloat())
+                        .alpha(0.toFloat())
+                        .setInterpolator(AccelerateDecelerateInterpolator())
+                        .setDuration(350)
+                        .start()
+            } else {
+                // Mostramos la barra
+                llReply.animate()
+                        .translationY(0.toFloat())
+                        .alpha(1.toFloat())
+                        .setInterpolator(AccelerateDecelerateInterpolator())
+                        .setDuration(350)
+                        .start()
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
