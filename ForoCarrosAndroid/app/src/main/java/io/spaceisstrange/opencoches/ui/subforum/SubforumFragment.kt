@@ -106,7 +106,7 @@ class SubforumFragment : Fragment(), SubforumContract.View {
 
         // Recargamos el contenido cuando el usuario haga un swipe to refresh
         srlSubforum.setOnRefreshListener {
-            subforumPresenter.loadThreads()
+            subforumPresenter.reloadThreads()
         }
 
         // Iniciamos el presenter

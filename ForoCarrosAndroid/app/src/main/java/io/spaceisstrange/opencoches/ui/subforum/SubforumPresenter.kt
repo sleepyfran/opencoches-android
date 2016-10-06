@@ -72,6 +72,11 @@ class SubforumPresenter @Inject constructor(val view: SubforumContract.View, val
         loadThreads()
     }
 
+    override fun reloadThreads() {
+        subforumActualPage = 1
+        loadThreads()
+    }
+
     override fun loadThreads() {
         loadThreads(link, {
             threads ->

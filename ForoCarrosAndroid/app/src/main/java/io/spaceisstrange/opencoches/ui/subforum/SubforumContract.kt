@@ -55,6 +55,11 @@ interface SubforumContract {
 
     interface Presenter : BasePresenter {
         /**
+         * Método a llamar cuando el usuario recargue los hilos
+         */
+        fun reloadThreads()
+
+        /**
          * Método a llamar cuando queramos cargar los hilos del subforo
          */
         fun loadThreads()
