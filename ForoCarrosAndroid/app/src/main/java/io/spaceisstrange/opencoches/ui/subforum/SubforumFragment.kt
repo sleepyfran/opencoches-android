@@ -123,7 +123,7 @@ class SubforumFragment : Fragment(), SubforumContract.View {
     }
 
     override fun showLoading(enabled: Boolean) {
-        srlSubforum.isRefreshing = enabled
+        srlSubforum?.isRefreshing = enabled
     }
 
     override fun showThreads(threads: List<Thread>) {
