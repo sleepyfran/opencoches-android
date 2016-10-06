@@ -36,7 +36,7 @@ class OpenCochesWebView : WebView {
     /**
      * Método a llamar cuando el usuario presione en un usuario
      */
-    var onUserClick: ((username: String, link: String, pictureSrc: String) -> Unit)? = null
+    var onUserClick: ((username: String, id: String, pictureSrc: String) -> Unit)? = null
 
     init {
         // Hacemos el fondo transparente para que sea del color de la App
@@ -56,7 +56,7 @@ class OpenCochesWebView : WebView {
     }
 
     @JavascriptInterface
-    fun showProfile(username: String, link: String, pictureSrc: String) {
-        onUserClick?.invoke(username, link, pictureSrc)
+    fun showProfile(username: String, id: String, pictureSrc: String) {
+        onUserClick?.invoke(username, id, pictureSrc)
     }
 }

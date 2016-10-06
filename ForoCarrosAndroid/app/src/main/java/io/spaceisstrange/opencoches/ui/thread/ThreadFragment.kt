@@ -30,6 +30,7 @@ import com.tinsuke.icekick.unfreezeInstanceState
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
 import kotlinx.android.synthetic.main.fragment_thread.*
 import javax.inject.Inject
 
@@ -100,6 +101,13 @@ class ThreadFragment : Fragment(), ThreadContract.View {
                         .setDuration(350)
                         .start()
             }
+        }
+
+        // Mostramos el perfil del usuario cuando se pulse sobre su imagen en la WebView
+        wvPostContent.onUserClick = {
+            username, id, pictureSrc ->
+
+            ProfileDialog.newInstance(username, id, pictureSrc).show(fragmentManager, null)
         }
     }
 

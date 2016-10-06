@@ -16,20 +16,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.templates
+package io.spaceisstrange.opencoches.ui.profile
 
-import android.content.Context
-import com.squareup.phrase.Phrase
-import io.spaceisstrange.opencoches.data.model.Post
+import dagger.Module
+import dagger.Provides
 
-class PostTemplate(context: Context) : HtmlTemplate<Post>(context, "post_template.html") {
-    override fun render(content: Post, template: Phrase): String {
-        return template.put("picture_src", content.posterPictureLink)
-                .put("poster_username", content.posterUsername)
-                .put("poster_id", content.posterId)
-                .put("post_date", content.postTimestamp)
-                .put("content", content.postHtml)
-                .format()
-                .toString()
+@Module
+class ProfileModule(val view: ProfileContract.View, val userId: String) {
+    @Provides
+    fun provideProfilePresenter(): ProfilePresenter {
+        return ProfilePresenter(view, userId)
     }
 }
