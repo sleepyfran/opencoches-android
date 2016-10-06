@@ -31,15 +31,21 @@ import javax.inject.Inject
 class SubforumActivity : BaseActivity() {
     companion object {
         /**
-         * Clave asociada al extra
+         * Clave asociada al título del subforo
+         */
+        val SUBFORUM_TITLE = "subforumTitle"
+
+        /**
+         * Clave asociada al link del subfroo
          */
         val SUBFORUM_LINK = "subforumLink"
 
         /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
          */
-        fun getStartIntent(context: Context, subforumLink: String): Intent {
+        fun getStartIntent(context: Context, subforumTitle: String, subforumLink: String): Intent {
             val startIntent = Intent(context, SubforumActivity::class.java)
+            startIntent.putExtra(SUBFORUM_TITLE, subforumTitle)
             startIntent.putExtra(SUBFORUM_LINK, subforumLink)
             return startIntent
         }
@@ -56,8 +62,13 @@ class SubforumActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         // Cargamos el link del subforo de los extras del intent
+        val subforumTitle = intent.extras?.getString(SUBFORUM_TITLE)
+                ?: throw IllegalArgumentException("Necesitamos el título del hilo, Houston")
         val subforumLink = intent.extras?.getString(SUBFORUM_LINK)
                 ?: throw IllegalArgumentException("No soy mago, no puedo cargar el subforo sin link")
+
+        // Ponemos el título del subforo como título de la toolbar
+        supportActionBar?.title = subforumTitle
 
         // Intentamos conseguir de nuevo el fragment anterior si existe
         var subforumFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? SubforumFragment

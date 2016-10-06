@@ -96,7 +96,7 @@ class SubforumListFragment : Fragment(), SubforumListContract.View {
 
     override fun showSubforum(subforum: Subforum) {
         // Mostramos el subforo
-        startActivity(SubforumActivity.getStartIntent(context, subforum.link))
+        startActivity(SubforumActivity.getStartIntent(context, subforum.title, subforum.link))
     }
 
     override fun showError(show: Boolean) {
