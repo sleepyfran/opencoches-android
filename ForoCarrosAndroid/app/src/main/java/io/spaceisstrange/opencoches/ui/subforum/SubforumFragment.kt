@@ -28,6 +28,7 @@ import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
+import kotlinx.android.synthetic.main.activity_subforum.*
 import kotlinx.android.synthetic.main.fragment_subforum.*
 
 class SubforumFragment : Fragment(), SubforumContract.View {
@@ -77,6 +78,19 @@ class SubforumFragment : Fragment(), SubforumContract.View {
         rvSubforumThreads.adapter = adapter
         val layoutManager = LinearLayoutManager(context)
         rvSubforumThreads.layoutManager = layoutManager
+
+        // Ocultamos el fab al hacer scroll
+        rvSubforumThreads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    activity.fab.hide()
+                } else {
+                    activity.fab.show()
+                }
+            }
+        })
 
         // Configuramos la RecyclerView para ser "infinita"
         // Basado en: http://stackoverflow.com/a/26561717
