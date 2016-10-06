@@ -1,13 +1,3 @@
-package io.spaceisstrange.opencoches.ui.views
-
-import android.content.Context
-import android.util.AttributeSet
-import android.view.MotionEvent
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import io.spaceisstrange.opencoches.api.net.ApiConstants
-import io.spaceisstrange.opencoches.utils.HtmlUtils
-
 /*
  * Hecho con <3 por Fran González (@spaceisstrange)
  *
@@ -26,21 +16,32 @@ import io.spaceisstrange.opencoches.utils.HtmlUtils
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+package io.spaceisstrange.opencoches.ui.views
+
+import android.content.Context
+import android.graphics.Color
+import android.util.AttributeSet
+import android.webkit.WebView
+import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.ui.templates.PostsTemplate
+
 class OpenCochesWebView : WebView {
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    init {
+        // Hacemos el fondo transparente para que sea del color de la App
+        setBackgroundColor(Color.TRANSPARENT)
+    }
+
     /**
      * Carga el contenido HTML especificado en el webview
      */
-    fun loadContent(content: String) {
-        // Reemplazamos las URLs "falsas" de FC
-        val htmlContent = content.replace("//st.forocoches.com/", "http://st.forocoches.com/")
-
-        val headHtml = HtmlUtils.ADJUST_SIZE_HEAD
-        val contentHtml = "$headHtml<body>$htmlContent</body>"
-        loadDataWithBaseURL(ApiConstants.BASE_URL,contentHtml, "text/html", "utf-8", null)
+    fun loadContent(content: List<Post>) {
+        val contentHtml = PostsTemplate(context).render(content)
+        loadDataWithBaseURL(ApiConstants.BASE_URL, contentHtml, "text/html", "utf-8", null)
     }
 }
