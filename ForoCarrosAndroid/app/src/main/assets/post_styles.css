@@ -4,12 +4,12 @@ body {
 
 .post {
     word-wrap: break-word;
-    background: #424242;
+    background: #212121;
 }
 
 .post-toolbar {
     font-family: 'Roboto', sans-serif-light;
-    background: #212121;
+    background: #424242;
     color: #F5F5F5;
     height: 64px;
     width: 100%;
