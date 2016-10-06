@@ -23,7 +23,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
 import com.tinsuke.icekick.freezeInstanceState
 import com.tinsuke.icekick.state
 import com.tinsuke.icekick.unfreezeInstanceState
@@ -31,6 +30,7 @@ import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
+import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
 import javax.inject.Inject
 
@@ -80,26 +80,16 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         // Inicializamos el presenter
         threadPresenter.init()
 
-        // Ocultamos la barra de respuesta al hacer scroll
+        // Ocultamos el fab de respuesta de respuesta al hacer scroll
         wvPostContent.setOnScrollChangeListener {
             view, x, y, oldX, oldY ->
 
             if (oldY - y < 0) {
-                // Ocultamos la barra
-                llReply.animate()
-                        .translationY(llReply.bottom.toFloat())
-                        .alpha(0.toFloat())
-                        .setInterpolator(AccelerateDecelerateInterpolator())
-                        .setDuration(350)
-                        .start()
+                // Ocultamos el fab
+                activity.fab.hide()
             } else {
-                // Mostramos la barra
-                llReply.animate()
-                        .translationY(0.toFloat())
-                        .alpha(1.toFloat())
-                        .setInterpolator(AccelerateDecelerateInterpolator())
-                        .setDuration(350)
-                        .start()
+                // Mostramos el fab
+                activity.fab.show()
             }
         }
 
@@ -133,11 +123,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     override fun showLoading(show: Boolean) {
         if (show) {
             wvPostContent?.visibility = View.GONE
-            llReply?.visibility = View.GONE
+            activity.fab.hide()
             loading?.visibility = View.VISIBLE
         } else {
             wvPostContent?.visibility = View.VISIBLE
-            llReply?.visibility = View.VISIBLE
+            activity.fab.show()
             loading?.visibility = View.GONE
         }
     }
@@ -145,11 +135,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     override fun showError(show: Boolean) {
         if (show) {
             wvPostContent?.visibility = View.GONE
-            llReply?.visibility = View.GONE
+            activity.fab.hide()
             vError?.visibility = View.VISIBLE
         } else {
             wvPostContent?.visibility = View.VISIBLE
-            llReply?.visibility = View.VISIBLE
+            activity.fab.show()
             vError?.visibility = View.GONE
         }
     }

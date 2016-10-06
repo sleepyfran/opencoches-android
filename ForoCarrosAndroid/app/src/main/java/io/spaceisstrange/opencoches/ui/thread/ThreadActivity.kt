@@ -94,6 +94,8 @@ class ThreadActivity : BaseActivity() {
         pagerAdapter = ThreadPagerAdapter(supportFragmentManager, threadLink, threadPages)
         vpThreadPages.adapter = pagerAdapter
         vpThreadPages.currentItem = threadCurrentPage - 1
+
+        // TODO: Hacer algo con el FAB de respuesta
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
