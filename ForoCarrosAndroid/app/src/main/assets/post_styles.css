@@ -63,6 +63,12 @@ img {
     height: auto;
 }
 
+.alt2 {
+    max-width: 100%;
+    width:auto;
+    height: auto;
+}
+
 .video-container {
 	position:relative;
 	padding-bottom:56.25%;
