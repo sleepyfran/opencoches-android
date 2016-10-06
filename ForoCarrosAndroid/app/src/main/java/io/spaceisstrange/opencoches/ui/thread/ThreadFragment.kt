@@ -18,11 +18,15 @@
 
 package io.spaceisstrange.opencoches.ui.thread
 
+import android.animation.Animator
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import com.tinsuke.icekick.freezeInstanceState
 import com.tinsuke.icekick.state
 import com.tinsuke.icekick.unfreezeInstanceState
@@ -81,10 +85,10 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         threadPresenter.init()
 
         // Ocultamos el fab de respuesta de respuesta al hacer scroll
-        wvPostContent.setOnScrollChangeListener {
+        nsThread.setOnScrollChangeListener {
             view, x, y, oldX, oldY ->
 
-            if (oldY - y < 0) {
+            if (oldY - y <= 0) {
                 // Ocultamos el fab
                 activity.fab.hide()
             } else {

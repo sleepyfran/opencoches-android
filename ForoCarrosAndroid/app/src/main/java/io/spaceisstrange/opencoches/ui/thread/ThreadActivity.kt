@@ -18,11 +18,16 @@
 
 package io.spaceisstrange.opencoches.ui.thread
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
@@ -85,7 +90,7 @@ class ThreadActivity : BaseActivity() {
                 ?: throw IllegalArgumentException("No soy mago, no puedo abrir un hilo sin el link")
         val threadPages = intent.extras?.getInt(THREAD_PAGES)
                 ?: throw IllegalArgumentException("No soy mago, no puedo adivinar el número de páginas del hilo")
-        val threadCurrentPage = intent.extras?.getInt(THREAD_CURRENT_PAGE)!!
+        var threadCurrentPage = intent.extras?.getInt(THREAD_CURRENT_PAGE)!!
 
         // Ponemos el título del hilo en la toolbar
         supportActionBar?.title = threadTitle
@@ -96,6 +101,48 @@ class ThreadActivity : BaseActivity() {
         vpThreadPages.currentItem = threadCurrentPage - 1
 
         // TODO: Hacer algo con el FAB de respuesta
+
+        // Actualizamos las páginas cuando nos movamos por el ViewPager
+        tvThreadPages.text = getString(R.string.thread_pages_count, threadCurrentPage, pagerAdapter.count)
+        vpThreadPages.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) {
+                // Actualizamos el conteo de páginas
+                threadCurrentPage = position + 1
+                tvThreadPages.text = getString(R.string.thread_pages_count, position + 1, pagerAdapter.count)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                // Nada
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // Nada
+            }
+        })
+
+        // Establecemos las opciones de los botones de navegación
+        btnThreadFirstPage.setOnClickListener {
+            threadCurrentPage = 1
+            vpThreadPages.currentItem = threadCurrentPage - 1
+        }
+
+        btnThreadPreviousPage.setOnClickListener {
+            if (threadCurrentPage > 1) {
+                threadCurrentPage -= 1
+                vpThreadPages.currentItem = threadCurrentPage - 1
+            }
+        }
+
+        btnThreadNextPage.setOnClickListener {
+            if (threadCurrentPage < pagerAdapter.count) {
+                threadCurrentPage += 1
+                vpThreadPages.currentItem = threadCurrentPage - 1
+            }
+        }
+
+        btnThreadLastPage.setOnClickListener {
+            vpThreadPages.currentItem = pagerAdapter.count - 1
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
