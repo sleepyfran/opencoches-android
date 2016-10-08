@@ -26,4 +26,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [Oceansize: Frames](https://www.youtube.com/watch?v=nJ2Oj26-0Zs)
 - [Casualties Of Cool: Casualties Of Cool](https://www.youtube.com/watch?v=m1vOGSG4Og0)
 - [Ween: Quebec](https://www.youtube.com/watch?v=hkX2QATlgbo)
+- [Guthrie Govan: Erotic Cakes](https://www.youtube.com/watch?v=JLOE0s9Y7b0)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
