@@ -25,13 +25,13 @@
                 android:layout_height="20dp"
                 android:layout_margin="5dp"
                 android:tint="@color/accent"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:srcCompat="@drawable/ic_star_white" />
 
             <TextView
                 android:id="@+id/tvSubforoThreadTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="@string/dummy.subforo_post"
                 android:textSize="20sp"
