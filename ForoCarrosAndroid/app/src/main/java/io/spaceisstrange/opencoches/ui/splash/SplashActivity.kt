@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.data.api.login.Login
+import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.subforumlist.SubforumListActivity
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
@@ -42,6 +43,20 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
 
+    fun loadUserId() {
+        // Comprobamos si existen datos de usuario y, si no, los guardamos
+        if (!sharedPreferences.containsUserData()) {
+            loginSubscription = UserId().observable().subscribe(
+                    {
+                        userId ->
+
+                        // Guardamos la ID en las SharedPreferences
+                        sharedPreferences.saveUserId(userId)
+                    }
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,6 +74,8 @@ class SplashActivity : AppCompatActivity() {
             loginSubscription = Login(username, password).observable().subscribe(
                     {
                         result ->
+
+                        loadUserId()
 
                         // Mostramos la lista de foros
                         startActivity(Intent(this, SubforumListActivity::class.java))
@@ -79,6 +96,8 @@ class SplashActivity : AppCompatActivity() {
                     }
             )
         } else {
+            loadUserId()
+
             // Mostramos la activity para iniciar sesión
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

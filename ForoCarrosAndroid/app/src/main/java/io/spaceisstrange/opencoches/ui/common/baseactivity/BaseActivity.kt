@@ -20,14 +20,18 @@ package io.spaceisstrange.opencoches.ui.common.baseactivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.CookiesCache
+import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
+import rx.Observable
+import rx.Subscription
 import javax.inject.Inject
 
 open class BaseActivity : AppCompatActivity() {
@@ -35,6 +39,11 @@ open class BaseActivity : AppCompatActivity() {
      * SharedPreferences de la aplicación
      */
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
+
+    /**
+     * Observable actual
+     */
+    var actualSubscription: Subscription? = null
 
     /**
      * Como su nombre indica muestra la "X" como acción del botón home de la toolbar
@@ -73,5 +82,10 @@ open class BaseActivity : AppCompatActivity() {
         // TODO: Hacerse cargo del resto del menú
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        actualSubscription?.unsubscribe()
     }
 }

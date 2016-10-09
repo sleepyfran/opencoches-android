@@ -32,6 +32,11 @@ class SharedPreferencesUtils @Inject constructor(val context: Context) {
     val SHARED_PREFERENCES_KEY = "foroCarrosAndroid"
 
     /**
+     * Clave para el ID del usuario
+     */
+    val USER_ID_KEY = "userId"
+
+    /**
      * Clave para la contraseña. Sí, guardar la contraseña en las SharedPreferences es chustero
      * pero qué le vamos a hacer si el jefe no nos da otra opción ni una API. De todos modos
      * si alguien tiene una mejor sugerencia de cómo guardarlos los Pull Request están abiertos :)
@@ -53,6 +58,22 @@ class SharedPreferencesUtils @Inject constructor(val context: Context) {
     }
 
     /**
+     * Retorna true si tenemos los datos del usuario guardados y false en caso contrario
+     */
+    fun containsUserData(): Boolean {
+        val sharedPrefs = getSharedPreferences()
+        return sharedPrefs.contains(USER_ID_KEY)
+    }
+
+    /**
+     * Guarda el ID del usuario en las SharedPreferences
+     */
+    fun saveUserId(userId: String) {
+        val sharedPrefs = getSharedPreferences()
+        sharedPrefs.edit().putString(USER_ID_KEY, userId).apply()
+    }
+
+    /**
      * Guarda el nombre usuario en las SharedPreferences
      */
     fun saveUsername(username: String) {
@@ -66,6 +87,20 @@ class SharedPreferencesUtils @Inject constructor(val context: Context) {
     fun savePassword(password: String) {
         val sharedPrefs = getSharedPreferences()
         sharedPrefs.edit().putString(PASSWORD_KEY, password).apply()
+    }
+
+    /**
+     * Retorna el user ID del usuario de las SharedPreferences. Lanza un IllegalArguments
+     * si no encuentra los datos
+     */
+    fun getUserId(): String {
+        val sharedPrefs = getSharedPreferences()
+
+        if (!sharedPrefs.contains(USER_ID_KEY)) {
+            throw IllegalArgumentException("No tenemos datos guardados en las SharedPreferences")
+        }
+
+        return sharedPrefs.getString(USER_ID_KEY, "")
     }
 
     /**

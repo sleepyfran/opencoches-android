@@ -25,6 +25,7 @@ class ApiConstants {
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
+        const val THREAD_URL = "showthread.php?t="
         const val SUBFORUM_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
         const val USER_PROFILE_URL = "member.php?u="
@@ -32,6 +33,9 @@ class ApiConstants {
         const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
         const val THREAD_PAGE_URL = "&page="
         const val SUBFORO_PAGE_URL = "&page="
+        const val REPLY_URL = "newreply.php"
+        const val DO_URL = "?do="
+        const val T_URL = "&t="
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
@@ -46,6 +50,7 @@ class ApiConstants {
         const val POST_USER_IMAGE_CLASS_KEY = "avatar"
         const val POST_CONTENT_USER_INFO_KEY = "smallfont"
         const val POST_TIMESTAMP_CLASS_KEY = "thead"
+        const val SECURITY_TOKEN_KEY = "securitytoken"
 
         /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo
@@ -60,6 +65,16 @@ class ApiConstants {
         const val VB_LOGIN_PASSWORD_PARAMETER = "vb_login_password"
         const val COOKIE_USER_PARAMETER = "cookieuser"
         const val LOGB2_PARAMETER = "logb2"
+        const val T_PARAMETER = "t"
+        const val MESSAGE_PARAMETER = "message"
+        const val WYSIWYG_PARAMETER = "wysiwyg"
+        const val STYLE_ID_PARAMETER = "styleid"
+        const val FROM_QUICK_REPLY_PARAMETER = "fromquickreply"
+        const val P_PARAMETER = "p"
+        const val SPECIFIED_POST_PARAMETER = "specifiedpost"
+        const val PARSE_URL_PARAMETER = "parseurl"
+        const val LOGGED_IN_USER_PARAMETER = "loggedinuser"
+        const val S_BUTTON_PARAMETER = "sbutton"
 
         /**
          * Parámetros de la petición POST de Login
@@ -76,6 +91,27 @@ class ApiConstants {
                     VB_LOGIN_PASSWORD_PARAMETER to password,
                     COOKIE_USER_PARAMETER to "1",
                     LOGB2_PARAMETER to "   Acceder   "
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST de envío de una respuesta a un hilo
+         */
+        fun getThreadReplyParameters(securityToken: String, threadId: String, reply: String, userId: String): Map<String, String> {
+            return hashMapOf(
+                    MESSAGE_PARAMETER to reply,
+                    WYSIWYG_PARAMETER to "0",
+                    STYLE_ID_PARAMETER to "5",
+                    FROM_QUICK_REPLY_PARAMETER to "1",
+                    S_PARAMETER to "",
+                    SECURITY_TOKEN_PARAMETER to securityToken,
+                    DO_PARAMETER to "postreply",
+                    T_PARAMETER to threadId,
+                    P_PARAMETER to "who cares",
+                    SPECIFIED_POST_PARAMETER to "0",
+                    PARSE_URL_PARAMETER to "1",
+                    LOGGED_IN_USER_PARAMETER to userId,
+                    S_BUTTON_PARAMETER to ""
             )
         }
 

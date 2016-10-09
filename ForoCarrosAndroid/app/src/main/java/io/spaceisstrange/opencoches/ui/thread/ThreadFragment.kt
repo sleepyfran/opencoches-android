@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import android.animation.Animator
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
@@ -34,6 +35,7 @@ import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
+import io.spaceisstrange.opencoches.util.SnackbarUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
 import javax.inject.Inject
@@ -75,9 +77,10 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         // Inyectamos el fragment
+        val bus = (activity.application as App).busComponent.getBus()
         DaggerThreadComponent.builder()
                 .threadModule(ThreadModule(this, link!!, currentPage))
-                .sharedPreferencesUtilsComponent((activity.application as App).sharedPrefsComponent)
+                .busComponent((activity.application as App).busComponent)
                 .build()
                 .inject(this)
 

@@ -32,6 +32,11 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    /**
+     * Método a llamar cuando el usuario presione en un usuario
+     */
+    var onUserClick: ((username: String, id: String, pictureSrc: String) -> Unit)? = null
+
     init {
         // Nos registramos como interfaz de JavaScript
         addJavascriptInterface(this, "Android")

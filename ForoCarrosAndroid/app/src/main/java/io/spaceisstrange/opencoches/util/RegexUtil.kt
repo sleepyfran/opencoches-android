@@ -16,16 +16,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.thread
+package io.spaceisstrange.opencoches.util
 
-import dagger.Component
-import io.spaceisstrange.opencoches.data.bus.BusComponent
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
-import io.spaceisstrange.opencoches.util.ActivityScoped
+class RegexUtil {
+    companion object {
+        /**
+         * Retorna un Regex que saca el ID de una URL de un hilo
+         */
+        fun threadIdFromLink(): Regex {
+            return "showthread\\.php\\?t=(\\d+)".toRegex()
+        }
 
-@ActivityScoped
-@Component(dependencies = arrayOf(BusComponent::class),
-        modules = arrayOf(ThreadModule::class))
-interface ThreadComponent {
-    fun inject(fragment: ThreadFragment)
+        /**
+         * Retorna un Regex que saca el ID de un usuario de su link
+         */
+        fun userIdFromLink(): Regex {
+            return "member\\.php\\?u=(\\d+)".toRegex()
+        }
+    }
 }

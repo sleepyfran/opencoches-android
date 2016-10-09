@@ -50,6 +50,9 @@
     <string name="thread.pages_count">%1$s/%2$s</string>
     <string name="thread.reply.hint">Respuesta</string>
     <string name="thread.reply.send">Enviar</string>
+    <string name="thread.reply.empty_body">No puedes enviar un mensaje vacío</string>
+    <string name="thread.reply.error">Vaya, ha habido un error enviando la respuesta. Inténtalo de nuevo</string>
+    <string name="thread.reply.sent">Respuesta enviada</string>
 
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>

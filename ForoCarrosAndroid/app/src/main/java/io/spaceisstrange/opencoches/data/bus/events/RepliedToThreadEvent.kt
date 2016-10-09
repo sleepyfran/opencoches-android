@@ -16,16 +16,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.thread
+package io.spaceisstrange.opencoches.data.bus.events
 
-import dagger.Component
-import io.spaceisstrange.opencoches.data.bus.BusComponent
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
-import io.spaceisstrange.opencoches.util.ActivityScoped
-
-@ActivityScoped
-@Component(dependencies = arrayOf(BusComponent::class),
-        modules = arrayOf(ThreadModule::class))
-interface ThreadComponent {
-    fun inject(fragment: ThreadFragment)
+/**
+ * Evento que notifica que se ha respondido a un tema específico
+ */
+class RepliedToThreadEvent(val threadLink: String) : Event {
+    /**
+     * Este método permite comprobar si el tema al que se ha respondido es el mismo en el que
+     * se está actualmente
+     */
+    fun isSameThread(link: String): Boolean {
+        return link == threadLink
+    }
 }

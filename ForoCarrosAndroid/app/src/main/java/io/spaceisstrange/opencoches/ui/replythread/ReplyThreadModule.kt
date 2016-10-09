@@ -16,16 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.thread
+package io.spaceisstrange.opencoches.ui.replythread
 
-import dagger.Component
-import io.spaceisstrange.opencoches.data.bus.BusComponent
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
-import io.spaceisstrange.opencoches.util.ActivityScoped
+import dagger.Module
+import dagger.Provides
 
-@ActivityScoped
-@Component(dependencies = arrayOf(BusComponent::class),
-        modules = arrayOf(ThreadModule::class))
-interface ThreadComponent {
-    fun inject(fragment: ThreadFragment)
+@Module
+class ReplyThreadModule(val view: ReplyThreadContract.View, val threadLink: String) {
+    @Provides
+    fun providesView(): ReplyThreadContract.View = view
+
+    @Provides
+    fun providesLink(): String = threadLink
 }

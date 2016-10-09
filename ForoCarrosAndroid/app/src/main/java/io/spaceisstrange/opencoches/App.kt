@@ -19,6 +19,8 @@
 package io.spaceisstrange.opencoches
 
 import android.app.Application
+import io.spaceisstrange.opencoches.data.bus.BusComponent
+import io.spaceisstrange.opencoches.data.bus.DaggerBusComponent
 import io.spaceisstrange.opencoches.data.sharedpreferences.DaggerSharedPreferencesUtilsComponent
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsModule
@@ -29,6 +31,11 @@ class App : Application() {
      */
     lateinit var sharedPrefsComponent: SharedPreferencesUtilsComponent
 
+    /**
+     * Componente con el Bus de la aplicación
+     */
+    lateinit var busComponent: BusComponent
+
     override fun onCreate() {
         super.onCreate()
 
@@ -36,5 +43,7 @@ class App : Application() {
                 .appModule(AppModule(applicationContext))
                 .sharedPreferencesUtilsModule(SharedPreferencesUtilsModule())
                 .build()
+
+        busComponent = DaggerBusComponent.create()
     }
 }

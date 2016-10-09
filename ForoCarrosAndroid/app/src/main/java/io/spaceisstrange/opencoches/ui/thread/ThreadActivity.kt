@@ -31,6 +31,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
+import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 
 class ThreadActivity : BaseActivity() {
@@ -100,7 +101,10 @@ class ThreadActivity : BaseActivity() {
         vpThreadPages.adapter = pagerAdapter
         vpThreadPages.currentItem = threadCurrentPage - 1
 
-        // TODO: Hacer algo con el FAB de respuesta
+        // Iniciamos la activity de respuesta al hilo cuando el usuario pulse el FAB
+        fab.setOnClickListener {
+            startActivity(ReplyThreadActivity.getStartIntent(this, threadTitle, threadLink))
+        }
 
         // Actualizamos las páginas cuando nos movamos por el ViewPager
         tvThreadPages.text = getString(R.string.thread_pages_count, threadCurrentPage, pagerAdapter.count)

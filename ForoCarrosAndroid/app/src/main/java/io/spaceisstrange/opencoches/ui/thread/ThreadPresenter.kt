@@ -19,18 +19,21 @@
 package io.spaceisstrange.opencoches.ui.thread
 
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
+import io.spaceisstrange.opencoches.data.bus.Bus
+import io.spaceisstrange.opencoches.data.bus.DaggerBusComponent
+import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class ThreadPresenter @Inject constructor(var view: ThreadContract.View,
-                                          val link: String,
-                                          var currentPage: Int = 1) : ThreadContract.Presenter {
+class ThreadPresenter(var view: ThreadContract.View,
+                      val link: String,
+                      var currentPage: Int = 1,
+                      val bus: Bus) : ThreadContract.Presenter {
     /**
      * CompositeSubscription donde agregar todos los observables que vayamos utilizando
      */
     lateinit var compositeSubscription: CompositeSubscription
 
-    @Inject
     override fun setup() {
         // Nada
     }
@@ -41,6 +44,18 @@ class ThreadPresenter @Inject constructor(var view: ThreadContract.View,
 
         // Cargamos la página actual
         loadPage()
+
+        // Nos subscribimos a los eventos del bus para recibir cuando el usuario ha respondido
+        bus.observable().subscribe(
+                {
+                    event ->
+
+                    // Recargamos la página si el usuario ha respondido al hilo
+                    if (event is RepliedToThreadEvent && event.isSameThread(link)) {
+                        loadPage()
+                    }
+                }
+        )
     }
 
     override fun loadPage() {

@@ -29,11 +29,6 @@ abstract class OpenCochesWebView<in T> : WebView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    /**
-     * Método a llamar cuando el usuario presione en un usuario
-     */
-    var onUserClick: ((username: String, id: String, pictureSrc: String) -> Unit)? = null
-
     init {
         // Hacemos el fondo transparente para que sea del color de la App
         setBackgroundColor(Color.TRANSPARENT)

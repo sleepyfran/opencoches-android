@@ -26,6 +26,11 @@
         <activity android:name=".ui.subforumlist.SubforumListActivity" />
         <activity android:name=".ui.subforum.SubforumActivity" />
         <activity android:name=".ui.thread.ThreadActivity" />
+        <activity
+            android:name=".ui.replythread.ReplyThreadActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Sliding" />
     </application>
 
 </manifest>

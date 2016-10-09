@@ -20,13 +20,14 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import dagger.Module
 import dagger.Provides
+import io.spaceisstrange.opencoches.data.bus.Bus
 
 @Module
 class ThreadModule(val view: ThreadContract.View,
                    val link: String,
                    val currentPage: Int = 1) {
     @Provides
-    fun provideThreadPresenter(): ThreadPresenter {
-        return ThreadPresenter(view, link, currentPage)
+    fun provideThreadPresenter(bus: Bus): ThreadPresenter {
+        return ThreadPresenter(view, link, currentPage, bus)
     }
 }
