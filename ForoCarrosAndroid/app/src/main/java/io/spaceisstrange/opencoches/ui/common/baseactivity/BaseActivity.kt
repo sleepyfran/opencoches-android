@@ -41,11 +41,6 @@ open class BaseActivity : AppCompatActivity() {
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
 
     /**
-     * Observable actual
-     */
-    var actualSubscription: Subscription? = null
-
-    /**
      * Como su nombre indica muestra la "X" como acción del botón home de la toolbar
      */
     fun showCloseButtonOnToolbar() {
@@ -86,6 +81,5 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        actualSubscription?.unsubscribe()
     }
 }

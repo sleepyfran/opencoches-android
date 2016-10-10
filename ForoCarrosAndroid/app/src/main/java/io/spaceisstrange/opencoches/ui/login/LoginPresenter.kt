@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.login
 
 import android.text.TextUtils
 import io.spaceisstrange.opencoches.data.api.login.Login
+import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.subscriptions.CompositeSubscription
 import java.net.SocketTimeoutException
@@ -64,6 +65,22 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
                         // Guardamos los datos en las SharedPreferences
                         sharedPreferences.saveUsername(username)
                         sharedPreferences.savePassword(password)
+
+                        // Cargamos su ID en las SharedPrefererences
+                        val idSubscription = UserId().observable().subscribe(
+                                {
+                                    userId ->
+
+                                    sharedPreferences.saveUserId(userId)
+                                },
+                                {
+                                    error ->
+
+                                    // Nada
+                                }
+                        )
+
+                        compositeSubscription.add(idSubscription)
 
                         view.showSubforumList()
                     } else {

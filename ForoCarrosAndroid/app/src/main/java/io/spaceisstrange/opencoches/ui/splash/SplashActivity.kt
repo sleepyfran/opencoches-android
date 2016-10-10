@@ -43,6 +43,9 @@ class SplashActivity : AppCompatActivity() {
 
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
 
+    /**
+     * Carga el ID del usuario para ser utilizado a lo largo de la aplicación
+     */
     fun loadUserId() {
         // Comprobamos si existen datos de usuario y, si no, los guardamos
         if (!sharedPreferences.containsUserData()) {
@@ -52,6 +55,11 @@ class SplashActivity : AppCompatActivity() {
 
                         // Guardamos la ID en las SharedPreferences
                         sharedPreferences.saveUserId(userId)
+                    },
+                    {
+                        error ->
+
+                        // Nada
                     }
             )
         }
@@ -96,8 +104,6 @@ class SplashActivity : AppCompatActivity() {
                     }
             )
         } else {
-            loadUserId()
-
             // Mostramos la activity para iniciar sesión
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
