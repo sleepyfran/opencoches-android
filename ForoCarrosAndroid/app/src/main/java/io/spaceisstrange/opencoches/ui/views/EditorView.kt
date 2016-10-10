@@ -65,9 +65,16 @@ class EditorView : LinearLayout {
      * Añade la etiqueta especificada al campo de texto
      */
     private fun appendTag(tag: String, closingTag: String) {
-        etEditorText.append(tag)
-        etEditorText.append(closingTag)
-        etEditorText.setSelection(etEditorText.length() - closingTag.length)
+        if (etEditorText.selectionStart > -1) {
+            // El usuario tiene colocado el cursor en una posición, así que añadimos la etiqueta ahí
+            val nextPosition = etEditorText.selectionStart + tag.length
+            etEditorText.text.insert(etEditorText.selectionStart, tag + closingTag)
+            etEditorText.setSelection(nextPosition)
+        } else {
+            // Aún no se ha seleccionado ninguna posición en el campo de texto
+            etEditorText.append(tag + closingTag)
+            etEditorText.setSelection(etEditorText.length() - closingTag.length)
+        }
     }
 
     /**
