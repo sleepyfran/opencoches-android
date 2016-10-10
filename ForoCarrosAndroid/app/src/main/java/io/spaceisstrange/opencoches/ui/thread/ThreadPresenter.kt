@@ -20,10 +20,8 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
 import io.spaceisstrange.opencoches.data.bus.Bus
-import io.spaceisstrange.opencoches.data.bus.DaggerBusComponent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import rx.subscriptions.CompositeSubscription
-import javax.inject.Inject
 
 class ThreadPresenter(var view: ThreadContract.View,
                       val link: String,

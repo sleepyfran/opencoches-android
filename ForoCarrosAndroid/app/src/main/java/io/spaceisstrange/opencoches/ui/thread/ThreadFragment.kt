@@ -77,7 +77,6 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         // Inyectamos el fragment
-        val bus = (activity.application as App).busComponent.getBus()
         DaggerThreadComponent.builder()
                 .threadModule(ThreadModule(this, link!!, currentPage))
                 .busComponent((activity.application as App).busComponent)
