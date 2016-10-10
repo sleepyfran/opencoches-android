@@ -31,6 +31,16 @@ abstract class BaseRequest {
     val TIMEOUT = 3000
 
     /**
+     * Comprueba si la request actual ha sido o no correcta, es decir, que el código esté entre
+     * el 200 y el 400. He decidido incluir el rango de los 300 ya que hay veces que al responder
+     * en hilos el servidor te responde con una redirección (está por comprobar pero creo que sucede
+     * siempre que se inicia una página nueva con tu comentario).
+     */
+    fun isSuccessful(code: Int): Boolean {
+        return code >= 200 && code < 400
+    }
+
+    /**
      * Realiza la petición con la URL indicada en la subclase y los parámetros por defecto
      */
     abstract fun doRequest(): Connection.Response

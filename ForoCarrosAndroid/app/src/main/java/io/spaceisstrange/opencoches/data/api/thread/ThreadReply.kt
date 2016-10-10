@@ -39,11 +39,7 @@ class ThreadReply(val securityToken: String, val threadId: String, val reply: St
      */
     fun reply(): Boolean {
         val response = super.doRequest()
-        val parsedResponse = response.parse()
-
-        // Comprobamos si la respuesta contiene nuestro mensaje enviado
-        val threadText = parsedResponse.text()
-        return threadText.contains(reply)
+        return isSuccessful(response.statusCode())
     }
 
     override fun getPostParameters(): Map<String, String> {
