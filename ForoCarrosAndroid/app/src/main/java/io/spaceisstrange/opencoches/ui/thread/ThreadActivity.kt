@@ -22,6 +22,7 @@ import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.Menu
@@ -29,6 +30,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
@@ -78,6 +80,11 @@ class ThreadActivity : BaseActivity() {
      */
     lateinit var pagerAdapter: ThreadPagerAdapter
 
+    /**
+     * Link del hilo a utilizar en las opciones del menú
+     */
+    lateinit var link: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread)
@@ -92,6 +99,9 @@ class ThreadActivity : BaseActivity() {
         val threadPages = intent.extras?.getInt(THREAD_PAGES)
                 ?: throw IllegalArgumentException("No soy mago, no puedo adivinar el número de páginas del hilo")
         var threadCurrentPage = intent.extras?.getInt(THREAD_CURRENT_PAGE)!!
+
+        // Guardamos el hilo del link
+        link = threadLink
 
         // Ponemos el título del hilo en la toolbar
         supportActionBar?.title = threadTitle
@@ -150,12 +160,20 @@ class ThreadActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // TODO: Poner el menú específico de los threads
+        menuInflater.inflate(R.menu.thread_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        // TODO: Hacerse cargo el menú
+        val selectedId = item?.itemId
+
+        if (selectedId == R.id.menu_open_in_browser) {
+            // Abrimos el enlace del hilo actual
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiConstants.BASE_URL + link))
+            startActivity(browserIntent)
+            return true
+        }
+
         return super.onOptionsItemSelected(item)
     }
 }
