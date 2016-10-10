@@ -58,6 +58,13 @@
     <string name="thread.reply.bbcode.i">I</string>
     <string name="thread.reply.bbcode.u">U</string>
 
+    <!-- Selección de foto -->
+    <string name="image_upload.source">Incluir imagen</string>
+    <string name="image_upload.gallery">Desde la galería</string>
+    <string name="image_upload.link">Desde un enlace</string>
+    <string name="link_text_field.description">Introduce el enlace a adjuntar:</string>
+    <string name="link_text_field.error">No puedes introducir un link vacío</string>
+
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>

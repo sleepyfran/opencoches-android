@@ -16,23 +16,41 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.views
+package io.spaceisstrange.opencoches.ui.views.editor
 
 import android.content.Context
+import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.bus.Bus
+import io.spaceisstrange.opencoches.data.bus.events.LinkAvailableEvent
+import io.spaceisstrange.opencoches.ui.views.editor.imageupload.ImageSelectionDialog
 import kotlinx.android.synthetic.main.view_editor.view.*
+import rx.Subscription
+import javax.inject.Inject
 
 class EditorView : LinearLayout {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    /**
+     * Bus de la aplicación
+     */
+    @Inject lateinit var bus: Bus
+
     init {
         LayoutInflater.from(context).inflate(R.layout.view_editor, this, true)
+
+        // Inyectamos la view
+        DaggerEditorViewComponent.builder()
+                .busComponent((context.applicationContext as App).busComponent)
+                .build()
+                .inject(this)
 
         // Especificamos las opciones de los botones de la barra de herramientas
         btnEditorB.setOnClickListener {
@@ -51,13 +69,47 @@ class EditorView : LinearLayout {
         }
 
         btnEditorImg.setOnClickListener {
-            // TODO: Cargar imagen y subirla a algún proveedor
-            appendTag(ApiConstants.EDITOR_IMG_TAG, ApiConstants.EDITOR_IMG_CLOSE_TAG)
+            // Nos suscribimos al bus para obtener el link cuando esté listo
+            var imgObservable: Subscription? = null
+            imgObservable = bus.observable().subscribe(
+                    {
+                        event ->
+
+                        // Ponemos el link en el editor
+                        if (event is LinkAvailableEvent) {
+                            appendTag(ApiConstants.EDITOR_IMG_TAG, ApiConstants.EDITOR_IMG_CLOSE_TAG)
+                            etEditorText.text.insert(etEditorText.selectionStart, event.link)
+
+                            // Nos desubscribimos para no caer aquí eternamente
+                            imgObservable?.unsubscribe()
+                        }
+                    }
+            )
+
+            // Mostramos el diálogo de selección de imagen
+            ImageSelectionDialog().show((context as AppCompatActivity).supportFragmentManager, null)
         }
 
         btnEditorVid.setOnClickListener {
-            // TODO: Mostrar un diálogo preguntando por la URL del vídeo
-            appendTag(ApiConstants.EDITOR_VID_TAG, ApiConstants.EDITOR_VID_CLOSE_TAG)
+            // Nos suscribimos al bus para obtener el link cuando esté listo
+            var vidObservable: Subscription? = null
+            vidObservable = bus.observable().subscribe(
+                    {
+                        event ->
+
+                        // Ponemos el link en el editor
+                        if (event is LinkAvailableEvent) {
+                            appendTag(ApiConstants.EDITOR_VID_TAG, ApiConstants.EDITOR_VID_CLOSE_TAG)
+                            etEditorText.text.insert(etEditorText.selectionStart, event.link)
+
+                            // Nos desubscribimos para no caer aquí eternamente
+                            vidObservable?.unsubscribe()
+                        }
+                    }
+            )
+
+            // Mostramos el diálogo de introducción de un link
+            LinkTextFieldDialog().show((context as AppCompatActivity).supportFragmentManager, null)
         }
     }
 
