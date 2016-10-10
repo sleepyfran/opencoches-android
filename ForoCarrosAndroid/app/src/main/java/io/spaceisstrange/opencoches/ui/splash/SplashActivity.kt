@@ -24,9 +24,9 @@ import android.support.v7.app.AppCompatActivity
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.data.api.userdata.UserId
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.subforumlist.SubforumListActivity
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.Subscription
 import java.net.SocketTimeoutException
 import javax.inject.Inject

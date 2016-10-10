@@ -20,7 +20,6 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import dagger.Component
 import io.spaceisstrange.opencoches.data.bus.BusComponent
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
 import io.spaceisstrange.opencoches.util.ActivityScoped
 
 @ActivityScoped

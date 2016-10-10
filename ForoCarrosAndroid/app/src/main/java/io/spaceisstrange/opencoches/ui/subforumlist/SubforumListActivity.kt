@@ -19,11 +19,8 @@
 package io.spaceisstrange.opencoches.ui.subforumlist
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_subforum_list.*

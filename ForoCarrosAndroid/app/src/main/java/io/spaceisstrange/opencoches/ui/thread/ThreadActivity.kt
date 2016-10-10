@@ -18,8 +18,6 @@
 
 package io.spaceisstrange.opencoches.ui.thread
 
-import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -27,11 +25,8 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
-import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
