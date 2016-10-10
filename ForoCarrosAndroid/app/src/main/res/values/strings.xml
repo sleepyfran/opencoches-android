@@ -54,6 +54,9 @@
     <string name="thread.reply.error">Vaya, ha habido un error enviando la respuesta. Inténtalo de nuevo</string>
     <string name="thread.reply.sent">Respuesta enviada</string>
     <string name="thread.menu.open_in_browser">Abrir en el navegador</string>
+    <string name="thread.reply.bbcode.b">B</string>
+    <string name="thread.reply.bbcode.i">I</string>
+    <string name="thread.reply.bbcode.u">U</string>
 
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>

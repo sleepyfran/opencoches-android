@@ -53,6 +53,20 @@ class ApiConstants {
         const val SECURITY_TOKEN_KEY = "securitytoken"
 
         /**
+         * Etiquetas del editor de texto
+         */
+        const val EDITOR_B_TAG = "[B]"
+        const val EDITOR_B_CLOSE_TAG = "[/B]"
+        const val EDITOR_I_TAG = "[I]"
+        const val EDITOR_I_CLOSE_TAG = "[/I]"
+        const val EDITOR_U_TAG = "[U]"
+        const val EDITOR_U_CLOSE_TAG = "[/U]"
+        const val EDITOR_IMG_TAG = "[IMG]"
+        const val EDITOR_IMG_CLOSE_TAG = "[/IMG]"
+        const val EDITOR_VID_TAG = "[YOUTUBE]"
+        const val EDITOR_VID_CLOSE_TAG = "[/YOUTUBE]"
+
+        /**
          * Claves de los parámetros de las peticiones POST utilizadas más abajo
          */
         const val URL_PARAMETER = "url"

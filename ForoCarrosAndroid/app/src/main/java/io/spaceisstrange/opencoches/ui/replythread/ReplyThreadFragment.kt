@@ -53,6 +53,9 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
         // Iniciamos el presenter
         replyThreadPresenter.init()
+
+        // Configuramos los botones de BBCode
+
     }
 
     override fun setPresenter(presenter: ReplyThreadPresenter) {
@@ -60,11 +63,11 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
     }
 
     override fun getReplyMessage(): String {
-        return etReplyThread.text.toString()
+        return evEditor.text()
     }
 
     override fun showEmptyReply() {
-        etReplyThread.error = getString(R.string.thread_reply_empty_body)
+        evEditor.showError(getString(R.string.thread_reply_empty_body))
     }
 
     override fun showCouldNotSendReply() {
@@ -73,10 +76,10 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
     override fun showError(show: Boolean) {
         if (show) {
-            etReplyThread.visibility = View.GONE
+            evEditor.visibility = View.GONE
             vError.visibility = View.VISIBLE
         } else {
-            etReplyThread.visibility = View.VISIBLE
+            evEditor.visibility = View.VISIBLE
             vError.visibility = View.GONE
         }
     }
