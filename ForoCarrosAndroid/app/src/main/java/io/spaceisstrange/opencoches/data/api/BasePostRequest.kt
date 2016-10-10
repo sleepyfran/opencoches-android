@@ -30,6 +30,8 @@ abstract class BasePostRequest : BaseRequest() {
         val connection = Jsoup.connect(getUrl())
                 .data(getPostParameters())
                 .userAgent(USER_AGENT)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .postDataCharset("ISO-8859-1")
                 .timeout(TIMEOUT)
                 .method(Connection.Method.POST)
 
