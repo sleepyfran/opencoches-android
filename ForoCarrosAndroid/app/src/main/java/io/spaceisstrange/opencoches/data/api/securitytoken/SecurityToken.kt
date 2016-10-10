@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.data.api.securitytoken
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BaseGetRequest
+import io.spaceisstrange.opencoches.data.api.transformations.HtmlToSecurityToken
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -40,18 +41,8 @@ class SecurityToken(val link: String) : BaseGetRequest() {
      */
     fun getToken(): String {
         val response = super.doRequest()
-        val document = response.parse()
 
-        // Obtenemos el security token del input actual
-        val input = document.select("input[name=" + ApiConstants.SECURITY_TOKEN_KEY + "]").first()
-        val securityToken = input.attr("value")
-
-        // Si está vacío es que probablemente no haya ningún security token en la página
-        if (securityToken == "") {
-            throw IllegalStateException("No se puede obtener el token de una página que no lo tiene")
-        }
-
-        return securityToken
+        return HtmlToSecurityToken.transform(response.parse())
     }
 
     override fun getUrl(): String {

@@ -16,35 +16,27 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.api.userdata
+package io.spaceisstrange.opencoches.data.api.transformations
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
-import io.spaceisstrange.opencoches.data.api.BaseGetRequest
-import io.spaceisstrange.opencoches.data.api.transformations.HtmlToUserId
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import org.jsoup.nodes.Document
 
-class UserId : BaseGetRequest() {
-    /**
-     * Retorna un observable para obtener el ID de un usuario
-     */
-    fun observable(): Observable<String> {
-        return Observable.fromCallable({
-            getId()
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-    }
+class HtmlToSecurityToken {
+    companion object {
+        /**
+         * Retorna el Security Token asociado al documento especificado
+         */
+        fun transform(document: Document): String {
+            // Obtenemos el security token del input actual
+            val input = document.select("input[name=" + ApiConstants.SECURITY_TOKEN_KEY + "]").first()
+            val securityToken = input.attr("value")
 
-    /**
-     * Retorna el ID del usuario
-     */
-    fun getId(): String {
-        val response = super.doRequest()
+            // Si está vacío es que probablemente no haya ningún security token en la página
+            if (securityToken == "") {
+                throw IllegalStateException("No se puede obtener el token de una página que no lo tiene")
+            }
 
-        return HtmlToUserId.transform(response.parse())
-    }
-
-    override fun getUrl(): String {
-        return ApiConstants.BASE_URL
+            return securityToken
+        }
     }
 }

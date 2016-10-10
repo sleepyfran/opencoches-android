@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.data.api.profile
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BaseGetRequest
+import io.spaceisstrange.opencoches.data.api.transformations.HtmlToProfile
 import io.spaceisstrange.opencoches.data.model.UserData
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -40,25 +41,8 @@ class Profile(val userId: String) : BaseGetRequest() {
      */
     private fun getData(): UserData {
         val response = super.doRequest()
-        val document = response.parse()
 
-        // Obtenemos el div con la información del usuario
-        var infoDiv = document.select("div.block_content")
-        infoDiv = infoDiv.select("fieldset.statistics_group")
-        infoDiv = infoDiv.select("ul.list_no_decoration")
-        val userTotalPosts = infoDiv[0].select("li")[0].text()
-        var userLastActivity = infoDiv[1].select("li")[0].text()
-        var userRegistrationDate: String
-
-        // Hay algunos usuarios que tienen la última actividad oculta
-        try {
-            userRegistrationDate = infoDiv[1].select("li")[1].text()
-        } catch (e: IndexOutOfBoundsException) {
-            userLastActivity = ""
-            userRegistrationDate = infoDiv[1].select("li")[0].text()
-        }
-
-        return UserData(userLastActivity, userTotalPosts, userRegistrationDate)
+        return HtmlToProfile.transform(response.parse())
     }
 
     override fun getUrl(): String {

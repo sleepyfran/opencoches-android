@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.data.api.thread
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BaseGetRequest
+import io.spaceisstrange.opencoches.data.api.transformations.HtmlToThreadPage
 import io.spaceisstrange.opencoches.data.model.Post
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -41,49 +42,8 @@ class ThreadPage(val link: String, val page: Int?) : BaseGetRequest() {
      */
     private fun getPosts(): List<Post> {
         val response = super.doRequest()
-        val document = response.parse()
 
-        // Lista donde almacenaremos los posts del hilo
-        val postList: MutableList<Post> = mutableListOf()
-
-        // Obtenemos la lista de posts (están todos bajo el div "posts")
-        val posts = document.select("table[id^=" + ApiConstants.POST_ROOT_ID_KEY + "]")
-
-        // Iteramos sobre cada post obteniendo su información
-        for (post in posts) {
-            val userUsername = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").text()
-            val userLink = post.select("a[class=" + ApiConstants.POST_USER_USERNAME_CLASS_KEY + "]").attr("href")
-            val userIdRegex = "member\\.php\\?u=(\\d+)".toRegex()
-            var userId = userIdRegex.matchEntire(userLink)?.groups?.get(1)?.value
-
-            if (userId == null) {
-                userId = ""
-            }
-
-            val userPicture = post.select("img[class=" + ApiConstants.POST_USER_IMAGE_CLASS_KEY + "]").attr("src")
-
-            // Hay veces que la info del usuario puede variar de posición si este está baneado
-            var userInfo: String
-            try {
-                userInfo = post.select("td[class=alt2]")
-                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO_KEY + "]")[2].text()
-            } catch (e: IndexOutOfBoundsException) {
-                userInfo = post.select("td[class=alt2]")
-                        .select("div[class=" + ApiConstants.POST_CONTENT_USER_INFO_KEY + "]")[1].text()
-            }
-
-            val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()
-            val postContent = post.select("td[id^=td_post_]").first().html()
-
-            postList.add(Post(userUsername,
-                    userPicture,
-                    userInfo,
-                    userId,
-                    postTimestamp,
-                    postContent))
-        }
-
-        return postList
+        return HtmlToThreadPage.transform(response.parse())
     }
 
     override fun getUrl(): String {
