@@ -23,14 +23,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
-import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.ui.views.editor.imageupload.ImageSelectionDialog
 import kotlinx.android.synthetic.main.view_editor.view.*
-import rx.Subscription
-import javax.inject.Inject
 
 class EditorView : LinearLayout {
     constructor(context: Context?) : super(context)
