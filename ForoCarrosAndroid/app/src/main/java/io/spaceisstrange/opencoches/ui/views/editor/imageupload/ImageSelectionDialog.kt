@@ -24,6 +24,21 @@ import io.spaceisstrange.opencoches.ui.common.bottomsheet.BottomSheetItem
 import io.spaceisstrange.opencoches.ui.views.editor.LinkTextFieldDialog
 
 class ImageSelectionDialog : BottomSheetDialog() {
+    /**
+     * Método a llamar cuando tengamos un link disponible
+     */
+    lateinit var onLinkAvailable: (link: String) -> Unit
+
+    companion object {
+        /**
+         * Crea una nueva instancia con los parámetros necesarios para el dialog
+         */
+        fun newInstance(onLinkAvailable: (link: String) -> Unit): ImageSelectionDialog {
+            val dialog = ImageSelectionDialog()
+            dialog.onLinkAvailable = onLinkAvailable
+            return dialog
+        }
+    }
 
     override fun onClick(selectedItem: BottomSheetItem) {
         super.onClick(selectedItem)
@@ -32,7 +47,11 @@ class ImageSelectionDialog : BottomSheetDialog() {
             // TODO: Mostrar la selección de fotos desde la galería y subirlas a algún proveedor (¿Imgur?)
         } else if (selectedItem.drawable == R.drawable.ic_link_white) {
             // Mostramos el diálogo con introducción del link
-            LinkTextFieldDialog().show(activity.supportFragmentManager, null)
+            LinkTextFieldDialog.newInstance {
+                link ->
+
+                onLinkAvailable(link)
+            }.show(activity.supportFragmentManager, null)
         }
     }
 

@@ -24,33 +24,38 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 import android.view.LayoutInflater
-import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.data.bus.Bus
-import io.spaceisstrange.opencoches.data.bus.events.LinkAvailableEvent
 import kotlinx.android.synthetic.main.dialog_image_link.view.*
-import javax.inject.Inject
 
 class LinkTextFieldDialog : DialogFragment() {
     /**
-     * Bus donde notificaremos cuando el link esté disponible
+     * Método a llamar cuando tengamos un link disponible
      */
-    @Inject lateinit var bus: Bus
+    lateinit var onLinkAvailable: (link: String) -> Unit
+
+    companion object {
+        /**
+         * Crea una nueva instancia con los parámetros necesarios para el dialog
+         */
+        fun newInstance(onLinkAvailable: (link: String) -> Unit): LinkTextFieldDialog {
+            val dialog = LinkTextFieldDialog()
+            dialog.onLinkAvailable = onLinkAvailable
+            return dialog
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_image_link, null, false)
-
-        // Inyectamos el diálogo
-        DaggerLinkTextFieldComponent.builder()
-                .busComponent((activity.applicationContext as App).busComponent)
-                .build()
-                .inject(this)
 
         val dialog = AlertDialog.Builder(activity)
                 .setView(view)
                 .setTitle(getString(R.string.link_text_field_description))
                 .setPositiveButton(android.R.string.ok, null)
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, {
+                    dialog, something ->
+
+
+                })
                 .create()
 
         // Sobre-escribimos el botón positivo para que no se oculte el diálogo cuando los datos
@@ -59,12 +64,12 @@ class LinkTextFieldDialog : DialogFragment() {
             val btnOk = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
             btnOk.setOnClickListener {
-                val link = view.etImageLink.text
+                val link = view.etImageLink.text.toString()
 
                 // Comprobamos primero que los datos son válidos y sólo entonces ocultamos el diálogo
                 if (!TextUtils.isEmpty(link)) {
-                    // Notificamos sobre el link al bus y ocultamos el diálogo
-                    bus.publish(LinkAvailableEvent(link.toString()))
+                    // Notificamos sobre el link y ocultamos el diálogo
+                    onLinkAvailable(link)
                     dismiss()
                 } else {
                     // Mostramos un error en caso contrario
