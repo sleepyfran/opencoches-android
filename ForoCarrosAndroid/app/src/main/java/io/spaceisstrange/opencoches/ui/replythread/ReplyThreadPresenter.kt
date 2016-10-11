@@ -77,11 +77,14 @@ class ReplyThreadPresenter @Inject constructor(val view: ReplyThreadContract.Vie
                     // Enviamos el mensaje
                     ThreadReply(token, threadId, reply, userId).observable().subscribe(
                             {
-                                result ->
+                                pair ->
+
+                                val success = pair.first
+                                val pagesCount = pair.second
 
                                 // Si el mensaje se ha enviado con éxito, notificamos esto en el bus
-                                if (result) {
-                                    bus.publish(RepliedToThreadEvent(threadLink))
+                                if (success) {
+                                    bus.publish(RepliedToThreadEvent(threadLink, pagesCount))
                                 } else {
                                     // Sino, mostramos un mensaje de error
                                     view.showCouldNotSendReply()

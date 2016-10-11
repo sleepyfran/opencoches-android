@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.data.api.thread
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BasePostRequest
+import io.spaceisstrange.opencoches.data.api.transformations.HtmlToThreadPagesNumber
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -28,7 +29,7 @@ class ThreadReply(val securityToken: String, val threadId: String, val reply: St
     /**
      * Retorna un observable para enviar la respuesta al hilo
      */
-    fun observable(): Observable<Boolean> {
+    fun observable(): Observable<Pair<Boolean, Int>> {
         return Observable.fromCallable({
             reply()
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -37,9 +38,12 @@ class ThreadReply(val securityToken: String, val threadId: String, val reply: St
     /**
      * Envía el mensaje especificado como respuesta al hilo especificado
      */
-    fun reply(): Boolean {
+    fun reply(): Pair<Boolean, Int> {
         val response = super.doRequest()
-        return isSuccessful(response.statusCode())
+        val success = isSuccessful(response.statusCode())
+        val newPageCount = HtmlToThreadPagesNumber.transform(response.parse())
+
+        return Pair(success, newPageCount)
     }
 
     override fun getPostParameters(): Map<String, String> {

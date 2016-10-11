@@ -25,8 +25,10 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
@@ -95,6 +97,9 @@ class ThreadActivity : BaseActivity() {
                 ?: throw IllegalArgumentException("No soy mago, no puedo adivinar el número de páginas del hilo")
         var threadCurrentPage = intent.extras?.getInt(THREAD_CURRENT_PAGE)!!
 
+        // Inyectamos la activity
+        val bus = (application as App).busComponent.getBus()
+
         // Guardamos el hilo del link
         link = threadLink
 
@@ -110,6 +115,20 @@ class ThreadActivity : BaseActivity() {
         fab.setOnClickListener {
             startActivity(ReplyThreadActivity.getStartIntent(this, threadTitle, threadLink))
         }
+
+        // Nos subscribimos a los eventos del bus para recibir cuando el usuario ha respondido
+        bus.observable().subscribe(
+                {
+                    event ->
+
+                    // Si es el hilo actual, comprobamos si hay páginas nuevas y nos desplazamos
+                    // hasta la última página
+                    if (event is RepliedToThreadEvent && event.isSameThread(link)) {
+                        pagerAdapter.updatePages(event.newPageCount)
+                        vpThreadPages.currentItem = pagerAdapter.totalPages - 1
+                    }
+                }
+        )
 
         // Actualizamos las páginas cuando nos movamos por el ViewPager
         tvThreadPages.text = getString(R.string.thread_pages_count, threadCurrentPage, pagerAdapter.count)

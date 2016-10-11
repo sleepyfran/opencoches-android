@@ -21,7 +21,7 @@ package io.spaceisstrange.opencoches.data.bus.events
 /**
  * Evento que notifica que se ha respondido a un tema específico
  */
-class RepliedToThreadEvent(val threadLink: String) : Event {
+class RepliedToThreadEvent(val threadLink: String, val newPageCount: Int) : Event {
     /**
      * Este método permite comprobar si el tema al que se ha respondido es el mismo en el que
      * se está actualmente
