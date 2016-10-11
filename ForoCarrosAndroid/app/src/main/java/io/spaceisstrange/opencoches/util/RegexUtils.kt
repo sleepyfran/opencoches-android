@@ -18,7 +18,7 @@
 
 package io.spaceisstrange.opencoches.util
 
-class RegexUtil {
+class RegexUtils {
     companion object {
         /**
          * Retorna un Regex que saca el ID de una URL de un hilo

@@ -18,7 +18,7 @@
 
 package io.spaceisstrange.opencoches.data.api.transformations
 
-import io.spaceisstrange.opencoches.util.RegexUtil
+import io.spaceisstrange.opencoches.util.RegexUtils
 import org.jsoup.nodes.Document
 
 class HtmlToUserId {
@@ -29,7 +29,7 @@ class HtmlToUserId {
         fun transform(document: Document): String {
             // Buscamos el enlace a nuestro usuario
             val userLink = document.select("a[href^=member.php?u=]").attr("href")
-            val userId = RegexUtil.userIdFromLink().matchEntire(userLink)?.groups?.get(1)?.value
+            val userId = RegexUtils.userIdFromLink().matchEntire(userLink)?.groups?.get(1)?.value
                     ?: throw IllegalStateException("No se ha podido determinar el ID del usuario")
 
             return userId

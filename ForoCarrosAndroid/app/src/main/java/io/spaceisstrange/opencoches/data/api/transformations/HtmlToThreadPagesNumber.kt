@@ -18,7 +18,7 @@
 
 package io.spaceisstrange.opencoches.data.api.transformations
 
-import io.spaceisstrange.opencoches.util.RegexUtil
+import io.spaceisstrange.opencoches.util.RegexUtils
 import org.jsoup.nodes.Document
 
 class HtmlToThreadPagesNumber {
@@ -36,7 +36,7 @@ class HtmlToThreadPagesNumber {
                 tableText = tables.text()
 
                 if (tableText.contains("Pág")) {
-                    val totalPages = RegexUtil.getPagesRegex().matchEntire(tableText)?.groups?.get(1)?.value
+                    val totalPages = RegexUtils.getPagesRegex().matchEntire(tableText)?.groups?.get(1)?.value
 
                     if (totalPages != null) {
                         return totalPages.toInt()

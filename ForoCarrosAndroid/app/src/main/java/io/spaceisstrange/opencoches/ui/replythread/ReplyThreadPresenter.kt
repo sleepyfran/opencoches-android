@@ -24,7 +24,7 @@ import io.spaceisstrange.opencoches.data.api.thread.ThreadReply
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
-import io.spaceisstrange.opencoches.util.RegexUtil
+import io.spaceisstrange.opencoches.util.RegexUtils
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -68,7 +68,7 @@ class ReplyThreadPresenter @Inject constructor(val view: ReplyThreadContract.Vie
                     view.showError(false)
 
                     // Obtenemos el ID del hilo
-                    val threadId = RegexUtil.threadIdFromLink().matchEntire(threadLink)?.groups?.get(1)?.value
+                    val threadId = RegexUtils.threadIdFromLink().matchEntire(threadLink)?.groups?.get(1)?.value
                             ?: throw IllegalArgumentException("La URL del hilo no es válida")
 
                     // Obtenemos el ID del usuario
