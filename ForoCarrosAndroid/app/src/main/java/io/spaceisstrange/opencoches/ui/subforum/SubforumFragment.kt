@@ -28,6 +28,7 @@ import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
+import io.spaceisstrange.opencoches.util.ColorUtils
 import kotlinx.android.synthetic.main.activity_subforum.*
 import kotlinx.android.synthetic.main.fragment_subforum.*
 
@@ -117,6 +118,9 @@ class SubforumFragment : Fragment(), SubforumContract.View {
                 }
             }
         })
+
+        // Configuramos el swipe to refresh
+        srlSubforum.setColorSchemeColors(*ColorUtils.getSwipeRefreshLayoutColors())
 
         // Recargamos el contenido cuando el usuario haga un swipe to refresh
         srlSubforum.setOnRefreshListener {

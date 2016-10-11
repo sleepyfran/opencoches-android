@@ -30,6 +30,7 @@ import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
+import io.spaceisstrange.opencoches.util.ColorUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
 import javax.inject.Inject
@@ -77,8 +78,16 @@ class ThreadFragment : Fragment(), ThreadContract.View {
                 .build()
                 .inject(this)
 
+        // Configuramos el swipe to refresh
+        srlThread.setColorSchemeColors(*ColorUtils.getSwipeRefreshLayoutColors())
+
         // Inicializamos el presenter
         threadPresenter.init()
+
+        // Recargamos la página actual cuando el usuario haga swipe
+        srlThread.setOnRefreshListener {
+            threadPresenter.loadPage()
+        }
 
         // Ocultamos el fab de respuesta de respuesta al hacer scroll
         nsThread.setOnScrollChangeListener {
@@ -124,11 +133,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         if (show) {
             wvPostContent?.visibility = View.GONE
             activity.fab.hide()
-            loading?.visibility = View.VISIBLE
+            srlThread?.isRefreshing = true
         } else {
             wvPostContent?.visibility = View.VISIBLE
             activity.fab.show()
-            loading?.visibility = View.GONE
+            srlThread?.isRefreshing = false
         }
     }
 
