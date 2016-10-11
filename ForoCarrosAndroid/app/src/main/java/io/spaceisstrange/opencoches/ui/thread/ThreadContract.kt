@@ -27,12 +27,18 @@ interface ThreadContract {
         /**
          * Método a llamar cuando el contenido de la página esté cargado
          */
-        fun showPage(posts: List<Post>)
+        fun showPage(posts: List<Post>, onLoad: (() -> Unit)? = null)
 
         /**
          * Método a llamar cuando se estén cargando los datos
          */
         fun showLoading(show: Boolean)
+
+        /**
+         * Método a llamar cuando queremos irnos directamente hasta el final de una página.
+         * Útil cuando el usuario ha respondido y queremos irnos a su respuesta
+         */
+        fun scrollToBottom()
 
         /**
          * Método a llamar cuando se produzca un error
@@ -44,6 +50,6 @@ interface ThreadContract {
         /**
          * Método a llamar cuando necesitemos cargar el contenido actual de la página
          */
-        fun loadPage()
+        fun loadPage(onLoad: (() -> Unit)? = null)
     }
 }

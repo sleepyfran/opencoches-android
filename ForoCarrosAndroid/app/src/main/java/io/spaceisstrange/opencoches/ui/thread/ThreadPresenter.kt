@@ -20,7 +20,7 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
 import io.spaceisstrange.opencoches.data.bus.Bus
-import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
+import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import rx.subscriptions.CompositeSubscription
 
 class ThreadPresenter(var view: ThreadContract.View,
@@ -49,14 +49,17 @@ class ThreadPresenter(var view: ThreadContract.View,
                     event ->
 
                     // Recargamos la página si el usuario ha respondido al hilo
-                    if (event is RepliedToThreadEvent && event.isSameThread(link)) {
-                        loadPage()
+                    if (event is PageScrolledEvent && event.isSameThread(link)) {
+                        loadPage({
+                            // Hacemos scroll al final de la página al recargar
+                            view.scrollToBottom()
+                        })
                     }
                 }
         )
     }
 
-    override fun loadPage() {
+    override fun loadPage(onLoad: (() -> Unit)?) {
         // Cargamos los posts del hilo y los mostramos
         view.showLoading(true)
 
@@ -66,7 +69,9 @@ class ThreadPresenter(var view: ThreadContract.View,
 
                     view.showLoading(false)
                     view.showError(false)
-                    view.showPage(posts)
+                    view.showPage(posts, {
+                        onLoad?.invoke()
+                    })
                 },
                 {
                     error ->

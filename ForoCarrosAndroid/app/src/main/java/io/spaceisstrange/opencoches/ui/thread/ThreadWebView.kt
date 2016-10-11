@@ -42,7 +42,9 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
         addJavascriptInterface(this, "Android")
     }
 
-    override fun loadContent(content: List<Post>) {
+    override fun loadContent(content: List<Post>, onLoad: (() -> Unit)?) {
+        this.onLoad = onLoad
+
         val contentHtml = PostsTemplate(context).render(content)
         loadDataWithBaseURL(ApiConstants.BASE_URL, contentHtml, "text/html", "utf-8", null)
     }

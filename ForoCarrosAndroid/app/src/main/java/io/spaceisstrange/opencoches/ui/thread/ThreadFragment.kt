@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ import com.tinsuke.icekick.state
 import com.tinsuke.icekick.unfreezeInstanceState
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
 import io.spaceisstrange.opencoches.util.ColorUtils
@@ -40,6 +42,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
      * Presenter asociado a nuestra view
      */
     @Inject lateinit var threadPresenter: ThreadPresenter
+
+    /**
+     * Bus de la aplicación
+     */
+    @Inject lateinit var bus: Bus
 
     /**
      * Información general del post a pasar al presenter
@@ -90,7 +97,7 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         }
 
         // Ocultamos el fab de respuesta de respuesta al hacer scroll
-        nsThread.setOnScrollChangeListener {
+        wvPostContent.setOnScrollChangeListener {
             view, x, y, oldX, oldY ->
 
             if (oldY - y <= 0) {
@@ -124,9 +131,13 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         threadPresenter = presenter
     }
 
-    override fun showPage(posts: List<Post>) {
+    override fun showPage(posts: List<Post>, onLoad: (() -> Unit)?) {
         // Actualizamos el contenido del web view
-        wvPostContent.loadContent(posts)
+        wvPostContent.loadContent(posts, onLoad)
+    }
+
+    override fun scrollToBottom() {
+        wvPostContent.pageDown(true)
     }
 
     override fun showLoading(show: Boolean) {

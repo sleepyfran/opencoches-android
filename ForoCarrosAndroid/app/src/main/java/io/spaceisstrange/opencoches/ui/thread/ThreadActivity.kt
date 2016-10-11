@@ -28,6 +28,7 @@ import android.view.MenuItem
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
@@ -126,6 +127,9 @@ class ThreadActivity : BaseActivity() {
                     if (event is RepliedToThreadEvent && event.isSameThread(link)) {
                         pagerAdapter.updatePages(event.newPageCount)
                         vpThreadPages.currentItem = pagerAdapter.totalPages - 1
+
+                        // Notificamos al bus para que el presenter pueda actualizarse
+                        bus.publish(PageScrolledEvent(link))
                     }
                 }
         )

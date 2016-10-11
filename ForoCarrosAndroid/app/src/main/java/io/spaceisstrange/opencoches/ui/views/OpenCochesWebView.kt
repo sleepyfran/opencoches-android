@@ -22,6 +22,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.webkit.WebView
+import android.webkit.WebViewClient
 
 abstract class OpenCochesWebView<in T> : WebView {
 
@@ -29,16 +30,35 @@ abstract class OpenCochesWebView<in T> : WebView {
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    /**
+     * Método a llamar cuando la página termine de cargar
+     */
+    var onLoad: (() -> Unit)? = null
+
     init {
         // Hacemos el fondo transparente para que sea del color de la App
         setBackgroundColor(Color.TRANSPARENT)
 
         // Habilitamos JavaScript y nos declaramos como interfaz
         settings.javaScriptEnabled = true
+
+        setWebViewClient(object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                onLoad?.invoke()
+            }
+        })
+    }
+
+    /**
+     * Ejecuta un método de JavaScript en el webview
+     */
+    fun execute(method: String) {
+        loadUrl("javascript:" + method)
     }
 
     /**
      * Carga el contenido HTML especificado en el webview
      */
-    abstract fun loadContent(content: T)
+    abstract fun loadContent(content: T, onLoad: (() -> Unit)? = null)
 }
