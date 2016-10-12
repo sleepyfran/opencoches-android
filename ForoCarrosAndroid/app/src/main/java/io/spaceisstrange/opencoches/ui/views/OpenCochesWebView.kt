@@ -19,8 +19,12 @@
 package io.spaceisstrange.opencoches.ui.views
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
+import android.os.Build
 import android.util.AttributeSet
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
@@ -43,6 +47,21 @@ abstract class OpenCochesWebView<in T> : WebView {
         settings.javaScriptEnabled = true
 
         setWebViewClient(object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                // Dejamos que el sistema se encargue de la url
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+
+                return true
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    return shouldOverrideUrlLoading(view, request.url.toString())
+                } else {
+                    return super.shouldOverrideUrlLoading(view, request)
+                }
+            }
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 onLoad?.invoke()
