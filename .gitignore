@@ -33,6 +33,7 @@ proguard/
 captures/
 
 # Intellij
+web/.idea
 *.iml
 .idea/workspace.xml
 
