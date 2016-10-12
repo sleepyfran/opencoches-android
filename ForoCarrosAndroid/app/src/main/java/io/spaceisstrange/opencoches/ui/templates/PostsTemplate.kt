@@ -32,8 +32,6 @@ class PostsTemplate(context: Context) : HtmlTemplate<List<Post>>(context, "post_
         val buffer = StringBuilder()
 
         for (post in content) {
-            // Reemplazamos primero las URLs "falsas" de FC
-            post.postHtml = post.postHtml.replace("//st.forocoches.com/", "http://st.forocoches.com/")
             buffer.append(postTemplate.render(post))
         }
 
