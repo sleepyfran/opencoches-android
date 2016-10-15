@@ -36,6 +36,7 @@ class ApiConstants {
         const val REPLY_URL = "newreply.php"
         const val DO_URL = "?do="
         const val T_URL = "&t="
+        const val SMILIES_URL = "misc.php?do=getsmilies&editorid=vB_Editor_001"
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.

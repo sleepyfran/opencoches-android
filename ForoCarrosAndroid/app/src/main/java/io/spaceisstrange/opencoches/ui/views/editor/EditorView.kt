@@ -19,14 +19,20 @@
 package io.spaceisstrange.opencoches.ui.views.editor
 
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.bus.events.SmilySelectedEvent
 import io.spaceisstrange.opencoches.ui.views.editor.imageupload.ImageSelectionDialog
+import io.spaceisstrange.opencoches.ui.views.editor.smilies.SmiliesActivity
 import kotlinx.android.synthetic.main.view_editor.view.*
+import rx.Subscription
 
 class EditorView : LinearLayout {
     constructor(context: Context?) : super(context)
@@ -72,6 +78,62 @@ class EditorView : LinearLayout {
                 appendTag(ApiConstants.EDITOR_VID_TAG, ApiConstants.EDITOR_VID_CLOSE_TAG)
                 etEditorText.text.insert(etEditorText.selectionStart, link)
             }.show((context as AppCompatActivity).supportFragmentManager, null)
+        }
+
+        btnEditorEmoji.setOnClickListener {
+            // Mostramos la activity de smilies
+            val smilyIntent = Intent(context, SmiliesActivity::class.java)
+            context.startActivity(smilyIntent)
+
+            // Nos subscribimos al bus para saber cuándo el usuario ha seleccionado un smily
+            val bus = (context.applicationContext as App).busComponent.getBus()
+            var busSubscription: Subscription? = null
+            busSubscription = bus.observable().subscribe(
+                    {
+                        event ->
+
+                        if (event is SmilySelectedEvent) {
+                            // Añadimos el smily al campo de texto
+                            getActivity()?.runOnUiThread {
+                                appendText(event.smilyCode)
+
+                                // Nos desubscribimos para no volver a coger más eventos
+                                busSubscription?.unsubscribe()
+                            }
+                        }
+                    }
+            )
+        }
+    }
+
+    /**
+     * Utilidad para obtener la activity asociada a esta view
+     */
+    private fun getActivity(): AppCompatActivity? {
+        var context = context
+        while (context is ContextWrapper) {
+            if (context is AppCompatActivity) {
+                return context
+            }
+
+            context = context.baseContext
+        }
+        return null
+    }
+
+    /**
+     * Añade el texto especificado al campo de texto
+     */
+    private fun appendText(text: String) {
+        if (etEditorText.selectionStart > -1) {
+            // El usuario tiene colocado el cursor en una posición, así que añadimos el texto ahí
+            val nextPosition = etEditorText.selectionStart + text.length
+            etEditorText.text.insert(etEditorText.selectionStart, text)
+            etEditorText.setSelection(nextPosition)
+        } else {
+            // Aún no se ha seleccionado ninguna posición en el campo de texto
+            etEditorText.append(text)
+            etEditorText.setSelection(etEditorText.length())
         }
     }
 

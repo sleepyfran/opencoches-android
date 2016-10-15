@@ -65,6 +65,9 @@
     <string name="link_text_field.description">Introduce el enlace a adjuntar:</string>
     <string name="link_text_field.error">No puedes introducir un link vacío</string>
 
+    <!-- Selección de smilies -->
+    <string name="smilies.title">Selecciona un smily</string>
+
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>
     <string name="dummy.subforo_title">General</string>

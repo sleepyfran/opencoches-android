@@ -60,6 +60,14 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/ic_video_white" />
 
+        <ImageButton
+            android:id="@+id/btnEditorEmoji"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_insert_emoticon_white" />
+
     </LinearLayout>
 
     <EditText
