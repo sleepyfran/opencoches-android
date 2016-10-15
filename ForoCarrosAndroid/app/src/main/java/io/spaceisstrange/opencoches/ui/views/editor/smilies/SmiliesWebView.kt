@@ -21,6 +21,8 @@ package io.spaceisstrange.opencoches.ui.views.editor.smilies
 import android.content.Context
 import android.util.AttributeSet
 import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.model.Smily
 import io.spaceisstrange.opencoches.ui.templates.SmiliesTemplate
@@ -40,6 +42,15 @@ class SmiliesWebView : OpenCochesWebView<List<Smily>> {
     init {
         // Nos registramos como interfaz de JavaScript
         addJavascriptInterface(this, "Android")
+
+        // Configuramos la WebView para funcionar correctamente con la SlidingActivity
+        setWebViewClient(object : WebViewClient() {
+            override fun onPageFinished(view: WebView, url: String?) {
+                val initialHeight = view.measuredHeight
+                view.minimumHeight = initialHeight
+                super.onPageFinished(view, url)
+            }
+        })
     }
 
     override fun loadContent(content: List<Smily>, onLoad: (() -> Unit)?) {
