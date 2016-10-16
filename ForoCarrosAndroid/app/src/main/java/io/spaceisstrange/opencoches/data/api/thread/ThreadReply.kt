@@ -21,6 +21,7 @@ package io.spaceisstrange.opencoches.data.api.thread
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BasePostRequest
 import io.spaceisstrange.opencoches.data.api.transformations.HtmlToThreadPagesNumber
+import org.jsoup.nodes.Document
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -40,10 +41,30 @@ class ThreadReply(val securityToken: String, val threadId: String, val reply: St
      */
     fun reply(): Pair<Boolean, Int> {
         val response = super.doRequest()
-        val success = isSuccessful(response.statusCode())
-        val newPageCount = HtmlToThreadPagesNumber.transform(response.parse())
+        val parsedResponse = response.parse()
+        val success = isSuccessful(response.statusCode()) && !containsError(parsedResponse)
+        val newPageCount = HtmlToThreadPagesNumber.transform(parsedResponse)
 
         return Pair(success, newPageCount)
+    }
+
+    /**
+     * Comprueba si el documento contiene algún mensaje de error.
+     * OJO: Esto es un claro ejemplo del uso de ÑaaS (https://calidadysoftware.files.wordpress.com/2015/07/c3b1apa-as-a-service.png)
+     * TODO: Cambiar :C
+     */
+    fun containsError(document: Document): Boolean {
+        val errorSections = document.select(".tcat")
+
+        if (errorSections.size <= 0) return false
+
+        for (sections in errorSections) {
+            if (sections.text().contains("error", true)) {
+                return true
+            }
+        }
+
+        return false
     }
 
     override fun getPostParameters(): Map<String, String> {
