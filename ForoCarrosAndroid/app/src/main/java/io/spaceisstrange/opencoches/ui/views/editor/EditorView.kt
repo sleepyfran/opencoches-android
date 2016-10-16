@@ -101,6 +101,11 @@ class EditorView : LinearLayout {
                                 busSubscription?.unsubscribe()
                             }
                         }
+                    },
+                    {
+                        error ->
+
+                        // Nada, silenciamos
                     }
             )
         }

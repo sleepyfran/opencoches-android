@@ -131,6 +131,11 @@ class ThreadActivity : BaseActivity() {
                         // Notificamos al bus para que el presenter pueda actualizarse
                         bus.publish(PageScrolledEvent(link))
                     }
+                },
+                {
+                    error ->
+
+                    // Nada, silenciamos
                 }
         )
 

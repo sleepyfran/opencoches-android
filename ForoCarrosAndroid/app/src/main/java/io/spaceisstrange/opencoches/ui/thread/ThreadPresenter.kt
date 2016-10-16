@@ -55,6 +55,12 @@ class ThreadPresenter(var view: ThreadContract.View,
                             view.scrollToBottom()
                         })
                     }
+                },
+                {
+                    error ->
+
+                    // Mostramos un error al usuario
+                    view.showError(true)
                 }
         )
     }

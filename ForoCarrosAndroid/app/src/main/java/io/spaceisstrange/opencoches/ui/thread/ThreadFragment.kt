@@ -136,17 +136,17 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     }
 
     override fun scrollToBottom() {
-        wvPostContent.pageDown(true)
+        wvPostContent?.pageDown(true)
     }
 
     override fun showLoading(show: Boolean) {
         if (show) {
             wvPostContent?.visibility = View.GONE
-            activity.fab?.hide()
+            activity?.fab?.hide()
             srlThread?.isRefreshing = true
         } else {
             wvPostContent?.visibility = View.VISIBLE
-            activity.fab?.show()
+            activity?.fab?.show()
             srlThread?.isRefreshing = false
         }
     }
@@ -154,11 +154,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
     override fun showError(show: Boolean) {
         if (show) {
             wvPostContent?.visibility = View.GONE
-            activity.fab?.hide()
+            activity?.fab?.hide()
             vError?.visibility = View.VISIBLE
         } else {
             wvPostContent?.visibility = View.VISIBLE
-            activity.fab?.show()
+            activity?.fab?.show()
             vError?.visibility = View.GONE
         }
     }

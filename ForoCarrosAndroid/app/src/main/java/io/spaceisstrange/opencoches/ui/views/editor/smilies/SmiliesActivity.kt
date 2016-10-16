@@ -68,6 +68,11 @@ class SmiliesActivity : SlidingActivity() {
                             finish()
                         }
                     }
+                },
+                {
+                    error ->
+
+                    // Nada, silenciamos
                 }
         )
     }

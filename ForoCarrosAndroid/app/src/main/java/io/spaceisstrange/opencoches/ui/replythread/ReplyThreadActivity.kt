@@ -118,6 +118,11 @@ class ReplyThreadActivity : SlidingActivity() {
                                     }
                                 }).show()
                     }
+                },
+                {
+                    error ->
+
+                    // Nada, silenciamos
                 }
         )
     }
