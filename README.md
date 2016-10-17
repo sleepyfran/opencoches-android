@@ -10,15 +10,19 @@ Básicamente este proyecto lo he hecho en mi tiempo libre como forma de entreten
 
 Dicho esto no pienso dar soporte 24/7 ni arreglar los errores a la velocidad de la luz. La mayoría del código está escrito a altas horas de la noche (como ahora mismo que son las 4 de la mañana, *jé*) y, aunque he intentado hacerlo todo lo claro y modular posible, es probable que haya alguna que otra chusta por ahí.
 
+## [Developers developers developers developers developers](https://www.youtube.com/watch?v=Vhh_GeBPOhs)
+Si eres desarrollador y quieres colaborar: adelante, esta es tu casa. El código es completamente libre bajo la licencia de **GPL v3**. Si quieres contribuir sólo tienes que hacer un *pull request* y estaré encantado de meter en el proyecto todo lo que se merezca estar dentro. Dicho esto, en la medida de lo posible, intenta comentar lo que hagas y seguir el estilo general de código que sigo a lo largo de todo el proyecto. En la siguiente sección os hago una recopilación rapidita de las librerías y estilos que he usado a lo largo del proyecto, aunque tengo pendiente hacer una Wiki aquí en GitHub más detallada para dejarlo todo mejor comentado.
+
 ## Lenguaje, frameworks y blablabla
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
-Toda la aplicación está hecha con *Kotlin* y usando el SDK de Android además de algunos *goodies* en forma de librerías externas como *JSoup*, mi gran aliado en toda esta aventura, y *RxJava*.
+Toda la aplicación está hecha con *Kotlin* y usando el SDK de Android. Para la organización general del código he usado un pseudo-MVP (es mi primerito día usando MVP y quizá no sea todo al 100% como debería) y Dagger 2 para la inyección de dependencias.
 
-## [Developers developers developers developers developers](https://www.youtube.com/watch?v=Vhh_GeBPOhs)
-Si eres desarrollador y quieres colaborar: adelante, esta es tu casa. El código es completamente libre bajo la licencia de **GPL v3**. Si quieres contribuir sólo tienes que hacer un *pull request* y estaré encantado de meter en el proyecto todo lo que se merezca estar dentro. Dicho esto, en la medida de lo posible, intenta comentar lo que hagas y seguir el estilo general de código que sigo a lo largo de todo el proyecto.
+Para todo lo referente a las peticiones y parseo del HTML he usado *JSoup*. Para todo el tema *async* he optado por el uso de *RxJava* y *RxAndroid*.
+
+Además, he decidio integrar *Firebase* para el reporte de errores en la aplicación, que teniendo en cuenta lo que estamos haciendo y lo fácil que será que se rompan las cosas nos será extremadamente útil. Dado que el archivo de configuración de Firebase es privado si queréis compilar la aplicación con Firebase integrado necesitaréis generar un archivo de configuración en el sitio web de Firebase. También podéis compilar la aplicación sin la integración con Firebase, para eso solo tendréis que comentar las librerías y plugins que he señalado en el (build.gradle de la aplicación)[https://github.com/spaceisstrange/OpenCoches/blob/master/ForoCarrosAndroid/app/build.gradle] y en el (general del proyecto)[https://github.com/spaceisstrange/OpenCoches/blob/master/ForoCarrosAndroid/build.gradle].
 
 ## Developer playlist
 Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba el proyecto. Aquí iré poniendo los discos, canciones y *playlists* que vaya escuchando mientras pico código, por si alguno quiere venirse arriba y escucharlo también:
