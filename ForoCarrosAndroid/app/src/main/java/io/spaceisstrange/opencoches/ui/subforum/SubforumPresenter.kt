@@ -41,7 +41,7 @@ class SubforumPresenter @Inject constructor(val view: SubforumContract.View, val
     private fun loadThreads(link: String, onLoad: (threads: List<Thread>) -> Unit) {
         view.showLoading(true)
 
-        Subforum(link, subforumActualPage).observable().subscribe(
+        val subforumObservable = Subforum(link, subforumActualPage).observable().subscribe(
                 {
                     threads ->
 
@@ -56,6 +56,8 @@ class SubforumPresenter @Inject constructor(val view: SubforumContract.View, val
                     view.showError(true)
                 }
         )
+
+        compositeSubscription.add(subforumObservable)
     }
 
     @Inject
