@@ -40,19 +40,20 @@ class HtmlToSmilies {
                 // Obtenemos los datos del smily y lo añadimos a la lista
                 val smilyColumns = smily.select("td")
 
-                // En cada fila hay dos smilies, así que obtenemos sus datos
-                var firstSmilyLink = smilyColumns[0].select("img").attr("src")
-                val firstSmilyCode = smilyColumns[1].text()
-                var secondSmilyLink = smilyColumns[2].select("img").attr("src")
-                val secondSmilyCode = smilyColumns[3].text()
+                // Obtenemos los datos de cada columna
+                var index = 0
+                while (index < smilyColumns.size - 1) {
+                    val smilyCode = smilyColumns[index].text()
+                    var smilyLink = smilyColumns[index].select("img").attr("src")
 
-                // Reemplazamos las URLs "falsas" (vaya unos truquitos, Ilitri...)
-                firstSmilyLink = firstSmilyLink.replace("//st.forocoches.com/", "http://st.forocoches.com/")
-                secondSmilyLink = secondSmilyLink.replace("//st.forocoches.com/", "http://st.forocoches.com/")
+                    // Reemplazamos las URLs "falsas"
+                    smilyLink = smilyLink.replace("//st.forocoches.com/", "http://st.forocoches.com/")
 
-                // Y los añadimos
-                smilies.add(Smily(firstSmilyCode, firstSmilyLink))
-                smilies.add(Smily(secondSmilyCode, secondSmilyLink))
+                    // Y lo añadimos
+                    smilies.add(Smily(smilyCode, smilyLink))
+
+                    index += 2
+                }
             }
 
             return smilies
