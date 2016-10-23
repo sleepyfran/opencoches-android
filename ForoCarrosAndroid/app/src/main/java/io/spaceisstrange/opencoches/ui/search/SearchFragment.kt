@@ -54,12 +54,8 @@ class SearchFragment : Fragment(), SearchContract.View {
     /**
      * Variables para hacer el RecyclerView infinito
      */
-    var previousTotalItemCount = 0
-    var visibleItemThreshold = 15
-    var firstVisibleItemPosition = 0
-    var visibleItemCount = 0
+    var currentPage = 1
     var totalItemCount = 0
-    var loadingContent = true
 
     companion object {
         /**
@@ -91,26 +87,15 @@ class SearchFragment : Fragment(), SearchContract.View {
         rvSearchResults.layoutManager = layoutManager
 
         // Configuramos la RecyclerView para ser "infinita"
-        // Basado en: http://stackoverflow.com/a/26561717
         rvSearchResults.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                totalItemCount = layoutManager.itemCount
-                visibleItemCount = recyclerView.childCount
+                // Cargamos más contenido sólo si lo hay
+                if (currentPage >= totalItemCount) return
 
-                if (loadingContent) {
-                    if (totalItemCount > previousTotalItemCount) {
-                        loadingContent = false
-                        previousTotalItemCount = totalItemCount
-                    }
-                }
-
-                if (!loadingContent && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItemPosition + visibleItemThreshold)) {
-                    // Estamos en el final, así que cargamos más contenido de la siguiente página
-                    loadingContent = true
+                if (!rvSearchResults.canScrollVertically(1)) {
+                    currentPage++
                     searchPresenter.loadNextSearchPage()
                 }
             }
