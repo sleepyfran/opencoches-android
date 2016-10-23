@@ -43,8 +43,8 @@ class HtmlToSmilies {
                 // Obtenemos los datos de cada columna
                 var index = 0
                 while (index < smilyColumns.size - 1) {
-                    val smilyCode = smilyColumns[index].text()
                     var smilyLink = smilyColumns[index].select("img").attr("src")
+                    val smilyCode = smilyColumns[index + 1].text()
 
                     // Reemplazamos las URLs "falsas"
                     smilyLink = smilyLink.replace("//st.forocoches.com/", "http://st.forocoches.com/")
