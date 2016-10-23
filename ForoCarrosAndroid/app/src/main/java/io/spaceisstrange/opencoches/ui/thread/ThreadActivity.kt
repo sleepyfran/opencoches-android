@@ -32,6 +32,7 @@ import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
+import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 
@@ -84,9 +85,24 @@ class ThreadActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         showCloseButtonOnToolbar()
 
+        // Dado que esta activity puede ser abierta por el usuario sin estar logueado lo comprobamos primero
+        val sharedPrefs = (application as App).sharedPrefsComponent.getSharedPreferencesUtils()
+
+        if (!sharedPrefs.isLoggedIn()) {
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+            finish()
+        }
+
         // Obtenemos el título, link y páginas de los extras del intent
-        val threadLink = intent.extras?.getString(THREAD_LINK)
-                ?: throw IllegalArgumentException("No soy mago, no puedo abrir un hilo sin el link")
+        var threadLink = intent.extras?.getString(THREAD_LINK) ?: intent.dataString
+
+        // Dado que los links que nos vienen de un intent filter llevan la URL completa (con http://forocoches...etc)
+        // y para no hacer un cambio completo de la forma en la que tratamos las URLs en las llamadas a la web
+        // mejor curarnos de espanto y quitarle el prefijo
+        if (threadLink.startsWith(ApiConstants.BASE_URL)) {
+            threadLink = threadLink.removePrefix(ApiConstants.BASE_URL)
+        }
 
         // Inyectamos la activity
         bus = (application as App).busComponent.getBus()
