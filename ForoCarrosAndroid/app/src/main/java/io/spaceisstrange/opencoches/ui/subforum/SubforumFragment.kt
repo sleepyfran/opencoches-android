@@ -49,16 +49,6 @@ class SubforumFragment : Fragment(), SubforumContract.View {
         this.subforumPresenter.openThread(thread)
     })
 
-    /**
-     * Variables para hacer el RecyclerView infinito
-     */
-    var previousTotalItemCount = 0
-    var visibleItemThreshold = 15
-    var firstVisibleItemPosition = 0
-    var visibleItemCount = 0
-    var totalItemCount = 0
-    var loadingContent = true
-
     companion object {
         /**
          * Crea una nueva instancia del fragment
@@ -95,26 +85,10 @@ class SubforumFragment : Fragment(), SubforumContract.View {
         })
 
         // Configuramos la RecyclerView para ser "infinita"
-        // Basado en: http://stackoverflow.com/a/26561717
         rvSubforumThreads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                totalItemCount = layoutManager.itemCount
-                visibleItemCount = recyclerView.childCount
-
-                if (loadingContent) {
-                    if (totalItemCount > previousTotalItemCount) {
-                        loadingContent = false
-                        previousTotalItemCount = totalItemCount
-                    }
-                }
-
-                if (!loadingContent && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItemPosition + visibleItemThreshold)) {
-                    // Estamos en el final, así que cargamos más contenido de la siguiente página
-                    loadingContent = true
+                if (!rvSubforumThreads.canScrollVertically(1)) {
                     subforumPresenter.loadNextPage()
                 }
             }
