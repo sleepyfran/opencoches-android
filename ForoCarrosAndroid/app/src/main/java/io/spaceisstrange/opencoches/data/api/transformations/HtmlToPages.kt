@@ -21,11 +21,12 @@ package io.spaceisstrange.opencoches.data.api.transformations
 import io.spaceisstrange.opencoches.util.RegexUtils
 import org.jsoup.nodes.Document
 
-class HtmlToThreadPagesNumber {
+class HtmlToPages {
     companion object {
         /**
-         * Obtiene el número de páginas totales del documento especificado. Útil para obtener la nueva
-         * pagina cuando hemos respondido a un hilo y hemos comenzado otra nueva
+         * Obtiene el número de páginas totales del documento especificado. Por lo general funciona en todas las páginas
+         * del foro que contengan páginas, como búsquedas, hilos, etc. Aunque obviamente no lo he probado en todos
+         * lados.
          */
         fun transform(document: Document): Int {
             // Obtenemos la tabla con las páginas

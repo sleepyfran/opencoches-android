@@ -16,10 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.subforum
+package io.spaceisstrange.opencoches.ui.search
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -29,24 +28,27 @@ import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
-import io.spaceisstrange.opencoches.util.ColorUtils
-import kotlinx.android.synthetic.main.activity_subforum.*
-import kotlinx.android.synthetic.main.fragment_subforum.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
-class SubforumFragment : Fragment(), SubforumContract.View {
+class SearchFragment : Fragment(), SearchContract.View {
     /**
-     * Presenter asociado a nuestro fragment
+     * Presenter asociado al fragment
      */
-    lateinit var subforumPresenter: SubforumPresenter
+    lateinit var searchPresenter: SearchPresenter
+
+    /**
+     * Método a llamar cuando se produzca alguna búsqueda en la activity
+     */
+    lateinit var onSearch: (query: String) -> Unit
 
     /**
      * Adapter de los hilos del subforo
      */
-    val adapter = SubforumAdapter({
+    val adapter = SearchAdapter({
         thread ->
 
-        // Notificamos al presenter sobre el click
-        this.subforumPresenter.openThread(thread)
+        // Abrimos el hilo seleccionado
+        startActivity(ThreadActivity.getStartIntent(context, thread.title, thread.link, thread.pages))
     })
 
     /**
@@ -63,40 +65,34 @@ class SubforumFragment : Fragment(), SubforumContract.View {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(): SubforumFragment {
-            val fragment = SubforumFragment()
+        fun newInstance(): SearchFragment {
+            val fragment = SearchFragment()
             return fragment
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_subforum, container, false)
+        // Notificamos al presenter cuando recibamos una petición de búsqueda
+        onSearch = {
+            query ->
+
+            searchPresenter.search(query)
+        }
+
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Configuramos el RecyclerView
-        rvSubforumThreads.adapter = adapter
+        rvSearchResults.adapter = adapter
         val layoutManager = LinearLayoutManager(context)
-        rvSubforumThreads.layoutManager = layoutManager
-
-        // Ocultamos el fab al hacer scroll
-        rvSubforumThreads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (dy > 0) {
-                    activity.fab.hide()
-                } else {
-                    activity.fab.show()
-                }
-            }
-        })
+        rvSearchResults.layoutManager = layoutManager
 
         // Configuramos la RecyclerView para ser "infinita"
         // Basado en: http://stackoverflow.com/a/26561717
-        rvSubforumThreads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        rvSearchResults.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -115,55 +111,45 @@ class SubforumFragment : Fragment(), SubforumContract.View {
                         <= (firstVisibleItemPosition + visibleItemThreshold)) {
                     // Estamos en el final, así que cargamos más contenido de la siguiente página
                     loadingContent = true
-                    subforumPresenter.loadNextPage()
+                    searchPresenter.loadNextSearchPage()
                 }
             }
         })
 
-        // Configuramos el swipe to refresh
-        srlSubforum.setColorSchemeColors(*ColorUtils.getSwipeRefreshLayoutColors())
-
-        // Recargamos el contenido cuando el usuario haga un swipe to refresh
-        srlSubforum.setOnRefreshListener {
-            subforumPresenter.reloadThreads()
-        }
+        // Sólo queremos el swipe to refresh para indicar carga, no para recargar nada
+        srlSearch.isEnabled = false
 
         // Iniciamos el presenter
-        subforumPresenter.init()
+        searchPresenter.init()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        subforumPresenter.finish()
+    override fun setPresenter(presenter: SearchPresenter) {
+        searchPresenter = presenter
     }
 
-    override fun setPresenter(presenter: SubforumPresenter) {
-        subforumPresenter = presenter
+    override fun setSearchPages(pages: Int) {
+        totalItemCount = pages
     }
 
-    override fun showLoading(enabled: Boolean) {
-        srlSubforum?.isRefreshing = enabled
+    override fun showSearchResults(results: List<Thread>) {
+        adapter.update(results)
     }
 
-    override fun showThreads(threads: List<Thread>) {
-        adapter.update(threads)
+    override fun showMoreSearchResults(results: List<Thread>) {
+        adapter.add(results)
     }
 
-    override fun addThreads(threads: List<Thread>) {
-        adapter.addThreads(threads)
-    }
-
-    override fun showThread(thread: Thread) {
-        startActivity(ThreadActivity.getStartIntent(context, thread.title, thread.link, thread.pages))
+    override fun showLoading(show: Boolean) {
+        srlSearch.isRefreshing = show
     }
 
     override fun showError(show: Boolean) {
         if (show) {
-            rvSubforumThreads?.visibility = View.GONE
-            vError?.visibility = View.VISIBLE
+            rvSearchResults.visibility = View.GONE
+            vError.visibility = View.VISIBLE
         } else {
-            rvSubforumThreads?.visibility = View.VISIBLE
-            vError?.visibility = View.GONE
+            rvSearchResults.visibility = View.VISIBLE
+            vError.visibility = View.GONE
         }
     }
 }

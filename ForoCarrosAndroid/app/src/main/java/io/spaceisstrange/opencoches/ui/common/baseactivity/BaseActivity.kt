@@ -27,6 +27,7 @@ import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.CookiesCache
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
+import io.spaceisstrange.opencoches.ui.search.SearchActivity
 import javax.inject.Inject
 
 open class BaseActivity : AppCompatActivity() {
@@ -67,6 +68,10 @@ open class BaseActivity : AppCompatActivity() {
             finish()
 
             return true
+        } else if (selectedId == R.id.menu_search) {
+            // Iniciamos la activity de búsqueda
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
         }
 
         // TODO: Hacerse cargo del resto del menú

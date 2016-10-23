@@ -43,6 +43,7 @@ dependencies {
     compile 'com.squareup.phrase:phrase:1.1.0'
     compile 'com.github.tinsukE:icekick:0.1'
     compile 'com.klinkerapps:sliding-activity:1.4.3'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 
     // Dagger
     compile 'com.google.dagger:dagger:2.7'

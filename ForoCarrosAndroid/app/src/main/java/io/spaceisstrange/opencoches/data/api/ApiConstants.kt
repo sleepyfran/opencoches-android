@@ -25,6 +25,7 @@ class ApiConstants {
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
+        const val SEARCH_URL = "http://www.forocoches.com/forocoches_search.php"
         const val THREAD_URL = "showthread.php?t="
         const val SUBFORUM_URL = "forumdisplay.php?f="
         const val LOGIN_URL = "login.php"
@@ -33,6 +34,7 @@ class ApiConstants {
         const val SEND_MESSAGE_URL = "private.php?do=insertpm&pmid="
         const val THREAD_PAGE_URL = "&page="
         const val SUBFORO_PAGE_URL = "&page="
+        const val SEARCH_PAGE_URL = "&page="
         const val REPLY_URL = "newreply.php"
         const val DO_URL = "?do="
         const val T_URL = "&t="
@@ -90,6 +92,10 @@ class ApiConstants {
         const val PARSE_URL_PARAMETER = "parseurl"
         const val LOGGED_IN_USER_PARAMETER = "loggedinuser"
         const val S_BUTTON_PARAMETER = "sbutton"
+        const val QUERY_PARAMETER = "query"
+        const val OPCION_PARAMETER = "opcion"
+        const val REG_PARAMETER = "reg"
+        const val LB_PARAMETER = "lb"
 
         /**
          * Parámetros de la petición POST de Login
@@ -127,6 +133,18 @@ class ApiConstants {
                     PARSE_URL_PARAMETER to "1",
                     LOGGED_IN_USER_PARAMETER to userId,
                     S_BUTTON_PARAMETER to ""
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST de búsqueda
+         */
+        fun getSearchParameters(query: String, userId: String): Map<String, String> {
+            return hashMapOf(
+                    QUERY_PARAMETER to query,
+                    OPCION_PARAMETER to "foro",
+                    REG_PARAMETER to userId,
+                    LB_PARAMETER to "Buscar"
             )
         }
 

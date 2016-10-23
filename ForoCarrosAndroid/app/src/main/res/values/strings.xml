@@ -58,6 +58,9 @@
     <string name="thread.reply.bbcode.i">I</string>
     <string name="thread.reply.bbcode.u">U</string>
 
+    <!-- Activity de búsqueda -->
+    <string name="search.hint">Buscar&#8230;</string>
+
     <!-- Selección de foto -->
     <string name="image_upload.source">Incluir imagen</string>
     <string name="image_upload.gallery">Desde la galería</string>

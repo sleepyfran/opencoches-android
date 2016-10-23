@@ -20,7 +20,7 @@ package io.spaceisstrange.opencoches.data.api.thread
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BasePostRequest
-import io.spaceisstrange.opencoches.data.api.transformations.HtmlToThreadPagesNumber
+import io.spaceisstrange.opencoches.data.api.transformations.HtmlToPages
 import org.jsoup.nodes.Document
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -43,7 +43,7 @@ class ThreadReply(val securityToken: String, val threadId: String, val reply: St
         val response = super.doRequest()
         val parsedResponse = response.parse()
         val success = isSuccessful(response.statusCode()) && !containsError(parsedResponse)
-        val newPageCount = HtmlToThreadPagesNumber.transform(parsedResponse)
+        val newPageCount = HtmlToPages.transform(parsedResponse)
 
         return Pair(success, newPageCount)
     }
