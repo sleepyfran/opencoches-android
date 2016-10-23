@@ -28,6 +28,7 @@ import android.view.MenuItem
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
@@ -37,19 +38,9 @@ import kotlinx.android.synthetic.main.activity_thread.*
 class ThreadActivity : BaseActivity() {
     companion object {
         /**
-         * Clave asociada al título
-         */
-        val THREAD_TITLE = "threadTitle"
-
-        /**
          * Clave asociada al link
          */
         val THREAD_LINK = "threadLink"
-
-        /**
-         * Clave asociada al número de páginas
-         */
-        val THREAD_PAGES = "threadPages"
 
         /**
          * Clave asociada a la página actual
@@ -60,15 +51,9 @@ class ThreadActivity : BaseActivity() {
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
          */
         fun getStartIntent(context: Context,
-                           title: String,
-                           link: String,
-                           pages: Int,
-                           currentPage: Int = 1): Intent {
+                           link: String): Intent {
             val startIntent = Intent(context, ThreadActivity::class.java)
-            startIntent.putExtra(THREAD_TITLE, title)
             startIntent.putExtra(THREAD_LINK, link)
-            startIntent.putExtra(THREAD_PAGES, pages)
-            startIntent.putExtra(THREAD_CURRENT_PAGE, currentPage)
             return startIntent
         }
     }
@@ -83,6 +68,16 @@ class ThreadActivity : BaseActivity() {
      */
     lateinit var link: String
 
+    /**
+     * Bus de la aplicación
+     */
+    lateinit var bus: Bus
+
+    /**
+     * Página actual del hilo en la que nos encontramos
+     */
+    var currentPage = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thread)
@@ -90,31 +85,59 @@ class ThreadActivity : BaseActivity() {
         showCloseButtonOnToolbar()
 
         // Obtenemos el título, link y páginas de los extras del intent
-        val threadTitle = intent.extras?.getString(THREAD_TITLE)
-                ?: throw IllegalArgumentException("Necesitamos el título del hilo, Houston")
         val threadLink = intent.extras?.getString(THREAD_LINK)
                 ?: throw IllegalArgumentException("No soy mago, no puedo abrir un hilo sin el link")
-        val threadPages = intent.extras?.getInt(THREAD_PAGES)
-                ?: throw IllegalArgumentException("No soy mago, no puedo adivinar el número de páginas del hilo")
-        var threadCurrentPage = intent.extras?.getInt(THREAD_CURRENT_PAGE)!!
 
         // Inyectamos la activity
-        val bus = (application as App).busComponent.getBus()
+        bus = (application as App).busComponent.getBus()
 
         // Guardamos el hilo del link
         link = threadLink
 
+        // Deshabilitamos los botones de navegaciones hasta que carguemos los datos del hilo
+        setButtonsEnabled(false)
+        supportActionBar?.title = getString(R.string.general_loading)
+
+        // Cargamos los datos del hilo
+        ThreadPresenter.loadThreadInto(link, {
+            thread ->
+
+            initActivity(thread.title, thread.pages)
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.thread_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val selectedId = item?.itemId
+
+        if (selectedId == R.id.menu_open_in_browser) {
+            // Abrimos el enlace del hilo actual
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiConstants.BASE_URL + link))
+            startActivity(browserIntent)
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     * Inicializa la activity tras cargar los datos generales del hilo
+     */
+    fun initActivity(threadTitle: String, threadPages: Int) {
         // Ponemos el título del hilo en la toolbar
         supportActionBar?.title = threadTitle
 
         // Inicializamos el view pager
-        pagerAdapter = ThreadPagerAdapter(supportFragmentManager, threadLink, threadPages)
+        pagerAdapter = ThreadPagerAdapter(supportFragmentManager, link, threadPages)
         vpThreadPages.adapter = pagerAdapter
-        vpThreadPages.currentItem = threadCurrentPage - 1
 
         // Iniciamos la activity de respuesta al hilo cuando el usuario pulse el FAB
         fab.setOnClickListener {
-            startActivity(ReplyThreadActivity.getStartIntent(this, threadTitle, threadLink))
+            startActivity(ReplyThreadActivity.getStartIntent(this, threadTitle, link))
         }
 
         // Nos subscribimos a los eventos del bus para recibir cuando el usuario ha respondido
@@ -140,11 +163,11 @@ class ThreadActivity : BaseActivity() {
         )
 
         // Actualizamos las páginas cuando nos movamos por el ViewPager
-        tvThreadPages.text = getString(R.string.thread_pages_count, threadCurrentPage, pagerAdapter.count)
+        tvThreadPages.text = getString(R.string.thread_pages_count, currentPage, pagerAdapter.count)
         vpThreadPages.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 // Actualizamos el conteo de páginas
-                threadCurrentPage = position + 1
+                currentPage = position + 1
                 tvThreadPages.text = getString(R.string.thread_pages_count, position + 1, pagerAdapter.count)
             }
 
@@ -159,44 +182,39 @@ class ThreadActivity : BaseActivity() {
 
         // Establecemos las opciones de los botones de navegación
         btnThreadFirstPage.setOnClickListener {
-            threadCurrentPage = 1
-            vpThreadPages.currentItem = threadCurrentPage - 1
+            currentPage = 1
+            vpThreadPages.currentItem = currentPage - 1
         }
 
         btnThreadPreviousPage.setOnClickListener {
-            if (threadCurrentPage > 1) {
-                threadCurrentPage -= 1
-                vpThreadPages.currentItem = threadCurrentPage - 1
+            if (currentPage > 1) {
+                currentPage -= 1
+                vpThreadPages.currentItem = currentPage - 1
             }
         }
 
         btnThreadNextPage.setOnClickListener {
-            if (threadCurrentPage < pagerAdapter.count) {
-                threadCurrentPage += 1
-                vpThreadPages.currentItem = threadCurrentPage - 1
+            if (currentPage < pagerAdapter.count) {
+                currentPage += 1
+                vpThreadPages.currentItem = currentPage - 1
             }
         }
 
         btnThreadLastPage.setOnClickListener {
             vpThreadPages.currentItem = pagerAdapter.count - 1
         }
+
+        // Habilitamos los botones de navegación
+        setButtonsEnabled(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.thread_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val selectedId = item?.itemId
-
-        if (selectedId == R.id.menu_open_in_browser) {
-            // Abrimos el enlace del hilo actual
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiConstants.BASE_URL + link))
-            startActivity(browserIntent)
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+    /**
+     * Habilita/Deshabilita los botones de navegación de la activity
+     */
+    fun setButtonsEnabled(enabled: Boolean) {
+        btnThreadFirstPage.isEnabled = enabled
+        btnThreadLastPage.isEnabled = enabled
+        btnThreadNextPage.isEnabled = enabled
+        btnThreadPreviousPage.isEnabled = enabled
     }
 }

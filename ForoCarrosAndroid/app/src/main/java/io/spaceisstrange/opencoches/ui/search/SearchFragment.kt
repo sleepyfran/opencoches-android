@@ -48,7 +48,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         thread ->
 
         // Abrimos el hilo seleccionado
-        startActivity(ThreadActivity.getStartIntent(context, thread.title, thread.link, thread.pages))
+        startActivity(ThreadActivity.getStartIntent(context, thread.link))
     })
 
     /**

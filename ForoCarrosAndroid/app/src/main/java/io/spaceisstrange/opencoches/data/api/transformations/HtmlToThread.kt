@@ -20,14 +20,15 @@ package io.spaceisstrange.opencoches.data.api.transformations
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.data.model.Thread
 import org.jsoup.nodes.Document
 
-class HtmlToThreadPage {
+class HtmlToThread {
     companion object {
         /**
          * Retorna una lista de posts del documento especificado
          */
-        fun transform(document: Document): List<Post> {
+        fun getPosts(document: Document): List<Post> {
             // Lista donde almacenaremos los posts del hilo
             val postList: MutableList<Post> = mutableListOf()
 
@@ -69,6 +70,19 @@ class HtmlToThreadPage {
             }
 
             return postList
+        }
+
+        /**
+         * Retorna la información general del hilo
+         */
+        fun transform(document: Document): Thread {
+            // Obtenemos las páginas con nuestra transformación general
+            val pages = HtmlToPages.transform(document)
+
+            // Obtenemos el título
+            val title = document.select("span[class^=" + ApiConstants.THREAD_TITLE_CMEGA_KEY + "]").text()
+
+            return Thread(title, document.location(), pages)
         }
     }
 }

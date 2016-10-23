@@ -18,9 +18,11 @@
 
 package io.spaceisstrange.opencoches.ui.thread
 
+import io.spaceisstrange.opencoches.data.api.thread.ThreadInfo
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
+import io.spaceisstrange.opencoches.data.model.Thread
 import rx.subscriptions.CompositeSubscription
 
 class ThreadPresenter(var view: ThreadContract.View,
@@ -31,6 +33,28 @@ class ThreadPresenter(var view: ThreadContract.View,
      * CompositeSubscription donde agregar todos los observables que vayamos utilizando
      */
     lateinit var compositeSubscription: CompositeSubscription
+
+    companion object {
+        /**
+         * Carga la información general del hilo. Está feo hacerse un método estático estando en el maravilloso mundo
+         * del pseudo-MVP, pero dado que la activity sólo realiza esta opción veía una tontería adaptar el presenter
+         * a ella o incluso crear otro
+         */
+        fun loadThreadInto(link: String, onLoad: (Thread) -> Unit) {
+            ThreadInfo(link).observable().subscribe(
+                    {
+                        thread ->
+
+                        onLoad(thread)
+                    },
+                    {
+                        error ->
+
+                        // A silenciar se ha dicho
+                    }
+            )
+        }
+    }
 
     override fun setup() {
         // Nada

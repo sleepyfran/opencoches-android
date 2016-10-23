@@ -54,6 +54,7 @@ class ApiConstants {
         const val POST_CONTENT_USER_INFO_KEY = "smallfont"
         const val POST_TIMESTAMP_CLASS_KEY = "thead"
         const val SECURITY_TOKEN_KEY = "securitytoken"
+        const val THREAD_TITLE_CMEGA_KEY = "cmega"
 
         /**
          * Etiquetas del editor de texto

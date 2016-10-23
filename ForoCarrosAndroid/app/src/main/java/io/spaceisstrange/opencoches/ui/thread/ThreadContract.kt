@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.ui.thread
 
 import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BasePresenter
 import io.spaceisstrange.opencoches.ui.common.BaseView
 

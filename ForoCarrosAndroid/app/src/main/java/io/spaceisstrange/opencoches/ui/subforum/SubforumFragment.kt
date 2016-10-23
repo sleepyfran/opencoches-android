@@ -154,7 +154,7 @@ class SubforumFragment : Fragment(), SubforumContract.View {
     }
 
     override fun showThread(thread: Thread) {
-        startActivity(ThreadActivity.getStartIntent(context, thread.title, thread.link, thread.pages))
+        startActivity(ThreadActivity.getStartIntent(context, thread.link))
     }
 
     override fun showError(show: Boolean) {

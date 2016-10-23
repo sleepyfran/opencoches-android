@@ -6,6 +6,7 @@
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
+    <string name="general.loading">Cargando...</string>
 
     <!-- Mensajes de error -->
     <string name="error.general_title">Error</string>
@@ -81,5 +82,5 @@
     <string name="dummy.post_content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lacinia efficitur dui ac cursus. Pellentesque rutrum neque sit amet consequat feugiat. Aenean sem elit, convallis semper malesuada nec, placerat et tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam ultricies metus urna, ut convallis dolor maximus id. Fusce orci dolor, bibendum vel porta in, lobortis vitae tellus. Duis in elit ante. Aenean justo felis, vehicula ac est et, vestibulum elementum nulla. Donec imperdiet dictum nisl, quis lacinia tellus viverra faucibus. Fusce porttitor, nibh at elementum tempus, sapien augue feugiat nisi, in laoreet magna leo nec ex. Praesent imperdiet maximus feugiat. Vestibulum vel est eleifend, viverra libero ac, rhoncus nisl.
     </string>
-    <string name="dummy.post.pages">1/30</string>
+    <string name="dummy.post.pages">-/-</string>
 </resources>

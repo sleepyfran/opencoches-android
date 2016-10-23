@@ -21,38 +21,31 @@ package io.spaceisstrange.opencoches.data.api.thread
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BaseGetRequest
 import io.spaceisstrange.opencoches.data.api.transformations.HtmlToThread
-import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.data.model.Thread
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-class ThreadPage(val link: String, val page: Int?) : BaseGetRequest() {
+class ThreadInfo(val link: String) : BaseGetRequest() {
     /**
-     * Retorna un observable para obtener los posts del hilo
+     * Retorna un observable para obtener la información general del hilo
      */
-    fun observable(): Observable<List<Post>> {
+    fun observable(): Observable<Thread> {
         return Observable.fromCallable({
-            getPosts()
+            getThread()
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
     /**
-     * Carga el hilo especificado y parsea los posts para poder mostrarlos dentro de nuestra
-     * preciosa WebView.
+     * Retorna la información general del hilo: su título, URL y número de páginas
      */
-    private fun getPosts(): List<Post> {
+    private fun getThread(): Thread {
         val response = super.doRequest()
 
-        return HtmlToThread.getPosts(response.parse())
+        return HtmlToThread.transform(response.parse())
     }
 
     override fun getUrl(): String {
-        var url = ApiConstants.BASE_URL + link
-
-        if (page != null) {
-            url += ApiConstants.THREAD_PAGE_URL + page
-        }
-
-        return url
+        return ApiConstants.BASE_URL + link
     }
 }
