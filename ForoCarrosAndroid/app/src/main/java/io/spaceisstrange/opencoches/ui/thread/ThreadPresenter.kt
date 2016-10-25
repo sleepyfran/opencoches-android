@@ -40,7 +40,7 @@ class ThreadPresenter(var view: ThreadContract.View,
          * del pseudo-MVP, pero dado que la activity sólo realiza esta opción veía una tontería adaptar el presenter
          * a ella o incluso crear otro
          */
-        fun loadThreadInto(link: String, onLoad: (Thread) -> Unit) {
+        fun loadThreadInfo(link: String, onLoad: (Thread) -> Unit) {
             ThreadInfo(link).observable().subscribe(
                     {
                         thread ->

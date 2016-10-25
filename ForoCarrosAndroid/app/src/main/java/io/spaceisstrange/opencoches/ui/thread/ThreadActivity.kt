@@ -114,7 +114,7 @@ class ThreadActivity : BaseActivity() {
         supportActionBar?.title = getString(R.string.general_loading)
 
         // Cargamos los datos del hilo
-        ThreadPresenter.loadThreadInto(link, {
+        ThreadPresenter.loadThreadInfo(link, {
             thread ->
 
             initActivity(thread.title, thread.pages)
