@@ -33,4 +33,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [Guthrie Govan: Erotic Cakes](https://www.youtube.com/watch?v=JLOE0s9Y7b0)
 - [Deftones: Gore](https://www.youtube.com/watch?v=o-3matq2r0Y)
 - [Steven Wilson: The Raven That Refused To Sing (And Other Stories)](https://www.youtube.com/watch?v=_w8SY_9yO8k&list=PLgs4tQlTRNY36XH79qSOIeDsTTy-QswEh)
+- [††† - Crosses](https://www.youtube.com/watch?v=92dXztDGYdM)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
