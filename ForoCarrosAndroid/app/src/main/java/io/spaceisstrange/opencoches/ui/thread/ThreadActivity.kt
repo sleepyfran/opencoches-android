@@ -27,14 +27,15 @@ import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
-import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
+import io.spaceisstrange.opencoches.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 
 class ThreadActivity : BaseActivity() {
@@ -43,11 +44,6 @@ class ThreadActivity : BaseActivity() {
          * Clave asociada al link
          */
         val THREAD_LINK = "threadLink"
-
-        /**
-         * Clave asociada a la página actual
-         */
-        val THREAD_CURRENT_PAGE = "threadCurrentPage"
 
         /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
@@ -89,36 +85,44 @@ class ThreadActivity : BaseActivity() {
         // Dado que esta activity puede ser abierta por el usuario sin estar logueado lo comprobamos primero
         val sharedPrefs = (application as App).sharedPrefsComponent.getSharedPreferencesUtils()
 
-        if (!sharedPrefs.isLoggedIn()) {
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            startActivity(loginIntent)
-            finish()
+        if (AccountManager.isUserLoggedIn(sharedPrefs)) {
+            // Intentamos loguear al usuario. Si ocurre algún error lo enviamos a la pantalla de login
+            AccountManager.loginWithSavedCredentials(sharedPrefs,
+                    {
+                        success ->
+
+                        if (!success) {
+                            ActivityUtils.showLogin(this)
+                        }
+
+                        // Obtenemos el título, link y páginas de los extras del intent
+                        var threadLink = intent.extras?.getString(THREAD_LINK) ?: intent.dataString
+
+                        // Dado que los links que nos vienen de un intent filter llevan la URL completa (con http://forocoches...etc)
+                        // y para no hacer un cambio completo de la forma en la que tratamos las URLs en las llamadas a la web
+                        // mejor curarnos de espanto y quitarle el prefijo
+                        threadLink = ApiUtils.removePrefixFromUrl(threadLink)
+
+                        // Inyectamos la activity
+                        bus = (application as App).busComponent.getBus()
+
+                        // Guardamos el hilo del link
+                        link = threadLink
+
+                        // Deshabilitamos los botones de navegaciones hasta que carguemos los datos del hilo
+                        setButtonsEnabled(false)
+                        supportActionBar?.title = getString(R.string.general_loading)
+
+                        // Cargamos los datos del hilo
+                        ThreadPresenter.loadThreadInfo(link, {
+                            thread ->
+
+                            initActivity(thread.title, thread.pages)
+                        })
+                    })
+        } else {
+            ActivityUtils.showLogin(this)
         }
-
-        // Obtenemos el título, link y páginas de los extras del intent
-        var threadLink = intent.extras?.getString(THREAD_LINK) ?: intent.dataString
-
-        // Dado que los links que nos vienen de un intent filter llevan la URL completa (con http://forocoches...etc)
-        // y para no hacer un cambio completo de la forma en la que tratamos las URLs en las llamadas a la web
-        // mejor curarnos de espanto y quitarle el prefijo
-        threadLink = ApiUtils.removePrefixFromUrl(threadLink)
-
-        // Inyectamos la activity
-        bus = (application as App).busComponent.getBus()
-
-        // Guardamos el hilo del link
-        link = threadLink
-
-        // Deshabilitamos los botones de navegaciones hasta que carguemos los datos del hilo
-        setButtonsEnabled(false)
-        supportActionBar?.title = getString(R.string.general_loading)
-
-        // Cargamos los datos del hilo
-        ThreadPresenter.loadThreadInfo(link, {
-            thread ->
-
-            initActivity(thread.title, thread.pages)
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

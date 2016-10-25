@@ -24,8 +24,7 @@ import android.os.Bundle
 import com.klinker.android.sliding.SlidingActivity
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
-import io.spaceisstrange.opencoches.ui.login.LoginActivity
+import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.util.ActivityUtils
 import javax.inject.Inject
 
@@ -58,29 +57,37 @@ class ProfileActivity : SlidingActivity() {
         // Dado que esta activity puede ser abierta por el usuario sin estar logueado lo comprobamos primero
         val sharedPrefs = (application as App).sharedPrefsComponent.getSharedPreferencesUtils()
 
-        if (!sharedPrefs.isLoggedIn()) {
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            startActivity(loginIntent)
-            finish()
+        if (AccountManager.isUserLoggedIn(sharedPrefs)) {
+            // Intentamos loguear al usuario. Si ocurre algún error lo enviamos a la pantalla de login
+            AccountManager.loginWithSavedCredentials(sharedPrefs,
+                    {
+                        success ->
+
+                        if (!success) {
+                            ActivityUtils.showLogin(this)
+                        }
+
+                        // Configuramos la activity
+                        disableHeader()
+                        setContent(R.layout.activity_profile)
+
+                        // Intentamos conseguir de nuevo el fragment anterior si existe
+                        var profileFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? ProfileFragment
+
+                        if (profileFragment == null) {
+                            // Sino, lo creamos y añadimos
+                            profileFragment = ProfileFragment.newInstance()
+                            ActivityUtils.addFragmentToActivity(supportFragmentManager, profileFragment, R.id.fragment)
+                        }
+
+                        // Inyectamos la activity
+                        DaggerProfileComponent.builder()
+                                .profileModule(ProfileModule(profileFragment, userId))
+                                .build()
+                                .inject(this)
+                    })
+        } else {
+            ActivityUtils.showLogin(this)
         }
-
-        // Configuramos la activity
-        disableHeader()
-        setContent(R.layout.activity_profile)
-
-        // Intentamos conseguir de nuevo el fragment anterior si existe
-        var profileFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? ProfileFragment
-
-        if (profileFragment == null) {
-            // Sino, lo creamos y añadimos
-            profileFragment = ProfileFragment.newInstance()
-            ActivityUtils.addFragmentToActivity(supportFragmentManager, profileFragment, R.id.fragment)
-        }
-
-        // Inyectamos la activity
-        DaggerProfileComponent.builder()
-                .profileModule(ProfileModule(profileFragment, userId))
-                .build()
-                .inject(this)
     }
 }

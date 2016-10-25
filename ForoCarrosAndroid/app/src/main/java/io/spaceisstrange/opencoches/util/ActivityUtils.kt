@@ -18,8 +18,11 @@
 
 package io.spaceisstrange.opencoches.util
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v7.app.AppCompatActivity
+import io.spaceisstrange.opencoches.ui.login.LoginActivity
 
 /**
  * Set de utilidades para las activities
@@ -33,6 +36,15 @@ class ActivityUtils {
             val transaction = fragmentManager.beginTransaction()
             transaction.replace(frameId, fragment)
             transaction.commit()
+        }
+
+        /**
+         * Envía al usuario a la pantalla de login
+         */
+        fun showLogin(parent: AppCompatActivity) {
+            val loginIntent = Intent(parent, LoginActivity::class.java)
+            parent.startActivity(loginIntent)
+            parent.finish()
         }
     }
 }
