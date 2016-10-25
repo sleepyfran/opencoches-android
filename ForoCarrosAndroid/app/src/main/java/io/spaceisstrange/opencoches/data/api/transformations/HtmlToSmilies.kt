@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.data.api.transformations
 
+import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.model.Smily
 import org.jsoup.nodes.Document
 
@@ -47,7 +48,7 @@ class HtmlToSmilies {
                     val smilyCode = smilyColumns[index + 1].text()
 
                     // Reemplazamos las URLs "falsas"
-                    smilyLink = smilyLink.replace("//st.forocoches.com/", "http://st.forocoches.com/")
+                    smilyLink = ApiUtils.getRealUrl(smilyLink)
 
                     // Y lo añadimos
                     smilies.add(Smily(smilyCode, smilyLink))
