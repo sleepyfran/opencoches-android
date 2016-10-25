@@ -32,6 +32,30 @@ class AccountManager {
         }
 
         /**
+         * Loguea al usuario en la web y retorna el resultado
+         */
+        fun login(sharedPrefs: SharedPreferencesUtils,
+                  username: String,
+                  password: String,
+                  onResult: (Boolean, Throwable?) -> Unit) {
+            Login(username, password).observable().subscribe(
+                    {
+                        loggedIn ->
+
+                        // Guardamos las credenciales
+                        saveCredentials(sharedPrefs, username, password)
+
+                        onResult(loggedIn, null)
+                    },
+                    {
+                        error ->
+
+                        onResult(false, error)
+                    }
+            )
+        }
+
+        /**
          * Loguea al usuario con los datos guardados en las SharedPreferences (si los hay) y devuelve el resultado
          */
         fun loginWithSavedCredentials(sharedPrefs: SharedPreferencesUtils,

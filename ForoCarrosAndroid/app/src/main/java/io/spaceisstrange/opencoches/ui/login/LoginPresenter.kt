@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.ui.login
 
 import android.text.TextUtils
+import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
@@ -57,15 +58,12 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
 
         view.showLoading(true)
 
-        val loginSubscription = Login(username, password).observable().subscribe(
+        // Intentamos loguear al usuario
+        AccountManager.login(sharedPreferences, username, password,
                 {
-                    loggedIn ->
+                    result, error ->
 
-                    if (loggedIn) {
-                        // Guardamos los datos en las SharedPreferences
-                        sharedPreferences.saveUsername(username)
-                        sharedPreferences.savePassword(password)
-
+                    if (result) {
                         // Cargamos su ID en las SharedPrefererences
                         val idSubscription = UserId().observable().subscribe(
                                 {
@@ -84,23 +82,14 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
 
                         view.showSubforumList()
                     } else {
+                        // Se ha producido un error
                         view.showLoading(false)
-                        view.showWrongDataError()
+
+                        if (error is SocketTimeoutException) {
+                            view.showWrongDataError()
+                        }
                     }
-                },
-                {
-                    error ->
-
-                    view.showLoading(false)
-
-                    if (error is SocketTimeoutException) {
-                        view.showWrongDataError()
-                    }
-                }
-        )
-
-        // Añadimos la subscripción a la Composite para poder desubscribirnos al recibir finish
-        compositeSubscription.add(loginSubscription)
+                })
     }
 
     override fun finish() {
