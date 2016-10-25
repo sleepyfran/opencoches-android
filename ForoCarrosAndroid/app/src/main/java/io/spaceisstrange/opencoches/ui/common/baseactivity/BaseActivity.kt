@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.data.CookiesCache
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
@@ -58,8 +59,7 @@ open class BaseActivity : AppCompatActivity() {
             return true
         } else if (selectedId == R.id.menu_sign_out) {
             // Borramos los datos guardados
-            sharedPreferences.removePreferences()
-            CookiesCache.cookies = null
+            AccountManager.deleteSession(sharedPreferences)
 
             // Mostramos la pantalla de inicio
             val loginIntent = Intent(this, LoginActivity::class.java)

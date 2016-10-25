@@ -21,7 +21,6 @@ package io.spaceisstrange.opencoches.data
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
-import rx.Subscription
 
 class AccountManager {
     companion object {
@@ -74,7 +73,7 @@ class AccountManager {
 
                             // Si ha habido algún error eliminamos los datos guardados
                             if (!loggedIn) {
-                                sharedPrefs.removePreferences()
+                                deleteSession(sharedPrefs)
                             }
 
                             onResult(loggedIn)
@@ -100,6 +99,9 @@ class AccountManager {
             sharedPrefs.savePassword(password)
         }
 
+        /**
+         * Guarda la ID del usuario en las SharedPreferences
+         */
         fun saveUserId(sharedPrefs: SharedPreferencesUtils) {
             UserId().observable().subscribe(
                     {
@@ -114,6 +116,14 @@ class AccountManager {
                         // Nada
                     }
             )
+        }
+
+        /**
+         * Borra los datos de login
+         */
+        fun deleteSession(sharedPrefs: SharedPreferencesUtils) {
+            sharedPrefs.removePreferences()
+            CookiesCache.cookies = null
         }
     }
 }
