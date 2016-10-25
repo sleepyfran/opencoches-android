@@ -64,22 +64,6 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
                     result, error ->
 
                     if (result) {
-                        // Cargamos su ID en las SharedPrefererences
-                        val idSubscription = UserId().observable().subscribe(
-                                {
-                                    userId ->
-
-                                    sharedPreferences.saveUserId(userId)
-                                },
-                                {
-                                    error ->
-
-                                    // Nada
-                                }
-                        )
-
-                        compositeSubscription.add(idSubscription)
-
                         view.showSubforumList()
                     } else {
                         // Se ha producido un error

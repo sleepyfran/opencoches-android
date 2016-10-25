@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.data
 
 import io.spaceisstrange.opencoches.data.api.login.Login
+import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.Subscription
 
@@ -45,6 +46,9 @@ class AccountManager {
                         // Guardamos las credenciales
                         saveCredentials(sharedPrefs, username, password)
 
+                        // Guardamos el ID del usuario
+                        saveUserId(sharedPrefs)
+
                         onResult(loggedIn, null)
                     },
                     {
@@ -68,11 +72,18 @@ class AccountManager {
                         {
                             loggedIn ->
 
+                            // Si ha habido algún error eliminamos los datos guardados
+                            if (!loggedIn) {
+                                sharedPrefs.removePreferences()
+                            }
+
                             onResult(loggedIn)
                         },
                         {
                             error ->
 
+                            // Si ha habido algún error eliminamos los datos guardados
+                            sharedPrefs.removePreferences()
                             onResult(false)
                         }
                 )
@@ -87,6 +98,22 @@ class AccountManager {
         fun saveCredentials(sharedPrefs: SharedPreferencesUtils, username: String, password: String) {
             sharedPrefs.saveUsername(username)
             sharedPrefs.savePassword(password)
+        }
+
+        fun saveUserId(sharedPrefs: SharedPreferencesUtils) {
+            UserId().observable().subscribe(
+                    {
+                        userId ->
+
+                        // Guardamos la ID en las SharedPreferences
+                        sharedPrefs.saveUserId(userId)
+                    },
+                    {
+                        error ->
+
+                        // Nada
+                    }
+            )
         }
     }
 }

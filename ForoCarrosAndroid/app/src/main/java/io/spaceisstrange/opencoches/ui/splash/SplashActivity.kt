@@ -22,6 +22,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.spaceisstrange.opencoches.App
+import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
@@ -33,37 +34,9 @@ import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
     /**
-     * Subscripción del login
+     * SharedPreferences de la aplicación
      */
-    var loginSubscription: Subscription? = null
-        set(value) {
-            loginSubscription?.unsubscribe()
-            field = value
-        }
-
     @Inject lateinit var sharedPreferences: SharedPreferencesUtils
-
-    /**
-     * Carga el ID del usuario para ser utilizado a lo largo de la aplicación
-     */
-    fun loadUserId() {
-        // Comprobamos si existen datos de usuario y, si no, los guardamos
-        if (!sharedPreferences.containsUserData()) {
-            loginSubscription = UserId().observable().subscribe(
-                    {
-                        userId ->
-
-                        // Guardamos la ID en las SharedPreferences
-                        sharedPreferences.saveUserId(userId)
-                    },
-                    {
-                        error ->
-
-                        // Nada
-                    }
-            )
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,44 +47,25 @@ class SplashActivity : AppCompatActivity() {
                 .inject(this)
 
         // Comprobamos si el usuario se ha logueado anteriormente
-        if (sharedPreferences.isLoggedIn()) {
-            // Nos logueamos y lo mandamos a la pantalla de selección de foros
-            val username = sharedPreferences.getUsername()
-            val password = sharedPreferences.getPassword()
+        if (AccountManager.isUserLoggedIn(sharedPreferences)) {
+            // Intentamos loguearnos con los datos que tenemos guardados
+            AccountManager.loginWithSavedCredentials(sharedPreferences, {
+                loggedIn ->
 
-            loginSubscription = Login(username, password).observable().subscribe(
-                    {
-                        result ->
-
-                        loadUserId()
-
-                        // Mostramos la lista de foros
-                        startActivity(Intent(this, SubforumListActivity::class.java))
-                        finish()
-                    },
-                    {
-                        error ->
-
-                        // Si recibimos un timeout es porque probablemente los datos del usuario estén mal
-                        if (error is SocketTimeoutException) {
-                            // Los eliminamos y mostramos un error
-                            sharedPreferences.removePreferences()
-
-                            // Mandamos al usuario a iniciar sesión
-                            startActivity(Intent(this, LoginActivity::class.java))
-                            finish()
-                        }
-                    }
-            )
+                if (loggedIn) {
+                    // Mostramos la lista de foros
+                    startActivity(Intent(this, SubforumListActivity::class.java))
+                    finish()
+                } else {
+                    // Mandamos al usuario a iniciar sesión
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }
+            })
         } else {
-            // Mostramos la activity para iniciar sesión
+            // Mandamos al usuario a iniciar sesión
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        loginSubscription?.unsubscribe()
     }
 }
