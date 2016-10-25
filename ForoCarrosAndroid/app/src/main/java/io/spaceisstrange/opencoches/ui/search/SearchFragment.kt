@@ -125,16 +125,16 @@ class SearchFragment : Fragment(), SearchContract.View {
     }
 
     override fun showLoading(show: Boolean) {
-        srlSearch.isRefreshing = show
+        srlSearch?.isRefreshing = show
     }
 
     override fun showError(show: Boolean) {
         if (show) {
-            rvSearchResults.visibility = View.GONE
-            vError.visibility = View.VISIBLE
+            rvSearchResults?.visibility = View.GONE
+            vError?.visibility = View.VISIBLE
         } else {
-            rvSearchResults.visibility = View.VISIBLE
-            vError.visibility = View.GONE
+            rvSearchResults?.visibility = View.VISIBLE
+            vError?.visibility = View.GONE
         }
     }
 }
