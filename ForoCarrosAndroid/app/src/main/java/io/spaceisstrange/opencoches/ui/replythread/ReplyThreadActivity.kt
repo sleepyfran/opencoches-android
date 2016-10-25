@@ -33,6 +33,16 @@ import io.spaceisstrange.opencoches.util.SnackbarUtils
 import javax.inject.Inject
 
 class ReplyThreadActivity : SlidingActivity() {
+    /**
+     * Presenter asociado a la activity y fragment
+     */
+    @Inject lateinit var replyThreadPresenter: ReplyThreadPresenter
+
+    /**
+     * Bus de la aplicación
+     */
+    @Inject lateinit var bus: Bus
+
     companion object {
         /**
          * Clave asociada al título del hilo a responder
@@ -56,16 +66,6 @@ class ReplyThreadActivity : SlidingActivity() {
             return startIntent
         }
     }
-
-    /**
-     * Presenter asociado a la activity y fragment
-     */
-    @Inject lateinit var replyThreadPresenter: ReplyThreadPresenter
-
-    /**
-     * Bus de la aplicación
-     */
-    @Inject lateinit var bus: Bus
 
     override fun init(savedInstanceState: Bundle?) {
         // Intentamos obtener los datos de los extras del intent
