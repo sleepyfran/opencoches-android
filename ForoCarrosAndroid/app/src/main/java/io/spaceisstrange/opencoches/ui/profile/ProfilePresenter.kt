@@ -19,22 +19,29 @@
 package io.spaceisstrange.opencoches.ui.profile
 
 import io.spaceisstrange.opencoches.data.api.profile.Profile
+import io.spaceisstrange.opencoches.util.RegexUtils
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class ProfilePresenter @Inject constructor(val view: ProfileContract.View, val userId: String) : ProfileContract.Presenter {
+class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var userId: String) : ProfileContract.Presenter {
     /**
      * CompositeSubscription donde agregar todos los observables que vayamos utilizando
      */
     lateinit var compositeSubscription: CompositeSubscription
 
+    @Inject
     override fun setup() {
-        // Nada
+        view.setPresenter(this)
     }
 
     override fun init() {
         // Inicializamos la CompositeSubscription
         compositeSubscription = CompositeSubscription()
+
+        // Vemos si nos han pasado el ID del usuario o una URL
+        if (userId.startsWith("http")) {
+            userId = RegexUtils.userIdFromFullLink().matchEntire(userId)?.groups?.get(1)?.value!!
+        }
 
         // Cargamos la información sobre el usuario
         loadUserInformation()

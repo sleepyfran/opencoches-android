@@ -18,6 +18,8 @@
 
 package io.spaceisstrange.opencoches.data.model
 
-data class UserData(val lastActivity: String,
-               val totalPosts: String,
-               val registrationDate: String)
+data class UserData(val photoSrc: String,
+                    val username: String,
+                    val lastActivity: String,
+                    val totalPosts: String,
+                    val registrationDate: String)

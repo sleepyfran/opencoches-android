@@ -19,10 +19,11 @@
 package io.spaceisstrange.opencoches.ui.profile
 
 import dagger.Component
+import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
 import io.spaceisstrange.opencoches.util.ActivityScoped
 
 @ActivityScoped
 @Component(modules = arrayOf(ProfileModule::class))
 interface ProfileComponent {
-    fun inject(dialog: ProfileDialog)
+    fun inject(activity: ProfileActivity)
 }

@@ -24,7 +24,8 @@ import dagger.Provides
 @Module
 class ProfileModule(val view: ProfileContract.View, val userId: String) {
     @Provides
-    fun provideProfilePresenter(): ProfilePresenter {
-        return ProfilePresenter(view, userId)
-    }
+    fun providesView(): ProfileContract.View = view
+
+    @Provides
+    fun providesUserId(): String = userId
 }

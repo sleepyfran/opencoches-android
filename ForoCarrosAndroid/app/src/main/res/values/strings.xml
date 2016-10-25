@@ -30,12 +30,9 @@
 
     <!-- Perfil del usuario -->
     <string name="user_profile.username">\@%1$s</string>
-
-    <!-- Acciones al clicar sobre un usuario -->
-    <string name="user_actions.title">Usuario: %1$s</string>
-    <string name="user_actions.show_profile">Ver perfil</string>
-    <string name="user_actions.add_friend">Añadir a amigos</string>
-    <string name="user_actions.send_message">Enviar mensaje privado</string>
+    <string name="user_profile.show_threads">Ver hilos del usuario</string>
+    <string name="user_profile.show_posts">Ver posts del usuario</string>
+    <string name="user_profile.send_mail">Enviar mensaje privado</string>
 
     <!-- Activity de envío de un mensaje -->
     <string name="message.recipient">Mensaje para %1$s</string>

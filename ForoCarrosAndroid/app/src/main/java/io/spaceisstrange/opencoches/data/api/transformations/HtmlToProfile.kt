@@ -18,6 +18,8 @@
 
 package io.spaceisstrange.opencoches.data.api.transformations
 
+import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.model.UserData
 import org.jsoup.nodes.Document
 
@@ -27,6 +29,13 @@ class HtmlToProfile {
          * Obtiene los datos de un usuario (perfil) de un documento
          */
         fun transform(document: Document): UserData {
+            // Obtenemos la URL de la foto del usuario
+            var userPhoto = document.select("img[id^=" + ApiConstants.USER_AVATAR_KEY + "]").attr("src")
+            userPhoto = ApiUtils.getRealUrl(userPhoto)
+
+            // Obtenemos el nombre de usuario
+            val username = document.select("td[id^=" + ApiConstants.USERNAME_BOX_KEY + "]").select("h1").text()
+
             // Obtenemos el div con la información del usuario
             var infoDiv = document.select("div.block_content")
             infoDiv = infoDiv.select("fieldset.statistics_group")
@@ -43,7 +52,7 @@ class HtmlToProfile {
                 userRegistrationDate = infoDiv[1].select("li")[0].text()
             }
 
-            return UserData(userLastActivity, userTotalPosts, userRegistrationDate)
+            return UserData(userPhoto, username, userLastActivity, userTotalPosts, userRegistrationDate)
         }
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/primary_dark"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/llBottomSheetUserInfo"
+        android:id="@+id/llUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bottom_sheet.vertical_margin"
@@ -19,7 +18,7 @@
         <ImageView
             android:id="@+id/ivUserPicture"
             android:layout_width="@dimen/bottom_sheet.user.image_size"
-            android:layout_height="@dimen/bottom_sheet.user.image_size" />
+            android:layout_height="@dimen/bottom_sheet.user.image_size"/>
 
         <TextView
             android:id="@+id/tvUserUsername"
@@ -29,7 +28,7 @@
             android:gravity="center_horizontal"
             android:text="@string/user_profile.username"
             android:textSize="@dimen/text.ultra_big"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvUserLastActivity"
@@ -38,7 +37,7 @@
             android:gravity="center_horizontal"
             android:text=""
             android:textStyle="italic"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tvUserRegistrationDate"
@@ -47,7 +46,7 @@
             android:gravity="center_horizontal"
             android:text=""
             android:textStyle="italic"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tvUserTotalPosts"
@@ -56,27 +55,48 @@
             android:gravity="center_horizontal"
             android:text=""
             android:textStyle="italic"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <ProgressBar
             android:id="@+id/pbLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvBottomSheetContent"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_profile.show_threads"/>
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_profile.show_posts"/>
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user_profile.send_mail"/>
+
+    </LinearLayout>
 
     <include
         android:id="@+id/vError"
         layout="@layout/view_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 </LinearLayout>

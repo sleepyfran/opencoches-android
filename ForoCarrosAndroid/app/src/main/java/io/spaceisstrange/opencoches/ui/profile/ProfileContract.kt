@@ -41,6 +41,7 @@ interface ProfileContract {
     }
 
     interface Presenter : BasePresenter {
+
         /**
          * Método a llamar cuando se quiera cargar más información sobre el usuario
          */

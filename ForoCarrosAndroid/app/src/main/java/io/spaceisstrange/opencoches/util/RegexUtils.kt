@@ -35,6 +35,13 @@ class RegexUtils {
         }
 
         /**
+         * Retorna un Regex que saca el ID de un usuario de su link completo
+         */
+        fun userIdFromFullLink(): Regex {
+            return "http://www\\.forocoches\\.com/foro/member\\.php\\?u=(\\d+)".toRegex()
+        }
+
+        /**
          * Retorna un Regex que selecciona las páginas de un hilo
          */
         fun getPagesRegex(): Regex {

@@ -25,6 +25,7 @@ class ApiConstants {
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
+        const val BASE_MOBILE_URL = "http://m.forocoches.com/foro/"
         const val SEARCH_URL = "http://www.forocoches.com/forocoches_search.php"
         const val THREAD_URL = "showthread.php?t="
         const val SUBFORUM_URL = "forumdisplay.php?f="
@@ -55,6 +56,8 @@ class ApiConstants {
         const val POST_TIMESTAMP_CLASS_KEY = "thead"
         const val SECURITY_TOKEN_KEY = "securitytoken"
         const val THREAD_TITLE_CMEGA_KEY = "cmega"
+        const val USERNAME_BOX_KEY = "username_box"
+        const val USER_AVATAR_KEY = "user_avatar"
 
         /**
          * Etiquetas del editor de texto
