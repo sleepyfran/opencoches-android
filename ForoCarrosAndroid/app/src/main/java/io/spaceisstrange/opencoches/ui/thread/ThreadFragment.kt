@@ -30,7 +30,7 @@ import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.model.Post
-import io.spaceisstrange.opencoches.ui.profile.ProfileDialog
+import io.spaceisstrange.opencoches.ui.profile.ProfileActivity
 import io.spaceisstrange.opencoches.util.ColorUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
@@ -110,9 +110,9 @@ class ThreadFragment : Fragment(), ThreadContract.View {
 
         // Mostramos el perfil del usuario cuando se pulse sobre su imagen en la WebView
         wvPostContent.onUserClick = {
-            username, id, pictureSrc ->
+            posterId ->
 
-            ProfileDialog.newInstance(username, id, pictureSrc).show(fragmentManager, null)
+            startActivity(ProfileActivity.getStartIntent(context, posterId))
         }
     }
 

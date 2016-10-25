@@ -28,6 +28,7 @@ import android.view.MenuItem
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
@@ -100,9 +101,7 @@ class ThreadActivity : BaseActivity() {
         // Dado que los links que nos vienen de un intent filter llevan la URL completa (con http://forocoches...etc)
         // y para no hacer un cambio completo de la forma en la que tratamos las URLs en las llamadas a la web
         // mejor curarnos de espanto y quitarle el prefijo
-        if (threadLink.startsWith(ApiConstants.BASE_URL)) {
-            threadLink = threadLink.removePrefix(ApiConstants.BASE_URL)
-        }
+        threadLink = ApiUtils.removePrefixFromUrl(threadLink)
 
         // Inyectamos la activity
         bus = (application as App).busComponent.getBus()

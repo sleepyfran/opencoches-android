@@ -53,9 +53,6 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
         // Iniciamos el presenter
         replyThreadPresenter.init()
-
-        // Configuramos los botones de BBCode
-
     }
 
     override fun setPresenter(presenter: ReplyThreadPresenter) {

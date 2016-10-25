@@ -35,7 +35,7 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     /**
      * Método a llamar cuando el usuario presione en un usuario
      */
-    var onUserClick: ((username: String, id: String, pictureSrc: String) -> Unit)? = null
+    var onUserClick: ((posterId: String) -> Unit)? = null
 
     init {
         // Nos registramos como interfaz de JavaScript
@@ -50,7 +50,7 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     }
 
     @JavascriptInterface
-    fun showProfile(username: String, id: String, pictureSrc: String) {
-        onUserClick?.invoke(username, id, pictureSrc)
+    fun showProfile(posterId: String) {
+        onUserClick?.invoke(posterId)
     }
 }

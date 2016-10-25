@@ -31,5 +31,18 @@ class ApiUtils {
 
             return "http:" + fakeUrl
         }
+
+        /**
+         * Remueve el prefijo http://... de las URLs para aquellas partes de la API que lo necesiten
+         */
+        fun removePrefixFromUrl(url: String): String {
+            if (url.startsWith(ApiConstants.BASE_URL)) {
+                return url.removePrefix(ApiConstants.BASE_URL)
+            } else if (url.startsWith(ApiConstants.BASE_MOBILE_URL)) {
+                return url.removePrefix(ApiConstants.BASE_MOBILE_URL)
+            } else {
+                return url
+            }
+        }
     }
 }
