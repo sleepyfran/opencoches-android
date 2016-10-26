@@ -124,6 +124,16 @@ class SearchFragment : Fragment(), SearchContract.View {
         adapter.add(results)
     }
 
+    override fun showNoResults(show: Boolean) {
+        if (show) {
+            rvSearchResults?.visibility = View.GONE
+            vNoResults?.visibility = View.VISIBLE
+        } else {
+            rvSearchResults?.visibility = View.VISIBLE
+            vNoResults?.visibility = View.GONE
+        }
+    }
+
     override fun showLoading(show: Boolean) {
         srlSearch?.isRefreshing = show
     }

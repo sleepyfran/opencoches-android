@@ -43,6 +43,11 @@ interface SearchContract {
         fun showMoreSearchResults(results: List<Thread>)
 
         /**
+         * Método a llamar cuando se nos devuelva un resultado vacío en la búsqueda
+         */
+        fun showNoResults(show: Boolean)
+
+        /**
          * Método a llamar cuando se estén cargando los resultados de la búsqueda
          */
         fun showLoading(show: Boolean)

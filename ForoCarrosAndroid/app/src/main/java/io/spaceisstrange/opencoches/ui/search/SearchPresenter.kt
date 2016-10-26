@@ -59,11 +59,17 @@ class SearchPresenter @Inject constructor(val view: SearchContract.View,
                     searchResults ->
 
                     view.showLoading(false)
-                    view.setSearchPages(searchResults.pages)
-                    view.showSearchResults(searchResults.results)
 
-                    // Guardamos la URL para futuros usos
-                    searchUrl = searchResults.searchUrl
+                    if (searchResults.results.size > 0) {
+                        view.showNoResults(false)
+                        view.setSearchPages(searchResults.pages)
+                        view.showSearchResults(searchResults.results)
+
+                        // Guardamos la URL para futuros usos
+                        searchUrl = searchResults.searchUrl
+                    } else {
+                        view.showNoResults(true)
+                    }
                 },
                 {
                     error ->
