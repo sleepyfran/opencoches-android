@@ -11,11 +11,13 @@
     <!-- Mensajes de error -->
     <string name="error.sad">:(</string>
     <string name="error.shrug">¯\\_(ツ)_/¯</string>
+    <string name="error.prv">+PRV...</string>
     <string name="error.general_title">Error</string>
     <string name="error.general_ok">Aceptar</string>
     <string name="error.general_big">Ha habido un error cargando esto. Puede ser que Forocoches esté caído o muy probablemente el jefe nos haya chafado el juguete. En cualquier caso, vuelve a intentarlo o reporta el error</string>
     <string name="error.login_message">Ha habido un error al iniciar sesión. Comprueba los datos que has puesto.</string>
-    <string name="error.no_search_results">No ha habido resultados. Busca otra cosa, shur</string>
+    <string name="error.no_search_results">No ha habido resultados. Busca otra cosa, shur.</string>
+    <string name="error.not_available">Vaya, parece que no puedes entrar por aquí. Recuerda que para entrar en los +PRV debes tener al menos 100 mensajes y un mes de antigüedad desde la fecha de creación del hilo.</string>
 
     <!-- Login Activity -->
     <string name="login.title">Bienvenido, shurmano</string>

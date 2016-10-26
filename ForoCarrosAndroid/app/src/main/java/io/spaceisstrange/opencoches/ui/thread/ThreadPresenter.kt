@@ -97,11 +97,21 @@ class ThreadPresenter(var view: ThreadContract.View,
                 {
                     posts ->
 
-                    view.showLoading(false)
-                    view.showError(false)
-                    view.showPage(posts, {
-                        onLoad?.invoke()
-                    })
+                    // Comprobamos que haya posts que mostrar, sino mostramos el mensaje de +PRV.
+                    // Por lo general funcionará aunque no es la mejor comprobación del mundo ya que si
+                    // por alguna razón no se carga bien la página y no somos capaces de parsear los posts
+                    // se mostrará el mensaje de +PRV. Lo dejamos así hasta mejor opción
+                    if (posts.size > 0) {
+                        view.showNotAvailable(false)
+                        view.showLoading(false)
+                        view.showError(false)
+                        view.showPage(posts, {
+                            onLoad?.invoke()
+                        })
+                    } else {
+                        view.showLoading(false)
+                        view.showNotAvailable(true)
+                    }
                 },
                 {
                     error ->

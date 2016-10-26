@@ -151,6 +151,18 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         }
     }
 
+    override fun showNotAvailable(show: Boolean) {
+        if (show) {
+            wvPostContent?.visibility = View.GONE
+            activity?.fab?.hide()
+            vNotAvailable?.visibility = View.VISIBLE
+        } else {
+            wvPostContent?.visibility = View.VISIBLE
+            activity?.fab?.show()
+            vNotAvailable?.visibility = View.GONE
+        }
+    }
+
     override fun showError(show: Boolean) {
         if (show) {
             wvPostContent?.visibility = View.GONE

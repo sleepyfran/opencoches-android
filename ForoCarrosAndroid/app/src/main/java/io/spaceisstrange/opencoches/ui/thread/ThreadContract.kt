@@ -42,6 +42,12 @@ interface ThreadContract {
         fun scrollToBottom()
 
         /**
+         * Método a llamar cuando no hay posts disponibles. Lo cual seguramente sea que el usuario
+         * no puede entrar en un +PRV, por ejemplo
+         */
+        fun showNotAvailable(show: Boolean)
+
+        /**
          * Método a llamar cuando se produzca un error
          */
         fun showError(show: Boolean)
