@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_search_in_thread"
+        android:icon="@drawable/ic_search_white"
+        android:title="@string/thread.menu.search"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_open_in_browser"
         android:title="@string/thread.menu.open_in_browser"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
 </menu>

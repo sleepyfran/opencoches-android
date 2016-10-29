@@ -29,6 +29,7 @@ import com.tinsuke.icekick.unfreezeInstanceState
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.bus.Bus
+import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileActivity
 import io.spaceisstrange.opencoches.util.ColorUtils
@@ -114,6 +115,22 @@ class ThreadFragment : Fragment(), ThreadContract.View {
 
             startActivity(ProfileActivity.getStartIntent(context, posterId))
         }
+
+        // Mostramos la barra de búsqueda cuando el usuario clique en el botón de búsqueda
+        bus.observable().subscribe(
+                {
+                    event ->
+
+                    if (event is ThreadPageSearchEvent && event.link == link) {
+                        wvPostContent.showFindDialog("", false)
+                    }
+                },
+                {
+                    error ->
+
+                    // Nada por lo pronto
+                }
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

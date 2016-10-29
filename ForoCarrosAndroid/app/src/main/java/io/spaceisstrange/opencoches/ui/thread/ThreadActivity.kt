@@ -33,6 +33,7 @@ import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
+import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import io.spaceisstrange.opencoches.util.ActivityUtils
@@ -138,6 +139,9 @@ class ThreadActivity : BaseActivity() {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiConstants.BASE_URL + link))
             startActivity(browserIntent)
             return true
+        } else if (selectedId == R.id.menu_search_in_thread) {
+            // Notificamos el bus sobre la pulsación en la búsqueda para que se muestre en el fragment actual
+            bus.publish(ThreadPageSearchEvent(link))
         }
 
         return super.onOptionsItemSelected(item)
