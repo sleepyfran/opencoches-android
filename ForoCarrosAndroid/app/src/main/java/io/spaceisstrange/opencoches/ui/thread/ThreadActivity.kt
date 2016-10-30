@@ -25,6 +25,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.AccountManager
@@ -37,6 +38,7 @@ import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
 import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import io.spaceisstrange.opencoches.util.ActivityUtils
+import io.spaceisstrange.opencoches.util.IntentUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 
 class ThreadActivity : BaseActivity() {
@@ -136,9 +138,13 @@ class ThreadActivity : BaseActivity() {
 
         if (selectedId == R.id.menu_open_in_browser) {
             // Abrimos el enlace del hilo actual
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(ApiConstants.BASE_URL + link))
-            startActivity(browserIntent)
-            return true
+            val browserIntent = IntentUtils.createBrowserIntentChooser(this, ApiConstants.BASE_URL + link)
+
+            if (browserIntent != null) {
+                startActivity(browserIntent)
+            } else {
+                Toast.makeText(this, "No hay ningún navegador instalado", Toast.LENGTH_LONG).show()
+            }
         } else if (selectedId == R.id.menu_search_in_thread) {
             // Notificamos el bus sobre la pulsación en la búsqueda para que se muestre en el fragment actual
             bus.publish(ThreadPageSearchEvent(link))
