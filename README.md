@@ -22,7 +22,12 @@ Toda la aplicación está hecha con *Kotlin* y usando el SDK de Android. Para la
 
 Para todo lo referente a las peticiones y parseo del HTML he usado *JSoup*. Para todo el tema *async* he optado por el uso de *RxJava* y *RxAndroid*.
 
-Además, he decidio integrar *Firebase* para el reporte de errores en la aplicación, que teniendo en cuenta lo que estamos haciendo y lo fácil que será que se rompan las cosas nos será extremadamente útil. Dado que el archivo de configuración de Firebase es privado si queréis compilar la aplicación con Firebase integrado necesitaréis generar un archivo de configuración en el sitio web de Firebase. También podéis compilar la aplicación sin la integración con Firebase, para eso solo tendréis que comentar las librerías y plugins que he señalado en el [build.gradle de la aplicación](https://github.com/spaceisstrange/OpenCoches/blob/master/ForoCarrosAndroid/app/build.gradle) y en el [general del proyecto](https://github.com/spaceisstrange/OpenCoches/blob/master/ForoCarrosAndroid/build.gradle).
+## Para compilar...
+Dado que el proyecto está integrado con *Firebase* para el reporte de errores (cosa que, creedme, será muy muy útil) necesitáis una cuenta y un proyecto en dicha página para poder compilar *OpenCoches*. 
+
+Básicamente sólo necesitáis el archivo de configuración *google-services.json* el cual conseguís siguiendo el tutorial básico que tienen en la página de *Firebase* en la raíz de la aplicación (el directorio *app*).
+
+Obviamente otra alternativa es ir comentando todas las referencias que haya a *Firebase* a lo largo del proyecto, pero creo que lo primero es más sencillo.
 
 ## Developer playlist
 Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba el proyecto. Aquí iré poniendo los discos, canciones y *playlists* que vaya escuchando mientras pico código, por si alguno quiere venirse arriba y escucharlo también:
@@ -34,4 +39,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [Deftones: Gore](https://www.youtube.com/watch?v=o-3matq2r0Y)
 - [Steven Wilson: The Raven That Refused To Sing (And Other Stories)](https://www.youtube.com/watch?v=_w8SY_9yO8k&list=PLgs4tQlTRNY36XH79qSOIeDsTTy-QswEh)
 - [†††: Crosses](https://www.youtube.com/watch?v=92dXztDGYdM)
+- [Caligula's Horse: The Tide, the Thief & River's End](https://www.youtube.com/watch?v=2f8w-Fowepc&list=PLo2XzIBaNAUILDjJtJ4jy39Rk4VDZYvsp)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
