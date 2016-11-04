@@ -7,6 +7,7 @@
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
     <string name="general.loading">Cargando...</string>
+    <string name="general.no_browser">No hay ningún navegador instalado</string>
 
     <!-- Mensajes de error -->
     <string name="error.sad">:(</string>

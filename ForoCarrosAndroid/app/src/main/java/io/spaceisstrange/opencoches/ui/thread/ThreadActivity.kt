@@ -143,7 +143,7 @@ class ThreadActivity : BaseActivity() {
             if (browserIntent != null) {
                 startActivity(browserIntent)
             } else {
-                Toast.makeText(this, "No hay ningún navegador instalado", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.general_no_browser), Toast.LENGTH_LONG).show()
             }
         } else if (selectedId == R.id.menu_search_in_thread) {
             // Notificamos el bus sobre la pulsación en la búsqueda para que se muestre en el fragment actual
