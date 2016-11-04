@@ -6,13 +6,13 @@
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
-    <string name="general.loading">Cargando...</string>
+    <string name="general.loading">Cargando&#8230;</string>
     <string name="general.no_browser">No hay ningún navegador instalado</string>
 
     <!-- Mensajes de error -->
     <string name="error.sad">:(</string>
     <string name="error.shrug">¯\\_(ツ)_/¯</string>
-    <string name="error.prv">+PRV...</string>
+    <string name="error.prv">+PRV&#8230;</string>
     <string name="error.general_title">Error</string>
     <string name="error.general_ok">Aceptar</string>
     <string name="error.general_big">Ha habido un error cargando esto. Puede ser que Forocoches esté caído o muy probablemente el jefe nos haya chafado el juguete. En cualquier caso, vuelve a intentarlo o reporta el error</string>
