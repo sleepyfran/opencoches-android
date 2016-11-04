@@ -28,7 +28,7 @@ abstract class BaseRequest {
      * Constantes de cada petición
      */
     val USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
-    val TIMEOUT = 3000
+    val TIMEOUT = 15000
 
     /**
      * Comprueba si la request actual ha sido o no correcta, es decir, que el código esté entre
