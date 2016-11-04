@@ -68,10 +68,7 @@ class LoginPresenter @Inject constructor(val view: LoginContract.View,
                     } else {
                         // Se ha producido un error
                         view.showLoading(false)
-
-                        if (error is SocketTimeoutException) {
-                            view.showWrongDataError()
-                        }
+                        view.showWrongDataError()
                     }
                 })
     }
