@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.subforum
 
+import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.subforum.Subforum
 import io.spaceisstrange.opencoches.data.model.Thread
 import rx.subscriptions.CompositeSubscription
@@ -52,6 +53,8 @@ class SubforumPresenter @Inject constructor(val view: SubforumContract.View, val
                 {
                     error ->
 
+                    // Reportamos el error
+                    FirebaseCrash.report(error)
                     view.showLoading(false)
                     view.showError(true)
                 }

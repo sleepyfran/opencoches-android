@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.data
 
+import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.login.Login
 import io.spaceisstrange.opencoches.data.api.userdata.UserId
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
@@ -53,6 +54,8 @@ class AccountManager {
                     {
                         error ->
 
+                        // Reportamos el error y lo pasamos para atrás
+                        FirebaseCrash.report(error)
                         onResult(false, error)
                     }
             )
@@ -80,6 +83,9 @@ class AccountManager {
                         },
                         {
                             error ->
+
+                            // Reportamos el error
+                            FirebaseCrash.report(error)
 
                             // Si ha habido algún error eliminamos los datos guardados
                             sharedPrefs.removePreferences()

@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.profile
 
+import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.profile.Profile
 import io.spaceisstrange.opencoches.util.RegexUtils
 import rx.subscriptions.CompositeSubscription
@@ -61,6 +62,9 @@ class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var u
                 },
                 {
                     error ->
+
+                    // Reportamos el error
+                    FirebaseCrash.report(error)
 
                     // Mostramos la carita triste :(
                     view.showError(true)

@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.search
 
+import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.search.Search
 import io.spaceisstrange.opencoches.data.api.search.SearchPage
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
@@ -74,6 +75,8 @@ class SearchPresenter @Inject constructor(val view: SearchContract.View,
                 {
                     error ->
 
+                    // Reportamos el error
+                    FirebaseCrash.report(error)
                     view.showError(true)
                 }
         )
@@ -98,6 +101,8 @@ class SearchPresenter @Inject constructor(val view: SearchContract.View,
                 {
                     error ->
 
+                    // Reportamos el error
+                    FirebaseCrash.report(error)
                     view.showError(true)
                 }
         )
