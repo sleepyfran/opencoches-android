@@ -20,11 +20,16 @@ package io.spaceisstrange.opencoches.ui.profile
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
 import com.klinker.android.sliding.SlidingActivity
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.AccountManager
+import io.spaceisstrange.opencoches.data.model.UserData
 import io.spaceisstrange.opencoches.util.ActivityUtils
 import javax.inject.Inject
 
@@ -68,8 +73,8 @@ class ProfileActivity : SlidingActivity() {
                         }
 
                         // Configuramos la activity
-                        disableHeader()
                         setContent(R.layout.activity_profile)
+                        title = "Cargando..."
 
                         // Intentamos conseguir de nuevo el fragment anterior si existe
                         var profileFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? ProfileFragment
@@ -89,5 +94,23 @@ class ProfileActivity : SlidingActivity() {
         } else {
             ActivityUtils.showLogin(this)
         }
+    }
+
+    /**
+     * A llamar por el fragment cuando los datos del usuario se hayan cargado correctamente
+     */
+    fun showUserData(userData: UserData) {
+        title = userData.username
+
+        // Cargamos la imagen
+        Glide.with(this)
+                .load(userData.photoSrc)
+                .asBitmap()
+                .into(object : SimpleTarget<Bitmap>(300, 300) {
+                    override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                        // Mostramos la imagen cargada en la header de la activity
+                        setImage(resource)
+                    }
+                })
     }
 }

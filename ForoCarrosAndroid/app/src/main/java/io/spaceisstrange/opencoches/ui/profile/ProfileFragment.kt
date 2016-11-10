@@ -68,16 +68,12 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         tvUserRegistrationDate.visibility = View.VISIBLE
         tvUserTotalPosts.visibility = View.VISIBLE
 
-        Glide.with(context)
-                .load(userData.photoSrc)
-                .error(R.drawable.ic_error_white)
-                .crossFade()
-                .into(ivUserPicture)
-
-        tvUserUsername.text = getString(R.string.user_profile_username, userData.username)
         tvUserLastActivity.text = userData.lastActivity
         tvUserRegistrationDate.text = userData.registrationDate
         tvUserTotalPosts.text = userData.totalPosts
+
+        // Lo pasamos a la activity para mostrar los datos restantes
+        (activity as ProfileActivity).showUserData(userData)
     }
 
     override fun showLoading(show: Boolean) {
