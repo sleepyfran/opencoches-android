@@ -33,6 +33,11 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     /**
+     * Scroll listener del WebView
+     */
+    var onScroll: ((l: Int, t: Int, oldl: Int, oldt: Int) -> Unit)? = null
+
+    /**
      * Método a llamar cuando el usuario presione en un usuario
      */
     var onUserClick: ((posterId: String) -> Unit)? = null
@@ -40,6 +45,11 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     init {
         // Nos registramos como interfaz de JavaScript
         addJavascriptInterface(this, "Android")
+    }
+
+    override fun onScrollChanged(x: Int, y: Int, oldX: Int, oldY: Int) {
+        super.onScrollChanged(x, y, oldX, oldY)
+        onScroll?.invoke(x, y, oldX, oldY)
     }
 
     override fun loadContent(content: List<Post>, onLoad: (() -> Unit)?) {
