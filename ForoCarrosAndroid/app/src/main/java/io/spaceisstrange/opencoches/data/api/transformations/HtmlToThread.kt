@@ -59,14 +59,17 @@ class HtmlToThread {
                 }
 
                 val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()
-                val postContent = post.select("td[id^=td_post_]").first().html()
+                val postContent = post.select("td[id^=td_post_]").first()
+                val postHtml = postContent.html()
+                val postText = postContent.text()
 
                 postList.add(Post(userUsername,
                         userPicture,
                         userInfo,
                         userId,
                         postTimestamp,
-                        postContent))
+                        postHtml,
+                        postText))
             }
 
             return postList
