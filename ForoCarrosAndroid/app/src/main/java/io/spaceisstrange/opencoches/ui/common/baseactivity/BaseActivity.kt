@@ -19,19 +19,22 @@
 package io.spaceisstrange.opencoches.ui.common.baseactivity
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AppCompatDelegate
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.AccountManager
-import io.spaceisstrange.opencoches.data.CookiesCache
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.search.SearchActivity
 import javax.inject.Inject
 
+
 open class BaseActivity : AppCompatActivity() {
+
     /**
      * SharedPreferences de la aplicación
      */
@@ -44,6 +47,11 @@ open class BaseActivity : AppCompatActivity() {
         val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)
         supportActionBar?.setHomeAsUpIndicator(closeButton)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
