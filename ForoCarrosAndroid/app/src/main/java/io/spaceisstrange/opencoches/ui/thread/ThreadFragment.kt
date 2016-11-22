@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import com.tinsuke.icekick.freezeInstanceState
 import com.tinsuke.icekick.state
 import com.tinsuke.icekick.unfreezeInstanceState
@@ -97,7 +98,7 @@ class ThreadFragment : Fragment(), ThreadContract.View {
         }
 
         // Ocultamos el fab de respuesta de respuesta al hacer scroll
-        wvPostContent.setOnScrollChangeListener {
+        (wvPostContent as WebView).setOnScrollChangeListener {
             view, x, y, oldX, oldY ->
 
             if (oldY - y <= 0) {
