@@ -18,6 +18,8 @@
 
 package io.spaceisstrange.opencoches.data.api
 
+import io.spaceisstrange.opencoches.util.RegexUtils
+
 class ApiUtils {
     companion object {
         /**
@@ -43,6 +45,19 @@ class ApiUtils {
             } else {
                 return url
             }
+        }
+
+        /**
+         * Obtiene el ID de un usuario de una URL completa (sea de escritorio o móvil)
+         */
+        fun getIdFromUrl(url: String): String? {
+            if (url.startsWith("http://www.")) {
+                return RegexUtils.userIdFromFullDesktopLink().matchEntire(url)?.groups?.get(1)?.value!!
+            } else if (url.startsWith("http://m.")) {
+                return RegexUtils.userIdFromFullMobileLink().matchEntire(url)?.groups?.get(1)?.value!!
+            }
+
+            return null
         }
     }
 }

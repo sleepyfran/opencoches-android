@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.ui.profile
 
 import com.google.firebase.crash.FirebaseCrash
+import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.api.profile.Profile
 import io.spaceisstrange.opencoches.util.RegexUtils
 import rx.subscriptions.CompositeSubscription
@@ -40,10 +41,9 @@ class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var u
         compositeSubscription = CompositeSubscription()
 
         // Vemos si nos han pasado el ID del usuario o una URL
-        if (userId.startsWith("http://www.")) {
-            userId = RegexUtils.userIdFromFullDesktopLink().matchEntire(userId)?.groups?.get(1)?.value!!
-        } else if (userId.startsWith("http://m.")) {
-            userId = RegexUtils.userIdFromFullMobileLink().matchEntire(userId)?.groups?.get(1)?.value!!
+        if (userId.startsWith("http://")) {
+            userId = ApiUtils.getIdFromUrl(userId)
+                    ?: throw IllegalArgumentException("La URL que me has dado no es válida, loco")
         }
 
         // Cargamos la información sobre el usuario
