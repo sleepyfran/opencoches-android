@@ -18,10 +18,10 @@
 
 package io.spaceisstrange.opencoches.ui.views.editor.smilies
 
-import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.smilies.Smilies
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.SmilySelectedEvent
+import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -58,7 +58,7 @@ class SmiliesPresenter @Inject constructor(val view: SmiliesContract.View, val b
                     error ->
 
                     // Reportamos el error
-                    FirebaseCrash.report(error)
+                    FirebaseReporter.report(error)
                     view.showLoading(false)
                     view.showError(true)
                 }

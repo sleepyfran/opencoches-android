@@ -27,7 +27,7 @@ Dado que el proyecto está integrado con *Firebase* para el reporte de errores (
 
 Básicamente sólo necesitáis el archivo de configuración *google-services.json* el cual conseguís siguiendo el tutorial básico que tienen en la página de *Firebase* en la raíz de la aplicación (el directorio *app*).
 
-Obviamente otra alternativa es ir comentando todas las referencias que haya a *Firebase* a lo largo del proyecto, pero creo que lo primero es más sencillo.
+**Alternativamente** podéis comentar lo referente a *Firebase* en el proyecto, es decir: los imports en los archivos *Gradle* tanto del proyecto como el del app y lo anotado en la clase FirebaseReporter.
 
 ## Developer playlist
 Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba el proyecto. Aquí iré poniendo los discos, canciones y *playlists* que vaya escuchando mientras pico código, por si alguno quiere venirse arriba y escucharlo también:

@@ -11,7 +11,7 @@ buildscript {
 
         /**
          * Módulos de Firebase. Para compilar el proyecto sin tener que añadir los servicios de Firebase
-         * simplemente comenta estos módulos
+         * simplemente comenta estos módulos y pon la variable de la clase FirebaseReporter a false
          */
         classpath 'com.google.gms:google-services:3.0.0'
 

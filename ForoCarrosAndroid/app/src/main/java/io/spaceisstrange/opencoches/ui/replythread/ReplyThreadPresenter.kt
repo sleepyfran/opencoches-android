@@ -19,11 +19,11 @@
 package io.spaceisstrange.opencoches.ui.replythread
 
 import android.text.TextUtils
-import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.securitytoken.SecurityToken
 import io.spaceisstrange.opencoches.data.api.thread.ThreadReply
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
+import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import io.spaceisstrange.opencoches.util.RegexUtils
 import rx.subscriptions.CompositeSubscription
@@ -95,7 +95,7 @@ class ReplyThreadPresenter @Inject constructor(val view: ReplyThreadContract.Vie
                                 error ->
 
                                 // Reportamos el error
-                                FirebaseCrash.report(error)
+                                FirebaseReporter.report(error)
                                 view.showError(true)
                             }
                     )
@@ -104,7 +104,7 @@ class ReplyThreadPresenter @Inject constructor(val view: ReplyThreadContract.Vie
                     error ->
 
                     // Reportamos el error
-                    FirebaseCrash.report(error)
+                    FirebaseReporter.report(error)
                     view.showError(true)
                 }
         )

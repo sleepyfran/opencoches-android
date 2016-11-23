@@ -18,11 +18,11 @@
 
 package io.spaceisstrange.opencoches.ui.thread
 
-import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.thread.ThreadInfo
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
+import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.model.Thread
 import rx.subscriptions.CompositeSubscription
 
@@ -52,7 +52,7 @@ class ThreadPresenter(var view: ThreadContract.View,
                         error ->
 
                         // Reportamos el error
-                        FirebaseCrash.report(error)
+                        FirebaseReporter.report(error)
 
                         // Y a silenciar se ha dicho
                     }
@@ -88,7 +88,7 @@ class ThreadPresenter(var view: ThreadContract.View,
                     error ->
 
                     // Reportamos el error
-                    FirebaseCrash.report(error)
+                    FirebaseReporter.report(error)
                     view.showError(true)
                 }
         )
@@ -122,7 +122,7 @@ class ThreadPresenter(var view: ThreadContract.View,
                     error ->
 
                     // Reportamos el error
-                    FirebaseCrash.report(error)
+                    FirebaseReporter.report(error)
                     view.showLoading(false)
                     view.showError(true)
                 }

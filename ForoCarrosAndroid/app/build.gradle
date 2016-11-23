@@ -55,7 +55,7 @@ dependencies {
 
     /**
      * Módulos de Firebase. Para compilar el proyecto sin tener que añadir los servicios de Firebase
-     * simplemente comenta estos módulos
+     * simplemente comenta estos módulos y pon la variable de la clase FirebaseReporter a false
      */
     compile 'com.google.firebase:firebase-core:9.6.1'
     compile 'com.google.firebase:firebase-crash:9.6.1'

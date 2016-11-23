@@ -18,8 +18,8 @@
 
 package io.spaceisstrange.opencoches.ui.subforumlist
 
-import com.google.firebase.crash.FirebaseCrash
 import io.spaceisstrange.opencoches.data.api.subforumlist.SubforumList
+import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.model.Subforum
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -58,7 +58,7 @@ class SubforumListPresenter @Inject constructor(val view: SubforumListContract.V
                     error ->
 
                     // Reportamos el error
-                    FirebaseCrash.report(error)
+                    FirebaseReporter.report(error)
                     view.showError(true)
                 }
         )
