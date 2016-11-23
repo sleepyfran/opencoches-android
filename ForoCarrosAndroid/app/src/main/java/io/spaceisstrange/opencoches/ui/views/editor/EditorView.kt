@@ -159,6 +159,14 @@ class EditorView : LinearLayout {
     }
 
     /**
+     * Añade una cita al campo de texto
+     */
+    fun appendQuote(posterName: String, posterId: String, postText: String) {
+        val template = context.getString(R.string.quote_template, posterName, posterId, postText)
+        etEditorText.append(template)
+    }
+
+    /**
      * Retorna el texto introducido en el campo de texto del editor
      */
     fun text(): String {

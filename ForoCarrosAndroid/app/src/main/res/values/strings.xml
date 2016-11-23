@@ -66,6 +66,9 @@
     <!-- Activity de búsqueda -->
     <string name="search.hint">Buscar&#8230;</string>
 
+    <!-- Activity de respuesta -->
+    <string name="quote_template">[QUOTE=%1$s;%2$s]%3$s[/QUOTE]\n</string>
+
     <!-- Selección de foto -->
     <string name="image_upload.source">Incluir imagen</string>
     <string name="image_upload.gallery">Desde la galería</string>

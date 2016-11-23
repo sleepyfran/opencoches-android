@@ -34,12 +34,27 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
      */
     lateinit var replyThreadPresenter: ReplyThreadPresenter
 
+    /**
+     * Datos a inicializar si se trata de una cita
+     */
+    var isQuote: Boolean = false
+    lateinit var posterName: String
+    lateinit var posterId: String
+    lateinit var postText: String
+
     companion object {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(): ReplyThreadFragment {
+        fun newInstance(isQuote: Boolean,
+                        posterName: String,
+                        posterId: String,
+                        postText: String): ReplyThreadFragment {
             val fragment = ReplyThreadFragment()
+            fragment.isQuote = isQuote
+            fragment.posterName = posterName
+            fragment.posterId = posterId
+            fragment.postText = postText
             return fragment
         }
     }
@@ -53,6 +68,11 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
         // Iniciamos el presenter
         replyThreadPresenter.init()
+
+        // Insertamos la cita, si la hay
+        if (isQuote) {
+            setQuoteText(posterName, posterId, postText)
+        }
     }
 
     override fun setPresenter(presenter: ReplyThreadPresenter) {
@@ -61,6 +81,10 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
     override fun getReplyMessage(): String {
         return evEditor.text()
+    }
+
+    override fun setQuoteText(posterName: String, posterId: String, postText: String) {
+        evEditor.appendQuote(posterName, posterId, postText)
     }
 
     override fun showEmptyReply() {

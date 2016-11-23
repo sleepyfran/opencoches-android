@@ -161,7 +161,7 @@ class ThreadActivity : BaseActivity() {
         supportActionBar?.title = threadTitle
 
         // Inicializamos el view pager
-        pagerAdapter = ThreadPagerAdapter(supportFragmentManager, link, threadPages)
+        pagerAdapter = ThreadPagerAdapter(supportFragmentManager, link, threadPages, threadTitle)
         vpThreadPages.adapter = pagerAdapter
 
         // Iniciamos la activity de respuesta al hilo cuando el usuario pulse el FAB

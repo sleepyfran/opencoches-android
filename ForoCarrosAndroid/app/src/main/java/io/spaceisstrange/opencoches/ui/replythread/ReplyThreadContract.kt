@@ -29,6 +29,11 @@ interface ReplyThreadContract {
         fun getReplyMessage(): String
 
         /**
+         * Método a llamar para insertar el texto de una cita
+         */
+        fun setQuoteText(posterName: String, posterId: String, postText: String )
+
+        /**
          * Método a llamar cuando el campo del mensaje esté vacío
          */
         fun showEmptyReply()

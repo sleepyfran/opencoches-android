@@ -32,6 +32,7 @@ import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.profile.ProfileActivity
+import io.spaceisstrange.opencoches.ui.replythread.ReplyThreadActivity
 import io.spaceisstrange.opencoches.util.ColorUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
@@ -53,15 +54,17 @@ class ThreadFragment : Fragment(), ThreadContract.View {
      */
     var currentPage: Int by state(1)
     var link: String? by state()
+    var title: String? by state()
 
     companion object {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(currentPage: Int, link: String): ThreadFragment {
+        fun newInstance(currentPage: Int, link: String, title: String): ThreadFragment {
             val fragment = ThreadFragment()
             fragment.currentPage = currentPage
             fragment.link = link
+            fragment.title = title
             return fragment
         }
     }
@@ -114,6 +117,20 @@ class ThreadFragment : Fragment(), ThreadContract.View {
             posterId ->
 
             startActivity(ProfileActivity.getStartIntent(context, posterId))
+        }
+
+        // Mostramos la activity de respuesta con la quote 
+        wvPostContent.onQuoteClick = {
+            posterName, posterId, postContent ->
+
+            // Mostramos la activity de respuesta con la cita
+            val replyIntent = ReplyThreadActivity.getQuoteStartIntent(context,
+                    title!!,
+                    link!!,
+                    posterName,
+                    posterId,
+                    postContent)
+            startActivity(replyIntent)
         }
 
         // Mostramos la barra de búsqueda cuando el usuario clique en el botón de búsqueda

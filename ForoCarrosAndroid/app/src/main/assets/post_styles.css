@@ -54,6 +54,15 @@ body {
     height: auto;
 }
 
+.post-actions {
+    margin-top: 10px;
+    float: right;
+}
+
+.white-icon {
+    color: #F5F5F5;
+}
+
 /*
  * Utilidades para redimensionar objetos y ajustarlos a la WebView
  */

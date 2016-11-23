@@ -24,7 +24,8 @@ import android.support.v4.app.FragmentPagerAdapter
 
 class ThreadPagerAdapter(fragmentManager: FragmentManager,
                          val link: String,
-                         var totalPages: Int) : FragmentPagerAdapter(fragmentManager) {
+                         var totalPages: Int,
+                         var title: String) : FragmentPagerAdapter(fragmentManager) {
 
     /**
      * Actualiza el número total de páginas actuales
@@ -35,7 +36,7 @@ class ThreadPagerAdapter(fragmentManager: FragmentManager,
     }
 
     override fun getItem(position: Int): Fragment {
-        return ThreadFragment.newInstance(position + 1, link)
+        return ThreadFragment.newInstance(position + 1, link, title)
     }
 
     override fun getCount(): Int {

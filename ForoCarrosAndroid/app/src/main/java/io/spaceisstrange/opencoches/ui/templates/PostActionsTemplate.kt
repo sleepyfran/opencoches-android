@@ -22,20 +22,12 @@ import android.content.Context
 import com.squareup.phrase.Phrase
 import io.spaceisstrange.opencoches.data.model.Post
 
-class PostTemplate(context: Context) : HtmlTemplate<Post>(context, "post_template.html") {
-    /**
-     * Dependencias utilizadas
-     */
-    val postActionsTemplate = PostActionsTemplate(context)
-
+class PostActionsTemplate(context: Context) : HtmlTemplate<Post>(context, "post_actions.html") {
     override fun render(content: Post, template: Phrase): String {
         return template
-                .put("picture_src", content.posterPictureLink)
-                .put("poster_username", content.posterUsername)
-                .put("poster_id", content.posterId)
-                .put("post_date", content.postTimestamp)
-                .put("content", content.postHtml)
-                .put("post_actions", postActionsTemplate.render(content))
+                .put("poster_name", content.posterUsername)
+                .put("post_id", content.posterId)
+                .put("post_content", content.postText)
                 .format()
                 .toString()
     }

@@ -55,6 +55,26 @@ class ReplyThreadActivity : SlidingActivity() {
         val THREAD_LINK = "threadLink"
 
         /**
+         * Clave asociada a si es o no una cita
+         */
+        val IS_QUOTE = "isQuote"
+
+        /**
+         * Clave asociada con el nombre de la persona a citar
+         */
+        val USER_QUOTE_NAME = "quoteName"
+
+        /**
+         * Clave asociada con el ID de la persona a citar
+         */
+        val USER_QUOTE_ID = "quoteId"
+
+        /**
+         * Clave asociada con el texto de la cita
+         */
+        val USER_QUOTE_TEXT = "quoteText"
+
+        /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
          */
         fun getStartIntent(context: Context,
@@ -65,6 +85,23 @@ class ReplyThreadActivity : SlidingActivity() {
             startIntent.putExtra(THREAD_LINK, link)
             return startIntent
         }
+
+        /**
+         * Retorna un Intent con los parámetros necesarios para inicializar la activity lista para citar un post
+         */
+        fun getQuoteStartIntent(context: Context,
+                                title: String,
+                                link: String,
+                                quoteUserName: String,
+                                quoteUserId: String,
+                                quoteText: String): Intent {
+            val startIntent = getStartIntent(context, title, link)
+            startIntent.putExtra(IS_QUOTE, true)
+            startIntent.putExtra(USER_QUOTE_NAME, quoteUserName)
+            startIntent.putExtra(USER_QUOTE_ID, quoteUserId)
+            startIntent.putExtra(USER_QUOTE_TEXT, quoteText)
+            return startIntent
+        }
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -73,6 +110,21 @@ class ReplyThreadActivity : SlidingActivity() {
                 ?: throw IllegalArgumentException("Mayday, necesito el título del hilo para funcionar")
         val threadLink = intent.extras?.getString(THREAD_LINK)
                 ?: throw IllegalArgumentException("Como que necesitamos el link del hilo para funcionar")
+        val isQuote = intent.extras?.getBoolean(IS_QUOTE) ?: false
+
+        // Intentamos obtener los datos de una quote, si los hay
+        var quoteName: String = ""
+        var quoteId: String = ""
+        var quoteText: String = ""
+
+        if (isQuote) {
+            quoteName = intent.extras?.getString(USER_QUOTE_NAME)
+                    ?: throw IllegalArgumentException("No puedo poner una cita sin el nombre de la persona :C")
+            quoteId = intent.extras?.getString(USER_QUOTE_ID)
+                    ?: throw IllegalArgumentException("No puedo poner una cita sin el ID de la persona :C")
+            quoteText = intent.extras?.getString(USER_QUOTE_TEXT)
+                    ?: throw IllegalArgumentException("No puedo poner una cita sin el texto :C")
+        }
 
         // Configuramos la activity
         title = threadTitle
@@ -89,7 +141,7 @@ class ReplyThreadActivity : SlidingActivity() {
 
         if (replyThreadFragment == null) {
             // Sino, lo creamos el fragment y lo añadimos
-            replyThreadFragment = ReplyThreadFragment.newInstance()
+            replyThreadFragment = ReplyThreadFragment.newInstance(isQuote, quoteName, quoteId, quoteText)
             ActivityUtils.addFragmentToActivity(supportFragmentManager, replyThreadFragment, R.id.fragment)
         }
 
