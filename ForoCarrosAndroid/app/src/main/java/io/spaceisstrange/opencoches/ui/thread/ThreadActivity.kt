@@ -192,12 +192,12 @@ class ThreadActivity : BaseActivity() {
         )
 
         // Actualizamos las páginas cuando nos movamos por el ViewPager
-        tvThreadPages.text = getString(R.string.thread_pages_count, currentPage, pagerAdapter.count)
+        updatePageCount()
         vpThreadPages.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 // Actualizamos el conteo de páginas
                 currentPage = position + 1
-                tvThreadPages.text = getString(R.string.thread_pages_count, position + 1, pagerAdapter.count)
+                updatePageCount()
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -245,5 +245,12 @@ class ThreadActivity : BaseActivity() {
         btnThreadLastPage.isEnabled = enabled
         btnThreadNextPage.isEnabled = enabled
         btnThreadPreviousPage.isEnabled = enabled
+    }
+
+    /**
+     * Actualiza el contador de páginas de la barra de navegación
+     */
+    fun updatePageCount() {
+        tvThreadPages.text = getString(R.string.thread_pages_count, currentPage, pagerAdapter.count)
     }
 }
