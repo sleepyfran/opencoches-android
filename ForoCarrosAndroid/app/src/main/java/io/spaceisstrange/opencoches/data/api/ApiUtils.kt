@@ -59,5 +59,12 @@ class ApiUtils {
 
             return null
         }
+
+        /**
+         * Retorna una URL completa de escritorio dado un "endpoint" de ForoCoches
+         */
+        fun getUrlFromEndpoint(endpoint: String): String {
+            return ApiConstants.BASE_URL + endpoint
+        }
     }
 }

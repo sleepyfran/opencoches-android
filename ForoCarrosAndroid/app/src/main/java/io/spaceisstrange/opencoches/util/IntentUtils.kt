@@ -41,5 +41,15 @@ class IntentUtils {
         fun createBrowserIntentChooser(context: Context, url: String): Intent? {
             return createBrowserIntentChooser(context, Uri.parse(url))
         }
+
+        /**
+         * Crea un intent que permite compartir texto a otras aplicaciones (de mensajería, usualmente)
+         */
+        fun createTextShareIntent(sharedContent: String, title: String): Intent {
+            val sharingIntent = Intent(Intent.ACTION_SEND)
+            sharingIntent.type = "text/plain"
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, sharedContent)
+            return Intent.createChooser(sharingIntent, title)
+        }
     }
 }

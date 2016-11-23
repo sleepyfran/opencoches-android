@@ -148,6 +148,11 @@ class ThreadActivity : BaseActivity() {
         } else if (selectedId == R.id.menu_search_in_thread) {
             // Notificamos el bus sobre la pulsación en la búsqueda para que se muestre en el fragment actual
             bus.publish(ThreadPageSearchEvent(link))
+        } else if (selectedId == R.id.menu_share_thread) {
+            // Compartimos el link del hilo
+            val sharingIntent = IntentUtils.createTextShareIntent(ApiUtils.getUrlFromEndpoint(link),
+                    getString(R.string.thread_menu_share))
+            startActivity(sharingIntent)
         }
 
         return super.onOptionsItemSelected(item)

@@ -59,6 +59,7 @@
     <string name="thread.reply.sent">Respuesta enviada</string>
     <string name="thread.menu.search">Buscar en la página actual</string>
     <string name="thread.menu.open_in_browser">Abrir en el navegador</string>
+    <string name="thread.menu.share">Compartir hilo</string>
     <string name="thread.reply.bbcode.b">B</string>
     <string name="thread.reply.bbcode.i">I</string>
     <string name="thread.reply.bbcode.u">U</string>
