@@ -40,8 +40,10 @@ class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var u
         compositeSubscription = CompositeSubscription()
 
         // Vemos si nos han pasado el ID del usuario o una URL
-        if (userId.startsWith("http")) {
-            userId = RegexUtils.userIdFromFullLink().matchEntire(userId)?.groups?.get(1)?.value!!
+        if (userId.startsWith("http://www.")) {
+            userId = RegexUtils.userIdFromFullDesktopLink().matchEntire(userId)?.groups?.get(1)?.value!!
+        } else if (userId.startsWith("http://m.")) {
+            userId = RegexUtils.userIdFromFullMobileLink().matchEntire(userId)?.groups?.get(1)?.value!!
         }
 
         // Cargamos la información sobre el usuario
