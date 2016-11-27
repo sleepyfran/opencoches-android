@@ -32,7 +32,7 @@ class PostTemplate(context: Context) : HtmlTemplate<Post>(context, "post_templat
         return template
                 .put("picture_src", content.posterPictureLink)
                 .put("poster_username", content.posterUsername)
-                .put("poster_id", content.posterId)
+                .put("poster_id", content.userId)
                 .put("post_date", content.postTimestamp)
                 .put("content", content.postHtml)
                 .put("post_actions", postActionsTemplate.render(content))

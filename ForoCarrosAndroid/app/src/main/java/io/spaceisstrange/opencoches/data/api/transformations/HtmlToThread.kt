@@ -59,14 +59,22 @@ class HtmlToThread {
                 }
 
                 val postTimestamp = post.select("td[class^=" + ApiConstants.POST_TIMESTAMP_CLASS_KEY + "]").text()
-                val postContent = post.select("td[id^=td_post_]").first()
+                val postContent = post.select("td[id^=" + ApiConstants.THREAD_POST_KEY + "]").first()
                 val postHtml = postContent.html()
                 val postText = postContent.text()
+
+                val postIdRegex = "${ApiConstants.THREAD_POST_KEY}(\\d+)".toRegex()
+                var postId = postIdRegex.matchEntire(postContent.id())?.groups?.get(1)?.value
+
+                if (postId == null) {
+                    postId = ""
+                }
 
                 postList.add(Post(userUsername,
                         userPicture,
                         userInfo,
                         userId,
+                        postId,
                         postTimestamp,
                         postHtml,
                         postText))

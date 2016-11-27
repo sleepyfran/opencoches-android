@@ -21,7 +21,8 @@ package io.spaceisstrange.opencoches.data.model
 data class Post(val posterUsername: String,
                 val posterPictureLink: String,
                 val posterDescription: String,
-                val posterId: String,
+                val userId: String,
+                val postId: String,
                 val postTimestamp: String,
                 var postHtml: String,
                 var postText: String? = null)

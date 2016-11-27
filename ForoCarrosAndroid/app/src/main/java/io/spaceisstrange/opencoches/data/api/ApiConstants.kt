@@ -48,6 +48,7 @@ class ApiConstants {
         const val TD_THREAD_TITLE_KEY = "td_threadtitle"
         const val THREAD_TITLE_KEY = "thread_title_"
         const val THREAD_PAGES_KEY = "misc.php?do=whoposted&t="
+        const val THREAD_POST_KEY = "td_post_"
         const val THREAD_MAX_POSTS_PER_PAGE = 30.toDouble()
         const val POST_ROOT_ID_KEY = "post"
         const val POST_USER_USERNAME_CLASS_KEY = "bigusername"

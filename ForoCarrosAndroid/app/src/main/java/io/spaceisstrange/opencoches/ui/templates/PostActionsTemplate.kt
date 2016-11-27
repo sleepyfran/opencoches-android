@@ -26,7 +26,7 @@ class PostActionsTemplate(context: Context) : HtmlTemplate<Post>(context, "post_
     override fun render(content: Post, template: Phrase): String {
         return template
                 .put("poster_name", content.posterUsername)
-                .put("post_id", content.posterId)
+                .put("post_id", content.userId)
                 .put("post_content", content.postText)
                 .format()
                 .toString()
