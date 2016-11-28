@@ -20,6 +20,7 @@ package io.spaceisstrange.opencoches.ui.thread
 
 import io.spaceisstrange.opencoches.data.api.thread.ThreadInfo
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
+import io.spaceisstrange.opencoches.data.api.thread.ThreadQuote
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
@@ -129,6 +130,24 @@ class ThreadPresenter(var view: ThreadContract.View,
         )
 
         compositeSubscription.add(postsSubscription)
+    }
+
+    override fun quote(postId: String) {
+        // Cargamos el texto de la cita y notificamos a la view cuandoe esté disponible
+        val quoteSubscription = ThreadQuote(postId).observable().subscribe(
+                {
+                    quote ->
+
+                    view.openEditorWithQuote(quote)
+                },
+                {
+                    error ->
+
+                    view.showError(true)
+                }
+        )
+
+        compositeSubscription.add(quoteSubscription)
     }
 
     override fun finish() {

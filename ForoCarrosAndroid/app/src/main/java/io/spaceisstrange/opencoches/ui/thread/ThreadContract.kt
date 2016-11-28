@@ -48,6 +48,11 @@ interface ThreadContract {
         fun showNotAvailable(show: Boolean)
 
         /**
+         * Método a llamar cuando se haya cargado la cita
+         */
+        fun openEditorWithQuote(quote: String)
+
+        /**
          * Método a llamar cuando se produzca un error
          */
         fun showError(show: Boolean)
@@ -58,5 +63,10 @@ interface ThreadContract {
          * Método a llamar cuando necesitemos cargar el contenido actual de la página
          */
         fun loadPage(onLoad: (() -> Unit)? = null)
+
+        /**
+         * Método a llamar cuando el usuario quiera citar un mensaje
+         */
+        fun quote(postId: String)
     }
 }

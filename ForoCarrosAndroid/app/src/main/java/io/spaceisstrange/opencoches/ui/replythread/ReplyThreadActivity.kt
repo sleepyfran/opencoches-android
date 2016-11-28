@@ -62,17 +62,7 @@ class ReplyThreadActivity : SlidingActivity() {
         /**
          * Clave asociada con el nombre de la persona a citar
          */
-        val USER_QUOTE_NAME = "quoteName"
-
-        /**
-         * Clave asociada con el ID de la persona a citar
-         */
-        val USER_QUOTE_ID = "quoteId"
-
-        /**
-         * Clave asociada con el texto de la cita
-         */
-        val USER_QUOTE_TEXT = "quoteText"
+        val QUOTE = "quote"
 
         /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
@@ -92,14 +82,10 @@ class ReplyThreadActivity : SlidingActivity() {
         fun getQuoteStartIntent(context: Context,
                                 title: String,
                                 link: String,
-                                quoteUserName: String,
-                                quoteUserId: String,
-                                quoteText: String): Intent {
+                                quote: String): Intent {
             val startIntent = getStartIntent(context, title, link)
             startIntent.putExtra(IS_QUOTE, true)
-            startIntent.putExtra(USER_QUOTE_NAME, quoteUserName)
-            startIntent.putExtra(USER_QUOTE_ID, quoteUserId)
-            startIntent.putExtra(USER_QUOTE_TEXT, quoteText)
+            startIntent.putExtra(QUOTE, quote)
             return startIntent
         }
     }
@@ -114,16 +100,10 @@ class ReplyThreadActivity : SlidingActivity() {
 
         // Intentamos obtener los datos de una quote, si los hay
         var quoteName: String = ""
-        var quoteId: String = ""
-        var quoteText: String = ""
 
         if (isQuote) {
-            quoteName = intent.extras?.getString(USER_QUOTE_NAME)
-                    ?: throw IllegalArgumentException("No puedo poner una cita sin el nombre de la persona :C")
-            quoteId = intent.extras?.getString(USER_QUOTE_ID)
-                    ?: throw IllegalArgumentException("No puedo poner una cita sin el ID de la persona :C")
-            quoteText = intent.extras?.getString(USER_QUOTE_TEXT)
-                    ?: throw IllegalArgumentException("No puedo poner una cita sin el texto :C")
+            quoteName = intent.extras?.getString(QUOTE)
+                    ?: throw IllegalArgumentException("No puedo poner una cita sin el texto original :C")
         }
 
         // Configuramos la activity
@@ -141,7 +121,7 @@ class ReplyThreadActivity : SlidingActivity() {
 
         if (replyThreadFragment == null) {
             // Sino, lo creamos el fragment y lo añadimos
-            replyThreadFragment = ReplyThreadFragment.newInstance(isQuote, quoteName, quoteId, quoteText)
+            replyThreadFragment = ReplyThreadFragment.newInstance(isQuote, quoteName)
             ActivityUtils.addFragmentToActivity(supportFragmentManager, replyThreadFragment, R.id.fragment)
         }
 

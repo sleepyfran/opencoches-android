@@ -129,7 +129,7 @@ class EditorView : LinearLayout {
     /**
      * Añade el texto especificado al campo de texto
      */
-    private fun appendText(text: String) {
+    fun appendText(text: String) {
         if (etEditorText.selectionStart > -1) {
             // El usuario tiene colocado el cursor en una posición, así que añadimos el texto ahí
             val nextPosition = etEditorText.selectionStart + text.length
@@ -156,14 +156,6 @@ class EditorView : LinearLayout {
             etEditorText.append(tag + closingTag)
             etEditorText.setSelection(etEditorText.length() - closingTag.length)
         }
-    }
-
-    /**
-     * Añade una cita al campo de texto
-     */
-    fun appendQuote(posterName: String, posterId: String, postText: String) {
-        val template = context.getString(R.string.quote_template, posterName, posterId, postText)
-        etEditorText.append(template)
     }
 
     /**

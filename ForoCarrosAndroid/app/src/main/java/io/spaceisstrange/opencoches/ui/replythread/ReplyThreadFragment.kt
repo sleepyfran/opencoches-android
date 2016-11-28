@@ -38,8 +38,6 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
      * Datos a inicializar si se trata de una cita
      */
     var isQuote: Boolean = false
-    lateinit var posterName: String
-    lateinit var posterId: String
     lateinit var postText: String
 
     companion object {
@@ -47,14 +45,10 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
          * Crea una nueva instancia del fragment
          */
         fun newInstance(isQuote: Boolean,
-                        posterName: String,
-                        posterId: String,
-                        postText: String): ReplyThreadFragment {
+                        quote: String): ReplyThreadFragment {
             val fragment = ReplyThreadFragment()
             fragment.isQuote = isQuote
-            fragment.posterName = posterName
-            fragment.posterId = posterId
-            fragment.postText = postText
+            fragment.postText = quote
             return fragment
         }
     }
@@ -71,7 +65,7 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
 
         // Insertamos la cita, si la hay
         if (isQuote) {
-            setQuoteText(posterName, posterId, postText)
+            setQuoteText(postText)
         }
     }
 
@@ -83,8 +77,9 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
         return evEditor.text()
     }
 
-    override fun setQuoteText(posterName: String, posterId: String, postText: String) {
-        evEditor.appendQuote(posterName, posterId, postText)
+    override fun setQuoteText(quote: String) {
+        evEditor.appendText(quote)
+        evEditor.appendText("\n\n") // El salto de línea que emocionó a Spielberg
     }
 
     override fun showEmptyReply() {

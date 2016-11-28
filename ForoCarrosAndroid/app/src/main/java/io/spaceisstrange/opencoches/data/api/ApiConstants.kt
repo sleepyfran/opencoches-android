@@ -40,6 +40,7 @@ class ApiConstants {
         const val DO_URL = "?do="
         const val T_URL = "&t="
         const val SMILIES_URL = "misc.php?do=getsmilies&editorid=vB_Editor_001"
+        const val QUOTE_URL = "newreply.php?do=newreply&p="
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
@@ -59,6 +60,7 @@ class ApiConstants {
         const val THREAD_TITLE_CMEGA_KEY = "cmega"
         const val USERNAME_BOX_KEY = "username_box"
         const val USER_AVATAR_KEY = "user_avatar"
+        const val QUOTE_TEXT_KEY = "message"
 
         /**
          * Etiquetas del editor de texto

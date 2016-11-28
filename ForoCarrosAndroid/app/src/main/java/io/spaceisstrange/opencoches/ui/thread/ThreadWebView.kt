@@ -45,7 +45,7 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     /** 
      * Método a llamar cuando el usuario presione en la respuesta rápida
      */
-    var onQuoteClick: ((posterName: String, postId: String, postContent: String) -> Unit)? = null
+    var onQuoteClick: ((postId: String) -> Unit)? = null
 
     init {
         // Nos registramos como interfaz de JavaScript
@@ -70,7 +70,7 @@ class ThreadWebView : OpenCochesWebView<List<Post>> {
     }
 
     @JavascriptInterface
-    fun quote(posterName: String, postId: String, postContent: String) {
-        onQuoteClick?.invoke(posterName, postId, postContent)
+    fun quote(postId: String) {
+        onQuoteClick?.invoke(postId)
     }
 }

@@ -121,16 +121,9 @@ class ThreadFragment : Fragment(), ThreadContract.View {
 
         // Mostramos la activity de respuesta con la quote 
         wvPostContent.onQuoteClick = {
-            posterName, posterId, postContent ->
+            postId ->
 
-            // Mostramos la activity de respuesta con la cita
-            val replyIntent = ReplyThreadActivity.getQuoteStartIntent(context,
-                    title!!,
-                    link!!,
-                    posterName,
-                    posterId,
-                    postContent)
-            startActivity(replyIntent)
+            threadPresenter.quote(postId)
         }
 
         // Mostramos la barra de búsqueda cuando el usuario clique en el botón de búsqueda
@@ -195,6 +188,11 @@ class ThreadFragment : Fragment(), ThreadContract.View {
             activity?.fab?.show()
             vNotAvailable?.visibility = View.GONE
         }
+    }
+
+    override fun openEditorWithQuote(quote: String) {
+        val replyIntent = ReplyThreadActivity.getQuoteStartIntent(context, title!!, link!!, quote)
+        startActivity(replyIntent)
     }
 
     override fun showError(show: Boolean) {

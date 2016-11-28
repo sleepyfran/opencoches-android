@@ -16,17 +16,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.templates
+package io.spaceisstrange.opencoches.data.api.transformations
 
-import android.content.Context
-import com.squareup.phrase.Phrase
-import io.spaceisstrange.opencoches.data.model.Post
+import io.spaceisstrange.opencoches.data.api.ApiConstants
+import org.jsoup.nodes.Document
 
-class PostActionsTemplate(context: Context) : HtmlTemplate<Post>(context, "post_actions.html") {
-    override fun render(content: Post, template: Phrase): String {
-        return template
-                .put("post_id", content.postId)
-                .format()
-                .toString()
+class HtmlToQuoteText {
+    companion object {
+        /**
+         * Retorna el texto contenido dentro de la caja de texto
+         */
+        fun transform(document: Document): String {
+            val textArea = document.select("textarea[name^=" + ApiConstants.QUOTE_TEXT_KEY + "]")
+            return textArea.text()
+        }
     }
 }

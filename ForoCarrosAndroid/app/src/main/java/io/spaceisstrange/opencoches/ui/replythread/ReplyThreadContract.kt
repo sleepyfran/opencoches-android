@@ -31,7 +31,7 @@ interface ReplyThreadContract {
         /**
          * Método a llamar para insertar el texto de una cita
          */
-        fun setQuoteText(posterName: String, posterId: String, postText: String )
+        fun setQuoteText(quote: String)
 
         /**
          * Método a llamar cuando el campo del mensaje esté vacío
