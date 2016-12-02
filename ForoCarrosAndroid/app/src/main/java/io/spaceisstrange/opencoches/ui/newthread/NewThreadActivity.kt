@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.subforum
+package io.spaceisstrange.opencoches.ui.newthread
 
 import android.content.Context
 import android.content.Intent
@@ -24,71 +24,58 @@ import android.os.Bundle
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
-import io.spaceisstrange.opencoches.ui.newthread.NewThreadActivity
 import io.spaceisstrange.opencoches.util.ActivityUtils
-import kotlinx.android.synthetic.main.activity_subforum.*
+import kotlinx.android.synthetic.main.activity_new_thread.*
 import javax.inject.Inject
 
-class SubforumActivity : BaseActivity() {
+class NewThreadActivity : BaseActivity() {
+    /**
+     * Presenter asociado al fragment
+     */
+    @Inject lateinit var newThreadPresenter: NewThreadPresenter
+
     companion object {
         /**
-         * Clave asociada al título del subforo
-         */
-        val SUBFORUM_TITLE = "subforumTitle"
-
-        /**
-         * Clave asociada al link del subfroo
+         * Clave asociada al link del subforo donde vamos a crear el nuevo hilo
          */
         val SUBFORUM_LINK = "subforumLink"
 
         /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
          */
-        fun getStartIntent(context: Context, subforumTitle: String, subforumLink: String): Intent {
-            val startIntent = Intent(context, SubforumActivity::class.java)
-            startIntent.putExtra(SUBFORUM_TITLE, subforumTitle)
+        fun getStartIntent(context: Context, subforumLink: String): Intent {
+            val startIntent = Intent(context, NewThreadActivity::class.java)
             startIntent.putExtra(SUBFORUM_LINK, subforumLink)
             return startIntent
         }
     }
 
-    /**
-     * Presenter asociado a la activity y al fragment
-     */
-    @Inject lateinit var subforumPresenter: SubforumPresenter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_subforum)
+        setContentView(R.layout.activity_new_thread)
         setSupportActionBar(toolbar)
 
-        // Cargamos el link del subforo de los extras del intent
-        val subforumTitle = intent.extras?.getString(SUBFORUM_TITLE)
-                ?: throw IllegalArgumentException("Necesitamos el título del hilo, Houston")
-        val subforumLink = intent.extras?.getString(SUBFORUM_LINK)
-                ?: throw IllegalArgumentException("No soy mago, no puedo cargar el subforo sin link")
+        // Intentamos conseguir el link del subforo donde vamos a crear el hilo
+        val subforumLink = intent?.extras?.getString(SUBFORUM_LINK)
+                ?: throw IllegalArgumentException("Necesito el link del subforo para trabajar")
 
-        // Ponemos el título del subforo como título de la toolbar
-        supportActionBar?.title = subforumTitle
+        // Configuramos la toolbar
+        supportActionBar?.title = getString(R.string.new_thread_toolbar_title)
+        showCloseButtonOnToolbar()
 
         // Intentamos conseguir de nuevo el fragment anterior si existe
-        var subforumFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? SubforumFragment
+        var subforumFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? NewThreadFragment
 
         if (subforumFragment == null) {
             // Sino, lo creamos el fragment y lo añadimos
-            subforumFragment = SubforumFragment.newInstance()
+            subforumFragment = NewThreadFragment.newInstance()
             ActivityUtils.addFragmentToActivity(supportFragmentManager, subforumFragment, R.id.fragment)
         }
 
-        // Mostramos el creador de hilos al pulsar en el fab
-        fab.setOnClickListener {
-            val newThreadIntent = NewThreadActivity.getStartIntent(this, subforumLink)
-            startActivity(newThreadIntent)
-        }
-
-        DaggerSubforumComponent.builder()
-                .subforumModule(SubforumModule(subforumFragment, subforumLink))
+        // Inyectamos la activity
+        DaggerNewThreadComponent.builder()
                 .sharedPreferencesUtilsComponent((application as App).sharedPrefsComponent)
+                .newThreadModule(NewThreadModule(subforumFragment, subforumLink))
                 .build()
                 .inject(this)
     }

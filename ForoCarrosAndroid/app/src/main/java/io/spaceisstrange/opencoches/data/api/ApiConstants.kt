@@ -39,8 +39,11 @@ class ApiConstants {
         const val REPLY_URL = "newreply.php"
         const val DO_URL = "?do="
         const val T_URL = "&t="
+        const val F_URL = "&f="
         const val SMILIES_URL = "misc.php?do=getsmilies&editorid=vB_Editor_001"
         const val QUOTE_URL = "newreply.php?do=newreply&p="
+        const val NEW_THREAD_POST_THREAD_URL = "newthread.php?do=postthread"
+        const val NEW_THREAD_NEW_THREAD_URL = "newthread.php?do=newthread"
 
         /**
          * Valores esperados de ciertas secciones del foro, como links de los subforos, temas, etc.
@@ -61,6 +64,8 @@ class ApiConstants {
         const val USERNAME_BOX_KEY = "username_box"
         const val USER_AVATAR_KEY = "user_avatar"
         const val QUOTE_TEXT_KEY = "message"
+        const val POST_HASH_KEY = "posthash"
+        const val POST_START_TIME_KEY = "poststarttime"
 
         /**
          * Etiquetas del editor de texto
@@ -103,6 +108,13 @@ class ApiConstants {
         const val OPCION_PARAMETER = "opcion"
         const val REG_PARAMETER = "reg"
         const val LB_PARAMETER = "lb"
+        const val SUBJECT_PARAMETER = "subject"
+        const val ICONID_PARAMETER = "iconid"
+        const val F_PARAMETER = "f"
+        const val POST_HASH_PARAMETER = "posthash"
+        const val POST_START_TIME_PARAMETER = "poststarttime"
+        const val EMAIL_UPDATE_PARAMETER = "emailupdate"
+        const val POLL_OPTIONS_PARAMETER = "polloptions"
 
         /**
          * Parámetros de la petición POST de Login
@@ -152,6 +164,35 @@ class ApiConstants {
                     OPCION_PARAMETER to "foro",
                     REG_PARAMETER to userId,
                     LB_PARAMETER to "Buscar"
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST para crear un nuevo hilo
+         */
+        fun getNewThreadParameters(subject: String,
+                                   message: String,
+                                   securityToken: String,
+                                   subforum: String,
+                                   postHash: String,
+                                   postStartTime: String,
+                                   loggedInUser: String): Map<String, String> {
+            return hashMapOf(
+                    SUBJECT_PARAMETER to subject,
+                    MESSAGE_PARAMETER to message,
+                    WYSIWYG_PARAMETER to "0",
+                    ICONID_PARAMETER to "0",
+                    S_PARAMETER to "",
+                    SECURITY_TOKEN_PARAMETER to securityToken,
+                    F_PARAMETER to subforum,
+                    DO_PARAMETER to "postthread",
+                    POST_HASH_PARAMETER to postHash,
+                    POST_START_TIME_PARAMETER to postStartTime,
+                    LOGGED_IN_USER_PARAMETER to loggedInUser,
+                    S_BUTTON_PARAMETER to "Enviar Nuevo Tema",
+                    PARSE_URL_PARAMETER to "1",
+                    EMAIL_UPDATE_PARAMETER to "9999",
+                    POLL_OPTIONS_PARAMETER to "4"
             )
         }
 

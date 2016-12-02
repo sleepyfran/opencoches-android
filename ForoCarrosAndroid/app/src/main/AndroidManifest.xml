@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.subforumlist.SubforumListActivity"/>
         <activity android:name=".ui.subforum.SubforumActivity"/>
+        <activity android:name=".ui.newthread.NewThreadActivity"/>
         <activity android:name=".ui.thread.ThreadActivity">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW"/>

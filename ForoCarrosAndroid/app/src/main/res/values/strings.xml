@@ -64,6 +64,13 @@
     <string name="thread.reply.bbcode.i">I</string>
     <string name="thread.reply.bbcode.u">U</string>
 
+    <!-- Activity de creación de nuevos hilos -->
+    <string name="new_thread.toolbar_title">Nuevo hilo</string>
+    <string name="new_thread.send">Enviar</string>
+    <string name="new_thread.title">Título del hilo</string>
+    <string name="new_thread.title_error">Pon un título, hombre por dios.</string>
+    <string name="new_thread.body_error">Pon algo en el hilo, no me seas.</string>
+
     <!-- Activity de búsqueda -->
     <string name="search.hint">Buscar&#8230;</string>
 

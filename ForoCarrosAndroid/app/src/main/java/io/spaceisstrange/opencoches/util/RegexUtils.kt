@@ -49,6 +49,13 @@ class RegexUtils {
         }
 
         /**
+         * Retorna un Regex que saca el ID de un subforo de su link
+         */
+        fun subforumIdFromLink(): Regex {
+            return "forumdisplay\\.php\\?f=(\\d+)".toRegex()
+        }
+
+        /**
          * Retorna un Regex que selecciona las páginas de un hilo
          */
         fun getPagesRegex(): Regex {
