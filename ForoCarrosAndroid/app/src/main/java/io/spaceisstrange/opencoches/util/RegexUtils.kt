@@ -24,7 +24,7 @@ class RegexUtils {
          * Retorna un Regex que saca el ID de una URL de un hilo
          */
         fun threadIdFromLink(): Regex {
-            return "showthread\\.php\\?t=(\\d+)".toRegex()
+            return "showthread\\.php\\?t=(\\d+).+".toRegex()
         }
 
         /**
