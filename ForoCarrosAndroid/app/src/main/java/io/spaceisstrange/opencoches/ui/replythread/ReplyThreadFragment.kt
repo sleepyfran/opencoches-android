@@ -87,7 +87,8 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
     }
 
     override fun showCouldNotSendReply() {
-        SnackbarUtils.makeSnackbar(view!!, getString(R.string.thread_reply_error), Snackbar.LENGTH_SHORT).show()
+        val fragmentView = view ?: return
+        SnackbarUtils.makeSnackbar(fragmentView, getString(R.string.thread_reply_error), Snackbar.LENGTH_SHORT).show()
     }
 
     override fun showError(show: Boolean) {
