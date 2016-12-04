@@ -40,4 +40,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [Steven Wilson: The Raven That Refused To Sing (And Other Stories)](https://www.youtube.com/watch?v=_w8SY_9yO8k&list=PLgs4tQlTRNY36XH79qSOIeDsTTy-QswEh)
 - [†††: Crosses](https://www.youtube.com/watch?v=92dXztDGYdM)
 - [Caligula's Horse: The Tide, the Thief & River's End](https://www.youtube.com/watch?v=2f8w-Fowepc&list=PLo2XzIBaNAUILDjJtJ4jy39Rk4VDZYvsp)
+- [Rishloo - Living As Ghosts With Buildings As Teeth](https://www.youtube.com/watch?v=6UpXjBOBQB8)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
