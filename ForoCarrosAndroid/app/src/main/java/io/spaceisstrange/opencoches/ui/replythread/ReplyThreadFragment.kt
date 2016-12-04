@@ -89,6 +89,9 @@ class ReplyThreadFragment : Fragment(), ReplyThreadContract.View {
     override fun showCouldNotSendReply() {
         val fragmentView = view ?: return
         SnackbarUtils.makeSnackbar(fragmentView, getString(R.string.thread_reply_error), Snackbar.LENGTH_SHORT).show()
+
+        // Habilitamos el fab otra vez por si quieren volver a intentarlo
+        (activity as ReplyThreadActivity).enableFab(true)
     }
 
     override fun showError(show: Boolean) {

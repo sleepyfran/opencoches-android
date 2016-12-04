@@ -109,9 +109,12 @@ class ReplyThreadActivity : SlidingActivity() {
         // Configuramos la activity
         title = threadTitle
 
-        setFab(R.color.accent, R.drawable.ic_reply_white, {
+        setFab(resources.getColor(R.color.accent), R.drawable.ic_reply_white, {
             // Notificamos al presenter sobre el envío
             replyThreadPresenter.sendReply()
+
+            // Deshabilitamos el fab para evitar mandar comentarios dos veces
+            enableFab(false)
         })
 
         setContent(R.layout.activity_reply_thread)
@@ -157,5 +160,13 @@ class ReplyThreadActivity : SlidingActivity() {
                     // Nada, silenciamos
                 }
         )
+    }
+
+    /**
+     * Habilita o deshabilita el FAB de enviar
+     */
+    fun enableFab(enable: Boolean) {
+        val fab = findViewById(R.id.fab)
+        fab.isEnabled = enable
     }
 }

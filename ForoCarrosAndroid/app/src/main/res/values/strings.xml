@@ -70,6 +70,7 @@
     <string name="new_thread.title">Título del hilo</string>
     <string name="new_thread.title_error">Pon un título, hombre por dios.</string>
     <string name="new_thread.body_error">Pon algo en el hilo, no me seas.</string>
+    <string name="new_thread.error">Ha habido un error enviando el hilo. Prueba de nuevo.</string>
 
     <!-- Activity de búsqueda -->
     <string name="search.hint">Buscar&#8230;</string>

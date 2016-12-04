@@ -29,9 +29,14 @@ interface NewThreadContract {
         fun showThreadSubmitted(threadLink: String)
 
         /**
+         * Habilita/Deshabilita el botón de envío
+         */
+        fun enableSendButton(enable: Boolean)
+
+        /**
          * A llamar cuando se produzca algún error mientras se intenta enviar el hilo a FC
          */
-        fun showError(show: Boolean)
+        fun showError()
     }
 
     interface Presenter : BasePresenter {

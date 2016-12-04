@@ -69,7 +69,7 @@ class NewThreadPresenter @Inject constructor(val view: NewThreadContract.View,
                                 error ->
 
                                 FirebaseReporter.report(error)
-                                view.showError(true)
+                                view.showError()
                             }
                     )
 
@@ -78,8 +78,8 @@ class NewThreadPresenter @Inject constructor(val view: NewThreadContract.View,
                 {
                     error ->
 
-                    view.showError(true)
                     FirebaseReporter.report(error)
+                    view.showError()
                 }
         )
 

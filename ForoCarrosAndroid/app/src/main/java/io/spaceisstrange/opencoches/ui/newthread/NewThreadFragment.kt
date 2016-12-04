@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.ui.newthread
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
+import io.spaceisstrange.opencoches.util.SnackbarUtils
 import kotlinx.android.synthetic.main.fragment_new_thread.*
 
 class NewThreadFragment : Fragment(), NewThreadContract.View {
@@ -70,6 +72,9 @@ class NewThreadFragment : Fragment(), NewThreadContract.View {
 
             // Si to' está correcto, lo enviamos
             newThreadPresenter.makeThread(title, body)
+
+            // Deshabilitamos el botón de envío hasta nueva orden
+            enableSendButton(false)
         }
 
         // Inicializamos el presenter
@@ -85,15 +90,16 @@ class NewThreadFragment : Fragment(), NewThreadContract.View {
         activity.finish()
     }
 
-    override fun showError(show: Boolean) {
-        if (show) {
-            etNewThreadTitle?.visibility = View.GONE
-            evEditor?.visibility = View.GONE
-            vError?.visibility = View.VISIBLE
-        } else {
-            etNewThreadTitle?.visibility = View.VISIBLE
-            evEditor?.visibility = View.VISIBLE
-            vError?.visibility = View.GONE
-        }
+    override fun enableSendButton(enable: Boolean) {
+        btnNewThreadSend.isEnabled = enable
+    }
+
+    override fun showError() {
+        // Mostramos una snackbar con el error
+        val fragmentView = view ?: return
+        SnackbarUtils.makeSnackbar(fragmentView, getString(R.string.new_thread_error), Snackbar.LENGTH_LONG).show()
+
+        // Volvemos a habilitar el botón de envío
+        enableSendButton(true)
     }
 }
