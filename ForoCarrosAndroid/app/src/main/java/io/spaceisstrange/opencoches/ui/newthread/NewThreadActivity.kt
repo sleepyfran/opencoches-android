@@ -21,6 +21,7 @@ package io.spaceisstrange.opencoches.ui.newthread
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
@@ -78,5 +79,10 @@ class NewThreadActivity : BaseActivity() {
                 .newThreadModule(NewThreadModule(subforumFragment, subforumLink))
                 .build()
                 .inject(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // No queremos el menú base
+        return true
     }
 }
