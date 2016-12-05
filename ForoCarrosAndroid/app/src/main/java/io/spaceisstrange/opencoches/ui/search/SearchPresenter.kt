@@ -61,7 +61,7 @@ class SearchPresenter @Inject constructor(val view: SearchContract.View,
 
                     view.showLoading(false)
 
-                    if (searchResults.results.size > 0) {
+                    if (searchResults.results.isNotEmpty()) {
                         view.showNoResults(false)
                         view.setSearchPages(searchResults.pages)
                         view.showSearchResults(searchResults.results)
