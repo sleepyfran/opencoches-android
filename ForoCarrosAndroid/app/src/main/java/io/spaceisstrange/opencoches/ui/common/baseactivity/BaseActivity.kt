@@ -26,10 +26,9 @@ import android.support.v7.app.AppCompatDelegate
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.data.AccountManager
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
-import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.search.SearchActivity
+import io.spaceisstrange.opencoches.ui.settings.SettingsActivity
 import javax.inject.Inject
 
 
@@ -65,17 +64,10 @@ open class BaseActivity : AppCompatActivity() {
         if (selectedId == android.R.id.home) {
             onBackPressed()
             return true
-        } else if (selectedId == R.id.menu_sign_out) {
-            // Borramos los datos guardados
-            AccountManager.deleteSession(sharedPreferences)
-
-            // Mostramos la pantalla de inicio
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            loginIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(loginIntent)
-            finish()
-
-            return true
+        } else if (selectedId == R.id.menu_settings) {
+            // Iniciamos la activity de ajustes
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(settingsIntent)
         } else if (selectedId == R.id.menu_search) {
             // Iniciamos la activity de búsqueda
             val searchIntent = Intent(this, SearchActivity::class.java)

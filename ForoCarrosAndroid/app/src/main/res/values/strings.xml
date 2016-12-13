@@ -2,12 +2,14 @@
     <string name="app_name">OpenCoches</string>
 
     <!-- General menu -->
-    <string name="general_menu.sign_out">Cerrar sesión</string>
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
+    <string name="general_menu.settings">Ajustes</string>
     <string name="general.loading">Cargando&#8230;</string>
     <string name="general.no_browser">No hay ningún navegador instalado</string>
+    <string name="general.yes">Sí</string>
+    <string name="general.no">No</string>
 
     <!-- Mensajes de error -->
     <string name="error.sad">:(</string>
@@ -87,6 +89,20 @@
 
     <!-- Selección de smilies -->
     <string name="smilies.title">Selecciona un smily</string>
+
+    <!-- Ajustes -->
+    <string name="settings.title">Ajustes</string>
+    <string name="settings.general.title">Ajustes generales</string>
+    <string name="settings.general.sign_out">Cerrar sesión</string>
+    <string name="settings.visual.title">Ajustes visuales</string>
+    <string name="settings.visual.force_white_text">Forzar color de texto</string>
+    <string name="settings.visual.force_white_text.description">Fuerza el color del texto de los posts a blanco. Si tienes problemas de visualización en algunos hilos activa esta opción. Disponible próximamente</string>
+    <string name="settings.dialog.sign_out.title">¿Seguro que quieres cerrar sesión?</string>
+    <string name="settings.about.title">Sobre&#8230;</string>
+    <string name="settings.about.version.title">Versión</string>
+    <string name="settings.about.version.release">v%1$s</string>
+    <string name="settings.about.licenses.title">Licencias</string>
+    <string name="settings.about.licenses.description">Atribuciones de las librerías</string>
 
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notices>
+    <notice>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
+        <copyright>Copyright 2014 Bumptech</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>OkHttp</name>
+        <url>https://github.com/square/okhttp</url>
+        <copyright>Copyright 2013 SquareUp</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>RxJava</name>
+        <url>https://github.com/ReactiveX/RxJava</url>
+        <copyright>Copyright 2013 Netflix, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>RxAndroid</name>
+        <url>https://github.com/ReactiveX/RxAndroid</url>
+        <copyright>Copyright 2015 The RxAndroid authors</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>FloatingSearchView</name>
+        <url>https://github.com/arimorty/floatingsearchview</url>
+        <copyright>Copyright 2015 Ari C.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>JSoup</name>
+        <url>https://jsoup.org/</url>
+        <copyright>Copyright 2009-2016 Jonathan Hedley</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>Phrase</name>
+        <url>https://github.com/square/phrase</url>
+        <copyright>Copyright 2013 Square, INC</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Icekick</name>
+        <url>https://github.com/tinsukE/icekick</url>
+        <copyright>Copyright 2014 Angelo Suzuki</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>SlidingActivity</name>
+        <url>https://github.com/klinker41/android-slidingactivity</url>
+        <copyright>Copyright 2016 Jacob Klinker</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Dagger 2</name>
+        <url>https://github.com/google/dagger</url>
+        <copyright>Copyright 2012 The Dagger Authors</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>LicensesDialog</name>
+        <url>https://github.com/PSDev/LicensesDialog</url>
+        <copyright>Copyright 2013-2016 Philip Schiffer</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+</notices>
