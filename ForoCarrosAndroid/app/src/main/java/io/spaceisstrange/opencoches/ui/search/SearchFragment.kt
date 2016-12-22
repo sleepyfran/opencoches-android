@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
+import io.spaceisstrange.opencoches.ui.common.GeneralThreadAdapter
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
 import kotlinx.android.synthetic.main.fragment_search.*
 
@@ -44,7 +45,7 @@ class SearchFragment : Fragment(), SearchContract.View {
     /**
      * Adapter de los hilos del subforo
      */
-    val adapter = SearchAdapter({
+    val adapter = GeneralThreadAdapter({
         thread ->
 
         // Abrimos el hilo seleccionado

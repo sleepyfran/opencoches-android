@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.search
+package io.spaceisstrange.opencoches.ui.common
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -26,7 +26,7 @@ import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
 import kotlinx.android.synthetic.main.list_item_subforum_thread.view.*
 
-class SearchAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adapter<SearchAdapter.SearchHolder>() {
+class GeneralThreadAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adapter<GeneralThreadAdapter.SearchHolder>() {
     /**
      * Lista con los hilos de la búsqueda
      */
