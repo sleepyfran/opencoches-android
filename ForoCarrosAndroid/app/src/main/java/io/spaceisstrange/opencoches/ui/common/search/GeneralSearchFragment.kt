@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.search
+package io.spaceisstrange.opencoches.ui.common.search
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -27,15 +27,17 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
-import io.spaceisstrange.opencoches.ui.common.GeneralThreadAdapter
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchAdapter
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchContract
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchPresenter
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
-import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_general_search.*
 
-class SearchFragment : Fragment(), SearchContract.View {
+class GeneralSearchFragment : Fragment(), GeneralSearchContract.View {
     /**
      * Presenter asociado al fragment
      */
-    lateinit var searchPresenter: SearchPresenter
+    lateinit var searchPresenter: GeneralSearchPresenter
 
     /**
      * Método a llamar cuando se produzca alguna búsqueda en la activity
@@ -45,7 +47,7 @@ class SearchFragment : Fragment(), SearchContract.View {
     /**
      * Adapter de los hilos del subforo
      */
-    val adapter = GeneralThreadAdapter({
+    val adapter = GeneralSearchAdapter({
         thread ->
 
         // Abrimos el hilo seleccionado
@@ -62,8 +64,8 @@ class SearchFragment : Fragment(), SearchContract.View {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(): SearchFragment {
-            val fragment = SearchFragment()
+        fun newInstance(): GeneralSearchFragment {
+            val fragment = GeneralSearchFragment()
             return fragment
         }
     }
@@ -76,7 +78,7 @@ class SearchFragment : Fragment(), SearchContract.View {
             searchPresenter.search(query)
         }
 
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return inflater.inflate(R.layout.fragment_general_search, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -109,7 +111,7 @@ class SearchFragment : Fragment(), SearchContract.View {
         searchPresenter.init()
     }
 
-    override fun setPresenter(presenter: SearchPresenter) {
+    override fun setPresenter(presenter: GeneralSearchPresenter) {
         searchPresenter = presenter
     }
 

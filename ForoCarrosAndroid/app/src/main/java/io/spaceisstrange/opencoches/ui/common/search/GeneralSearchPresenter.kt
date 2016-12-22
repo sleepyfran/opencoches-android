@@ -16,17 +16,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.search
+package io.spaceisstrange.opencoches.ui.common.search
 
 import io.spaceisstrange.opencoches.data.api.search.Search
 import io.spaceisstrange.opencoches.data.api.search.SearchPage
 import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchContract
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class SearchPresenter @Inject constructor(val view: SearchContract.View,
-                                          val sharedPreferencesUtils: SharedPreferencesUtils) : SearchContract.Presenter {
+class GeneralSearchPresenter @Inject constructor(val view: GeneralSearchContract.View,
+                                                 val sharedPreferencesUtils: SharedPreferencesUtils) : GeneralSearchContract.Presenter {
     /**
      * CompositeSubscription donde agregar todos los observables que vayamos utilizando
      */

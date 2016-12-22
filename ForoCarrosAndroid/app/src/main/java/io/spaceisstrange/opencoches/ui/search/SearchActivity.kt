@@ -25,16 +25,14 @@ import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import io.spaceisstrange.opencoches.App
 import io.spaceisstrange.opencoches.R
-import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
+import io.spaceisstrange.opencoches.ui.common.search.DaggerGeneralSearchComponent
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchActivity
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchFragment
+import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchModule
 import io.spaceisstrange.opencoches.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_search.*
-import javax.inject.Inject
 
-class SearchActivity : BaseActivity() {
-    /**
-     * Presenter asociado a la activity y al fragment
-     */
-    @Inject lateinit var searchPresenter: SearchPresenter
+class SearchActivity : GeneralSearchActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +40,17 @@ class SearchActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         // Intentamos conseguir de nuevo el fragment anterior si existe
-        var searchFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? SearchFragment
+        var searchFragment = supportFragmentManager.findFragmentById(R.id.fragment) as? GeneralSearchFragment
 
         if (searchFragment == null) {
             // Sino, lo creamos el fragment y lo añadimos
-            searchFragment = SearchFragment.newInstance()
+            searchFragment = GeneralSearchFragment.newInstance()
             ActivityUtils.addFragmentToActivity(supportFragmentManager, searchFragment, R.id.fragment)
         }
 
         // Inyectamos las dependencias de la activity
-        DaggerSearchComponent.builder()
-                .searchModule(SearchModule(searchFragment))
+        DaggerGeneralSearchComponent.builder()
+                .generalSearchModule(GeneralSearchModule(searchFragment))
                 .sharedPreferencesUtilsComponent((application as App).sharedPrefsComponent)
                 .build()
                 .inject(this)

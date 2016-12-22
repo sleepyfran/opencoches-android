@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.search
+package io.spaceisstrange.opencoches.ui.common.search
 
 import dagger.Component
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtilsComponent
@@ -24,7 +24,7 @@ import io.spaceisstrange.opencoches.util.ActivityScoped
 
 @ActivityScoped
 @Component(dependencies = arrayOf(SharedPreferencesUtilsComponent::class),
-        modules = arrayOf(SearchModule::class))
-interface SearchComponent {
-    fun inject(activity: SearchActivity)
+        modules = arrayOf(GeneralSearchModule::class))
+interface GeneralSearchComponent {
+    fun inject(activity: GeneralSearchActivity)
 }
