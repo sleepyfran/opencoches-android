@@ -42,11 +42,17 @@ class NewThreadActivity : BaseActivity() {
         val SUBFORUM_LINK = "subforumLink"
 
         /**
+         * Clave asociada al nombre del subforo donde vamos a crear el nuevo hilo
+         */
+        val SUBFORUM_NAME = "subforumName"
+
+        /**
          * Retorna un Intent con los parámetros necesarios para inicializar la activity
          */
-        fun getStartIntent(context: Context, subforumLink: String): Intent {
+        fun getStartIntent(context: Context, subforumLink: String, subforumName: String = ""): Intent {
             val startIntent = Intent(context, NewThreadActivity::class.java)
             startIntent.putExtra(SUBFORUM_LINK, subforumLink)
+            startIntent.putExtra(SUBFORUM_NAME, subforumName)
             return startIntent
         }
     }
@@ -60,8 +66,11 @@ class NewThreadActivity : BaseActivity() {
         val subforumLink = intent?.extras?.getString(SUBFORUM_LINK)
                 ?: throw IllegalArgumentException("Necesito el link del subforo para trabajar")
 
+        // Intentamos conseguir el nombre del subforo. Siempre va a existir aunque sea vacío
+        val subforumName = intent?.extras?.getString(SUBFORUM_NAME)
+
         // Configuramos la toolbar
-        supportActionBar?.title = getString(R.string.new_thread_toolbar_title)
+        supportActionBar?.title = getString(R.string.new_thread_toolbar_title, subforumName)
         showCloseButtonOnToolbar()
 
         // Intentamos conseguir de nuevo el fragment anterior si existe

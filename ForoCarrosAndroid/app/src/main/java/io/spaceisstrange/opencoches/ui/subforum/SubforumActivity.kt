@@ -82,7 +82,7 @@ class SubforumActivity : BaseActivity() {
 
         // Mostramos el creador de hilos al pulsar en el fab
         fab.setOnClickListener {
-            val newThreadIntent = NewThreadActivity.getStartIntent(this, subforumLink)
+            val newThreadIntent = NewThreadActivity.getStartIntent(this, subforumLink, subforumTitle)
             startActivity(newThreadIntent)
         }
 
