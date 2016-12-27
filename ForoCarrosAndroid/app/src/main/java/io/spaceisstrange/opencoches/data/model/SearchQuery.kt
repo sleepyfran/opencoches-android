@@ -28,9 +28,8 @@ class SearchQuery {
      * Añade un nuevo parámetro de búsqueda a la lista. En la medida de lo posible estos parámetros
      * serán los definidos en las constantes de la API para tenerlos bien localizados
      */
-    fun addParameter(parameter: String, value: String): MutableMap<String, String> {
+    fun addParameter(parameter: String, value: String): SearchQuery {
         parameters.put(parameter, value)
-
-        return parameters
+        return this
     }
 }
