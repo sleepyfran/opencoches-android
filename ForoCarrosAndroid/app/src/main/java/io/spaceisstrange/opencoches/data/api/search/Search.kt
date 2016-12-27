@@ -22,12 +22,13 @@ import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.BaseGetRequest
 import io.spaceisstrange.opencoches.data.api.BasePostRequest
 import io.spaceisstrange.opencoches.data.api.transformations.HtmlToSearchResult
+import io.spaceisstrange.opencoches.data.model.SearchQuery
 import io.spaceisstrange.opencoches.data.model.SearchResult
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-class Search(val userId: String, val query: String) : BasePostRequest() {
+class Search(val userId: String, val searchQuery: SearchQuery) : BasePostRequest() {
     /**
      * Retorna un observable para realizar una búsqueda en el foro
      */
@@ -50,7 +51,10 @@ class Search(val userId: String, val query: String) : BasePostRequest() {
     }
 
     override fun getPostParameters(): Map<String, String> {
-        return ApiConstants.getSearchParameters(query, userId)
+        // Añadimos los valores por defecto a los parámetros pasados
+        searchQuery.parameters.putAll(ApiConstants.getSearchParameters(userId))
+
+        return searchQuery.parameters
     }
 
     override fun getUrl(): String {

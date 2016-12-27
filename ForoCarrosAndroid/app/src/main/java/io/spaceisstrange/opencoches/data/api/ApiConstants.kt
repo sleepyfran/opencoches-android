@@ -158,9 +158,8 @@ class ApiConstants {
         /**
          * Parámetros de la petición POST de búsqueda
          */
-        fun getSearchParameters(query: String, userId: String): Map<String, String> {
+        fun getSearchParameters(userId: String): Map<String, String> {
             return hashMapOf(
-                    QUERY_PARAMETER to query,
                     OPCION_PARAMETER to "foro",
                     REG_PARAMETER to userId,
                     LB_PARAMETER to "Buscar"
