@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.common.search
 
+import io.spaceisstrange.opencoches.data.model.SearchQuery
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BasePresenter
 import io.spaceisstrange.opencoches.ui.common.BaseView
@@ -64,6 +65,11 @@ interface GeneralSearchContract {
          * Método a llamar cuando se quiera realizar una búsqueda
          */
         fun search(query: String)
+
+        /**
+         * Método a llamar cuando se quiera realizar una búsqueda personalizada
+         */
+        fun search(searchQuery: SearchQuery)
 
         /**
          * Método a llamar cuando queramos cargar el contenido de la siguiente página de la búsqueda
