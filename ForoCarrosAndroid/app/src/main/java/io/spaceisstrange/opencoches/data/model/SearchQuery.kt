@@ -18,6 +18,8 @@
 
 package io.spaceisstrange.opencoches.data.model
 
+import org.jsoup.nodes.Document
+
 class SearchQuery {
     /**
      * Parámetros de la búsqueda
@@ -25,11 +27,25 @@ class SearchQuery {
     val parameters: MutableMap<String, String> = mutableMapOf()
 
     /**
+     * Permite especificar la transformación a aplicar sobre los resultados de la búsqueda
+     * para así poder adaptarnos a cualquier tipo de resultados
+     */
+    var transformation: ((document: Document) -> SearchResult)? = null
+
+    /**
      * Añade un nuevo parámetro de búsqueda a la lista. En la medida de lo posible estos parámetros
      * serán los definidos en las constantes de la API para tenerlos bien localizados
      */
     fun addParameter(parameter: String, value: String): SearchQuery {
         parameters.put(parameter, value)
+        return this
+    }
+
+    /**
+     * Cambia la transformación actual y devuelve el objeto para hacer la clase más cuca
+     */
+    fun setTransformation(trans: (document: Document) -> SearchResult): SearchQuery {
+        transformation = trans
         return this
     }
 }

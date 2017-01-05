@@ -45,7 +45,10 @@ class Search(val userId: String, val searchQuery: SearchQuery) : BasePostRequest
     private fun search(): SearchResult {
         val response = super.doRequest()
 
-        val transformation = HtmlToSearchResult.transform(response.parse())
+        // Intentamos utilizar la transformación especificada en la SearchQuery
+        // si no existe pues nos volvemos a la de por defecto (HtmlToSearchResult)
+        val transformation = searchQuery.transformation?.invoke(response.parse())
+                ?: HtmlToSearchResult.transform(response.parse())
         transformation.searchUrl = response.url().toString()
         return transformation
     }
