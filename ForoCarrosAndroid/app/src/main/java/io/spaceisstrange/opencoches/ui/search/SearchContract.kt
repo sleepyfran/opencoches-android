@@ -16,19 +16,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.common.search
+package io.spaceisstrange.opencoches.ui.search
 
 import io.spaceisstrange.opencoches.data.model.SearchQuery
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BasePresenter
 import io.spaceisstrange.opencoches.ui.common.BaseView
-import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchPresenter
+import io.spaceisstrange.opencoches.ui.search.SearchPresenter
 
 /**
  * Métodos a implementar en la View y el Presenter
  */
-interface GeneralSearchContract {
-    interface View : BaseView<GeneralSearchPresenter> {
+interface SearchContract {
+    interface View : BaseView<SearchPresenter> {
         /**
          * Método a llamar cuando tengamos el número total de páginas de la búsqueda
          */

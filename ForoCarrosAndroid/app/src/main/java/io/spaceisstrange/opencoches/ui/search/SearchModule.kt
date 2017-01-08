@@ -16,17 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.common.search
+package io.spaceisstrange.opencoches.ui.search
 
-import io.spaceisstrange.opencoches.ui.common.baseactivity.BaseActivity
-import javax.inject.Inject
+import dagger.Module
+import dagger.Provides
+import io.spaceisstrange.opencoches.ui.search.SearchContract
 
-/**
- * Una clase vacía que poder inyectar cuando tengamos una Activity de búsqueda
- */
-open class GeneralSearchActivity : BaseActivity() {
-    /**
-     * Presenter asociado a la activity y al fragment
-     */
-    @Inject lateinit var searchPresenter: GeneralSearchPresenter
+@Module
+class SearchModule(val view: SearchContract.View) {
+    @Provides
+    fun provideView(): SearchContract.View = view
 }

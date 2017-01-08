@@ -16,19 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.common.search
+package io.spaceisstrange.opencoches.ui.search
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.search.Search
 import io.spaceisstrange.opencoches.data.api.search.SearchPage
 import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.model.SearchQuery
+import io.spaceisstrange.opencoches.data.model.SearchResult
 import io.spaceisstrange.opencoches.data.sharedpreferences.SharedPreferencesUtils
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
-class GeneralSearchPresenter @Inject constructor(val view: GeneralSearchContract.View,
-                                                 val sharedPreferencesUtils: SharedPreferencesUtils) : GeneralSearchContract.Presenter {
+class SearchPresenter @Inject constructor(val view: SearchContract.View,
+                                          val sharedPreferencesUtils: SharedPreferencesUtils) : SearchContract.Presenter {
     /**
      * CompositeSubscription donde agregar todos los observables que vayamos utilizando
      */
@@ -54,26 +55,30 @@ class GeneralSearchPresenter @Inject constructor(val view: GeneralSearchContract
         compositeSubscription = CompositeSubscription()
     }
 
+    private fun consumeResults(searchResults: SearchResult) {
+        view.showLoading(false)
+
+        if (searchResults.results.isNotEmpty()) {
+            view.showNoResults(false)
+            view.setSearchPages(searchResults.pages)
+            view.showSearchResults(searchResults.results)
+
+            // Guardamos la URL para futuros usos
+            searchUrl = searchResults.searchUrl
+        } else {
+            view.showNoResults(true)
+        }
+    }
+
     private fun doSearch(searchQuery: SearchQuery) {
         view.showLoading(true)
-        
+
         val userId = sharedPreferencesUtils.getUserId()
         val searchSubscription = Search(userId, searchQuery).observable().subscribe(
                 {
                     searchResults ->
 
-                    view.showLoading(false)
-
-                    if (searchResults.results.isNotEmpty()) {
-                        view.showNoResults(false)
-                        view.setSearchPages(searchResults.pages)
-                        view.showSearchResults(searchResults.results)
-
-                        // Guardamos la URL para futuros usos
-                        searchUrl = searchResults.searchUrl
-                    } else {
-                        view.showNoResults(true)
-                    }
+                    consumeResults(searchResults)
                 },
                 {
                     error ->

@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.ui.common.search
+package io.spaceisstrange.opencoches.ui.search
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -27,17 +27,17 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.model.Thread
-import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchAdapter
-import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchContract
-import io.spaceisstrange.opencoches.ui.common.search.GeneralSearchPresenter
+import io.spaceisstrange.opencoches.ui.search.SearchAdapter
+import io.spaceisstrange.opencoches.ui.search.SearchContract
+import io.spaceisstrange.opencoches.ui.search.SearchPresenter
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
 import kotlinx.android.synthetic.main.fragment_general_search.*
 
-class GeneralSearchFragment : Fragment(), GeneralSearchContract.View {
+class SearchFragment : Fragment(), SearchContract.View {
     /**
      * Presenter asociado al fragment
      */
-    lateinit var searchPresenter: GeneralSearchPresenter
+    lateinit var searchPresenter: SearchPresenter
 
     /**
      * Método a llamar cuando se produzca alguna búsqueda en la activity
@@ -47,7 +47,7 @@ class GeneralSearchFragment : Fragment(), GeneralSearchContract.View {
     /**
      * Adapter de los hilos del subforo
      */
-    val adapter = GeneralSearchAdapter({
+    val adapter = SearchAdapter({
         thread ->
 
         // Abrimos el hilo seleccionado
@@ -64,8 +64,8 @@ class GeneralSearchFragment : Fragment(), GeneralSearchContract.View {
         /**
          * Crea una nueva instancia del fragment
          */
-        fun newInstance(): GeneralSearchFragment {
-            val fragment = GeneralSearchFragment()
+        fun newInstance(): SearchFragment {
+            val fragment = SearchFragment()
             return fragment
         }
     }
@@ -111,7 +111,7 @@ class GeneralSearchFragment : Fragment(), GeneralSearchContract.View {
         searchPresenter.init()
     }
 
-    override fun setPresenter(presenter: GeneralSearchPresenter) {
+    override fun setPresenter(presenter: SearchPresenter) {
         searchPresenter = presenter
     }
 
