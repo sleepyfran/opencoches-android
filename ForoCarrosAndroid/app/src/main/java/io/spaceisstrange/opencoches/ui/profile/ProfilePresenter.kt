@@ -53,7 +53,7 @@ class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var u
         view.showLoading(true)
 
         // Cargamos la información del usuario
-        Profile(userId).observable().subscribe(
+        val profileSubscription = Profile(userId).observable().subscribe(
                 {
                     userData ->
 
@@ -71,6 +71,8 @@ class ProfilePresenter @Inject constructor(val view: ProfileContract.View, var u
                     view.showError(true)
                 }
         )
+
+        compositeSubscription.add(profileSubscription)
     }
 
     override fun finish() {
