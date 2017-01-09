@@ -19,7 +19,7 @@
 package io.spaceisstrange.opencoches.ui.search
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
-import io.spaceisstrange.opencoches.data.api.search.Search
+import io.spaceisstrange.opencoches.data.api.search.SearchPost
 import io.spaceisstrange.opencoches.data.api.search.SearchPage
 import io.spaceisstrange.opencoches.data.firebase.FirebaseReporter
 import io.spaceisstrange.opencoches.data.model.SearchQuery
@@ -74,7 +74,7 @@ class SearchPresenter @Inject constructor(val view: SearchContract.View,
         view.showLoading(true)
 
         val userId = sharedPreferencesUtils.getUserId()
-        val searchSubscription = Search(userId, searchQuery).observable().subscribe(
+        val searchSubscription = SearchPost(userId, searchQuery).observable().subscribe(
                 {
                     searchResults ->
 

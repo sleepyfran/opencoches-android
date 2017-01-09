@@ -28,7 +28,7 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-class Search(val userId: String, val searchQuery: SearchQuery) : BasePostRequest() {
+class SearchPost(val userId: String, val searchQuery: SearchQuery) : BasePostRequest() {
     /**
      * Retorna un observable para realizar una búsqueda en el foro
      */
