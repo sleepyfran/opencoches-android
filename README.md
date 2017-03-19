@@ -18,9 +18,7 @@ Si eres desarrollador y quieres colaborar: adelante, esta es tu casa. El código
 [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 
-Toda la aplicación está hecha con *Kotlin* y usando el SDK de Android. Para la organización general del código he usado un pseudo-MVP (es mi primerito día usando MVP y quizá no sea todo al 100% como debería) y Dagger 2 para la inyección de dependencias.
-
-Para todo lo referente a las peticiones y parseo del HTML he usado *JSoup*. Para todo el tema *async* he optado por el uso de *RxJava* y *RxAndroid*.
+Toda la aplicación está hecha con *Kotlin* y usando el SDK de Android. Para todo lo referente a las peticiones y parseo del HTML he usado *JSoup*. Además, para facilitar el tema *async* he optado por el uso de *RxJava* y *RxAndroid*.
 
 ## Para compilar...
 Dado que el proyecto está integrado con *Firebase* para el reporte de errores (cosa que, creedme, será muy muy útil) necesitáis una cuenta y un proyecto en dicha página para poder compilar *OpenCoches*. 
@@ -40,5 +38,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [Steven Wilson: The Raven That Refused To Sing (And Other Stories)](https://www.youtube.com/watch?v=_w8SY_9yO8k&list=PLgs4tQlTRNY36XH79qSOIeDsTTy-QswEh)
 - [†††: Crosses](https://www.youtube.com/watch?v=92dXztDGYdM)
 - [Caligula's Horse: The Tide, the Thief & River's End](https://www.youtube.com/watch?v=2f8w-Fowepc&list=PLo2XzIBaNAUILDjJtJ4jy39Rk4VDZYvsp)
-- [Rishloo - Living As Ghosts With Buildings As Teeth](https://www.youtube.com/watch?v=6UpXjBOBQB8)
+- [Rishloo: Living As Ghosts With Buildings As Teeth](https://www.youtube.com/watch?v=6UpXjBOBQB8)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
