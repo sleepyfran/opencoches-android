@@ -18,8 +18,85 @@
 
 package io.spaceisstrange.opencoches.ui.subforumlist
 
-import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.data.api.subforumlist.SubforumList
+import io.spaceisstrange.opencoches.ui.common.BaseActivity
+import kotlinx.android.synthetic.main.activity_subforum_list.*
 
-class SubforumListActivity : AppCompatActivity() {
+/**
+ * Activity que muestra la lista de subforos disponibles en el foro. Dicha lista es cargada directamente desde el foro
+ * en lugar de mostrar una lista "a pelo", por si al jefe le da por querer cambiarnos los subforos o trabajar un poco.
+ */
+class SubforumListActivity : BaseActivity() {
+    /**
+     * Adapter de la lista de subforos
+     */
+    val adapter = SubforumListAdapter({
+        subforum ->
 
+        // TODO: Abrir el subforo que el usuario ha seleccionado
+    })
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_subforum_list)
+        setSupportActionBar(toolbar)
+
+        // Configuramos la RecyclerView
+        subforumList.adapter = adapter
+        subforumList.layoutManager = LinearLayoutManager(this)
+
+        loadSubforums()
+    }
+
+    /**
+     * Carga la lista de subforos y los añade a nuestro adapter.
+     */
+    fun loadSubforums() {
+        SubforumList().observable().subscribe(
+                {
+                    subforums ->
+
+                    showError(false)
+                    showLoading(false)
+                    adapter.update(subforums)
+                },
+                {
+                    error ->
+
+                    showError(true)
+                }
+        )
+    }
+
+    /**
+     * Muestra u oculta la animación de carga.
+     */
+    fun showLoading(enabled: Boolean) {
+        if (enabled) {
+            subforumList?.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
+        } else {
+            subforumList?.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Muestra u oculta el mensaje de error.
+     */
+    fun showError(show: Boolean) {
+        if (show) {
+            loading?.visibility = View.GONE
+            subforumList?.visibility = View.GONE
+            error?.visibility = View.VISIBLE
+        } else {
+            loading?.visibility = View.VISIBLE
+            subforumList?.visibility = View.VISIBLE
+            error?.visibility = View.GONE
+        }
+    }
 }

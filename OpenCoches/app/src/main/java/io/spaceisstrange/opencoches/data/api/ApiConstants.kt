@@ -31,6 +31,11 @@ class ApiConstants {
         const val LOGIN_URL = "login.php"
 
         /**
+         * Valores esperados de ciertas secciones del foro, como URLs, por ejemplo.
+         */
+        const val SUBFORUM_LINK_KEY = "forumdisplay.php?f="
+
+        /**
          * Claves de las cookies.
          */
         val LOGGED_IN_KEY_COOKIE = "bbimloggedin"
