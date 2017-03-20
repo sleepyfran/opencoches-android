@@ -89,11 +89,11 @@ class LoginActivity : AppCompatActivity() {
      */
     fun showLoading(show: Boolean) {
         if (show) {
-            loginDetails.visibility = View.GONE
-            loading.visibility = View.VISIBLE
+            loginDetails?.visibility = View.GONE
+            loading?.visibility = View.VISIBLE
         } else {
-            loginDetails.visibility = View.VISIBLE
-            loading.visibility = View.GONE
+            loginDetails?.visibility = View.VISIBLE
+            loading?.visibility = View.GONE
         }
     }
 
