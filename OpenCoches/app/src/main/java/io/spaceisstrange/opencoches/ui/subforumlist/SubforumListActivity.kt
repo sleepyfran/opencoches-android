@@ -24,6 +24,7 @@ import android.view.View
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.subforumlist.SubforumList
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
+import io.spaceisstrange.opencoches.ui.subforum.SubforumActivity
 import kotlinx.android.synthetic.main.activity_subforum_list.*
 
 /**
@@ -37,7 +38,9 @@ class SubforumListActivity : BaseActivity() {
     val adapter = SubforumListAdapter({
         subforum ->
 
-        // TODO: Abrir el subforo que el usuario ha seleccionado
+        // Cargamos el subforo seleccionado
+        val subforumIntent = SubforumActivity.startIntent(this, subforum.title, subforum.link)
+        startActivity(subforumIntent)
     })
 
     override fun onCreate(savedInstanceState: Bundle?) {

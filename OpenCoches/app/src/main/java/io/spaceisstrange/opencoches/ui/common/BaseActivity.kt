@@ -59,7 +59,14 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * Como su nombre indica, muestra la "X" como acción del botón home de la toolbar
+     * Establece el título que se muestra en la Toolbar de la Activity.
+     */
+    fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
+    /**
+     * Como su nombre indica, muestra la "X" como acción del botón home de la toolbar.
      */
     fun showToolbarCloseButton() {
         val closeButton = ContextCompat.getDrawable(this, R.drawable.ic_close_white)

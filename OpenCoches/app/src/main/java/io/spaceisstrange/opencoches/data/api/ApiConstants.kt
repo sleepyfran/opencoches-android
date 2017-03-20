@@ -29,11 +29,15 @@ class ApiConstants {
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
         const val LOGIN_URL = "login.php"
+        const val SUBFORUM_PAGE_URL = "&page="
 
         /**
          * Valores esperados de ciertas secciones del foro, como URLs, por ejemplo.
          */
         const val SUBFORUM_LINK_KEY = "forumdisplay.php?f="
+        const val THREAD_MAX_POSTS_PER_PAGE = 30.toDouble()
+        const val THREAD_TITLE_KEY = "thread_title_"
+        const val THREAD_PAGES_KEY = "misc.php?do=whoposted&t="
 
         /**
          * Claves de las cookies.

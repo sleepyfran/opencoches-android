@@ -22,10 +22,13 @@ import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.model.Subforum
 import org.jsoup.nodes.Document
 
+/**
+ * Clase que transforma un documento en una lista de subforos.
+ */
 class HtmlToSubforumList {
     companion object {
         /**
-         * Retorna una lista de subforos del documento especificado
+         * Retorna una lista de subforos del documento especificado.
          */
         fun transform(document: Document): List<Subforum> {
             val subforoList: MutableList<Subforum> = mutableListOf()
