@@ -28,8 +28,10 @@ class ApiConstants {
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
+        const val BASE_MOBILE_URL = "http://m.forocoches.com/foro/"
         const val LOGIN_URL = "login.php"
         const val SUBFORUM_PAGE_URL = "&page="
+        const val THREAD_PAGE_URL = "&page="
 
         /**
          * Valores esperados de ciertas secciones del foro, como URLs, por ejemplo.
@@ -38,6 +40,21 @@ class ApiConstants {
         const val THREAD_MAX_POSTS_PER_PAGE = 30.toDouble()
         const val THREAD_TITLE_KEY = "thread_title_"
         const val THREAD_PAGES_KEY = "misc.php?do=whoposted&t="
+        const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
+        const val TD_THREAD_TITLE_KEY = "td_threadtitle"
+        const val THREAD_POST_KEY = "td_post_"
+        const val POST_ROOT_ID_KEY = "post"
+        const val POST_USER_USERNAME_CLASS_KEY = "bigusername"
+        const val POST_USER_IMAGE_CLASS_KEY = "avatar"
+        const val POST_CONTENT_USER_INFO_KEY = "smallfont"
+        const val POST_TIMESTAMP_CLASS_KEY = "thead"
+        const val SECURITY_TOKEN_KEY = "securitytoken"
+        const val THREAD_TITLE_CMEGA_KEY = "cmega"
+        const val USERNAME_BOX_KEY = "username_box"
+        const val USER_AVATAR_KEY = "user_avatar"
+        const val QUOTE_TEXT_KEY = "message"
+        const val POST_HASH_KEY = "posthash"
+        const val POST_START_TIME_KEY = "poststarttime"
 
         /**
          * Claves de las cookies.

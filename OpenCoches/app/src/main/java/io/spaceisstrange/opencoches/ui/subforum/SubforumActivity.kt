@@ -28,6 +28,7 @@ import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.subforum.Subforum
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
+import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
 import kotlinx.android.synthetic.main.activity_subforum.*
 
 /**
@@ -63,7 +64,8 @@ class SubforumActivity : BaseActivity() {
     val adapter = SubforumAdapter({
         thread ->
 
-        // TODO: Cargar el hilo
+        val threadIntent = ThreadActivity.startIntent(this, thread.link)
+        startActivity(threadIntent)
     })
 
     /**
