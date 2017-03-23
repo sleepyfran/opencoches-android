@@ -33,6 +33,9 @@ import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 
+/**
+ * Activity encargada de mostrar todas las páginas de un hilo junto con su navegación.
+ */
 class ThreadActivity : BaseActivity() {
     companion object {
         /**

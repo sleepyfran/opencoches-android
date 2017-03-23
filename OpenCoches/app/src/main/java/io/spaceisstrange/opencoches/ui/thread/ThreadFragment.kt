@@ -31,10 +31,13 @@ import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
 
+/**
+ * Fragment encargado de mostrar una de las páginas de un hilo.
+ */
 class ThreadFragment : Fragment() {
     companion object {
         /**
-         * Crea una nueva instancia del fragment
+         * Crea una nueva instancia del fragment.
          */
         fun instantiate(currentPage: Int, link: String, title: String): ThreadFragment {
             val fragment = ThreadFragment()
@@ -46,17 +49,17 @@ class ThreadFragment : Fragment() {
     }
 
     /**
-     * Link del hilo en el que nos encontramos
+     * Link del hilo en el que nos encontramos.
      */
     lateinit var link: String
 
     /**
-     * Título del hilo en el que nos encontramos
+     * Título del hilo en el que nos encontramos.
      */
     lateinit var title: String
 
     /**
-     * Página actual en la que nos encontramos
+     * Página actual en la que nos encontramos.
      */
     var currentPage = 1
 

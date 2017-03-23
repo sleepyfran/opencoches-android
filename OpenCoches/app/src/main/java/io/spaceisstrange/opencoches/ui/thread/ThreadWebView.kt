@@ -26,6 +26,9 @@ import io.spaceisstrange.opencoches.data.model.Post
 import io.spaceisstrange.opencoches.ui.templates.PostsTemplate
 import io.spaceisstrange.opencoches.ui.views.OpenCochesWebView
 
+/**
+ * WebView específica para la muestra de hilos.
+ */
 class ThreadWebView : OpenCochesWebView<List<Post>> {
 
     constructor(context: Context?) : super(context)
