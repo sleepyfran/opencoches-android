@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <dimen name="text.normal">16sp</dimen>
+    <dimen name="text.big">18sp</dimen>
+    <dimen name="text.ultra_big">24sp</dimen>
+
+    <!-- Bottom Sheets -->
+    <dimen name="bottom_sheet.horizontal_margin">16dp</dimen>
+    <dimen name="bottom_sheet.vertical_margin">8dp</dimen>
+    <dimen name="bottom_sheet.default_action_vertical">48dp</dimen>
+    <dimen name="bottom_sheet.text_horizontal_padding">32dp</dimen>
+    <dimen name="bottom_sheet.icon_size">24dp</dimen>
+</resources>

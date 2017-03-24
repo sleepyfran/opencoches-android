@@ -32,6 +32,11 @@ class ApiConstants {
         const val LOGIN_URL = "login.php"
         const val SUBFORUM_PAGE_URL = "&page="
         const val THREAD_PAGE_URL = "&page="
+        const val SMILIES_URL = "misc.php?do=getsmilies&editorid=vB_Editor_001"
+        const val REPLY_URL = "newreply.php"
+        const val DO_URL = "?do="
+        const val T_URL = "&t="
+        const val QUOTE_URL = "newreply.php?do=newreply&p="
 
         /**
          * Valores esperados de ciertas secciones del foro, como URLs, por ejemplo.
@@ -57,6 +62,20 @@ class ApiConstants {
         const val POST_START_TIME_KEY = "poststarttime"
 
         /**
+         * Etiquetas del editor de texto
+         */
+        const val EDITOR_B_TAG = "[B]"
+        const val EDITOR_B_CLOSE_TAG = "[/B]"
+        const val EDITOR_I_TAG = "[I]"
+        const val EDITOR_I_CLOSE_TAG = "[/I]"
+        const val EDITOR_U_TAG = "[U]"
+        const val EDITOR_U_CLOSE_TAG = "[/U]"
+        const val EDITOR_IMG_TAG = "[IMG]"
+        const val EDITOR_IMG_CLOSE_TAG = "[/IMG]"
+        const val EDITOR_VID_TAG = "[YOUTUBE]"
+        const val EDITOR_VID_CLOSE_TAG = "[/YOUTUBE]"
+
+        /**
          * Claves de las cookies.
          */
         val LOGGED_IN_KEY_COOKIE = "bbimloggedin"
@@ -80,6 +99,16 @@ class ApiConstants {
         const val VB_LOGIN_PASSWORD_PARAMETER = "vb_login_password"
         const val COOKIE_USER_PARAMETER = "cookieuser"
         const val LOGB2_PARAMETER = "logb2"
+        const val T_PARAMETER = "t"
+        const val MESSAGE_PARAMETER = "message"
+        const val WYSIWYG_PARAMETER = "wysiwyg"
+        const val STYLE_ID_PARAMETER = "styleid"
+        const val FROM_QUICK_REPLY_PARAMETER = "fromquickreply"
+        const val P_PARAMETER = "p"
+        const val SPECIFIED_POST_PARAMETER = "specifiedpost"
+        const val PARSE_URL_PARAMETER = "parseurl"
+        const val LOGGED_IN_USER_PARAMETER = "loggedinuser"
+        const val S_BUTTON_PARAMETER = "sbutton"
 
         /**
          * Parámetros de la petición POST de Login.
@@ -96,6 +125,27 @@ class ApiConstants {
                     VB_LOGIN_PASSWORD_PARAMETER to password,
                     COOKIE_USER_PARAMETER to "1",
                     LOGB2_PARAMETER to "   Acceder   "
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST de envío de una respuesta a un hilo
+         */
+        fun getThreadReplyParameters(securityToken: String, threadId: String, reply: String, userId: String): Map<String, String> {
+            return hashMapOf(
+                    MESSAGE_PARAMETER to reply,
+                    WYSIWYG_PARAMETER to "0",
+                    STYLE_ID_PARAMETER to "5",
+                    FROM_QUICK_REPLY_PARAMETER to "1",
+                    S_PARAMETER to "",
+                    SECURITY_TOKEN_PARAMETER to securityToken,
+                    DO_PARAMETER to "postreply",
+                    T_PARAMETER to threadId,
+                    P_PARAMETER to "who cares",
+                    SPECIFIED_POST_PARAMETER to "0",
+                    PARSE_URL_PARAMETER to "1",
+                    LOGGED_IN_USER_PARAMETER to userId,
+                    S_BUTTON_PARAMETER to ""
             )
         }
     }

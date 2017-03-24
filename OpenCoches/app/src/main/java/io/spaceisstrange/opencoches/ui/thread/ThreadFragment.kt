@@ -25,9 +25,11 @@ import android.view.View
 import android.view.ViewGroup
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.thread.ThreadPage
+import io.spaceisstrange.opencoches.data.api.thread.ThreadQuote
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
+import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
 
@@ -163,7 +165,21 @@ class ThreadFragment : Fragment() {
         postContent.onQuoteClick = {
             postId ->
 
-            // TODO: Mostrar la activity de respuesta
+            // Cargamos el texto de la cita y notificamos a la view cuandoe esté disponible
+            ThreadQuote(postId).observable().subscribe(
+                    {
+                        quote ->
+
+                        // Mostramos la activity de respuesta con nuestra cita
+                        val quoteIntent = ReplyThreadActivity.quoteStartIntent(activity, title, link, quote)
+                        startActivity(quoteIntent)
+                    },
+                    {
+                        error ->
+
+                        showError(true)
+                    }
+            )
         }
     }
 

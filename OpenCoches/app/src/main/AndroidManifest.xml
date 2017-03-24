@@ -41,5 +41,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.thread.reply.ReplyThreadActivity"
+            android:theme="@style/Theme.Sliding"/>
+
+        <activity
+            android:name=".ui.views.editor.smilies.SmiliesActivity"
+            android:theme="@style/Theme.Sliding"/>
+
     </application>
 </manifest>

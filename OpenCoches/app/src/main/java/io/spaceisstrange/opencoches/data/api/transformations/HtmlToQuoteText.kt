@@ -16,16 +16,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.bus.events
+package io.spaceisstrange.opencoches.data.api.transformations
+
+import io.spaceisstrange.opencoches.data.api.ApiConstants
+import org.jsoup.nodes.Document
 
 /**
- * Evento para notificar que hemos hecho scroll hasta la última página de un hilo.
+ * Clase que transforma un documento en el texto de una cita.
  */
-class PageScrolledEvent(val threadLink: String) : Event {
-    /**
-     * Retorna si el link es el mismo que el del evento.
-     */
-    fun isSameThread(link: String): Boolean {
-        return threadLink == link
+class HtmlToQuoteText {
+    companion object {
+        /**
+         * Retorna el texto contenido dentro de la caja de texto.
+         */
+        fun transform(document: Document): String {
+            val textArea = document.select("textarea[name^=" + ApiConstants.QUOTE_TEXT_KEY + "]")
+            return textArea.text()
+        }
     }
 }

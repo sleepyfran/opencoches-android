@@ -29,8 +29,10 @@ import io.spaceisstrange.opencoches.data.api.thread.ThreadInfo
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
+import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
+import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 
 /**
@@ -150,7 +152,7 @@ class ThreadActivity : BaseActivity() {
                     setToolbarTitle(thread.title)
                     pagerAdapter = ThreadPagerAdapter(supportFragmentManager, thread.link, thread.pages, thread.title)
                     threadContent.adapter = pagerAdapter
-                    setupActivity()
+                    setupActivity(thread)
                 },
                 {
                     error ->
@@ -164,7 +166,7 @@ class ThreadActivity : BaseActivity() {
      * Configura el ViewPager de la activity y el resto de botones necesarios tras cargar
      * la información del hilo.
      */
-    fun setupActivity() {
+    fun setupActivity(thread: Thread) {
         // Actualizamos la página actual al movernos por el ViewPager
         updatePageCount()
         threadContent.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -185,7 +187,8 @@ class ThreadActivity : BaseActivity() {
 
         // Configuramos el fab para iniciar la activity de respuesta
         fab.setOnClickListener {
-            // TODO: Iniciar la activity de respuesta al pulsar el fab
+            val replyIntent = ReplyThreadActivity.startIntent(this, thread.title, link)
+            startActivity(replyIntent)
         }
 
         // Establecemos las opciones de los botones de navegación

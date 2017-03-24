@@ -16,16 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.bus.events
+package io.spaceisstrange.opencoches.data.api.smilies
+
+import io.spaceisstrange.opencoches.data.model.Smily
 
 /**
- * Evento para notificar que hemos hecho scroll hasta la última página de un hilo.
+ * Caché de smilies. Dado que es MUY raro que los smilies cambien pues los guardamos la primera
+ * vez que los obtengamos y nos ahorramos unas cuantas peticiones innecesarias para la próxima
+ * vez que los necesitemos.
  */
-class PageScrolledEvent(val threadLink: String) : Event {
-    /**
-     * Retorna si el link es el mismo que el del evento.
-     */
-    fun isSameThread(link: String): Boolean {
-        return threadLink == link
+class SmiliesCache {
+    companion object {
+        /**
+         * Caché de smilies.
+         */
+        var smiliesCache: List<Smily>? = null
     }
 }

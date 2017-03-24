@@ -16,16 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.bus.events
+package io.spaceisstrange.opencoches.data.model
 
 /**
- * Evento para notificar que hemos hecho scroll hasta la última página de un hilo.
+ * Representación de un smily con su código y su link de imagen.
  */
-class PageScrolledEvent(val threadLink: String) : Event {
-    /**
-     * Retorna si el link es el mismo que el del evento.
-     */
-    fun isSameThread(link: String): Boolean {
-        return threadLink == link
-    }
-}
+data class Smily(val code: String, val link: String)

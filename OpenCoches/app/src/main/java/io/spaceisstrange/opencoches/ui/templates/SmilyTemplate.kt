@@ -16,16 +16,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.spaceisstrange.opencoches.data.bus.events
+package io.spaceisstrange.opencoches.ui.templates
+
+import android.content.Context
+import com.squareup.phrase.Phrase
+import io.spaceisstrange.opencoches.data.model.Smily
 
 /**
- * Evento para notificar que hemos hecho scroll hasta la última página de un hilo.
+ * Plantilla para un smily.
  */
-class PageScrolledEvent(val threadLink: String) : Event {
-    /**
-     * Retorna si el link es el mismo que el del evento.
-     */
-    fun isSameThread(link: String): Boolean {
-        return threadLink == link
+class SmilyTemplate(context: Context) : HtmlTemplate<Smily>(context, "smily_template.html") {
+    override fun render(content: Smily, template: Phrase): String {
+        return template.put("smily_link", content.link)
+                .put("smily_code", content.code)
+                .format()
+                .toString()
     }
 }

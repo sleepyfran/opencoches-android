@@ -19,13 +19,6 @@
 package io.spaceisstrange.opencoches.data.bus.events
 
 /**
- * Evento para notificar que hemos hecho scroll hasta la última página de un hilo.
+ * Evento para notificar que hemos seleccionado un smily.
  */
-class PageScrolledEvent(val threadLink: String) : Event {
-    /**
-     * Retorna si el link es el mismo que el del evento.
-     */
-    fun isSameThread(link: String): Boolean {
-        return threadLink == link
-    }
-}
+class SmilySelectedEvent(val smilyCode: String) : Event
