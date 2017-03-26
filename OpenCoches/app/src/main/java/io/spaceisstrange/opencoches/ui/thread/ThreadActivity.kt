@@ -22,17 +22,23 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.AccountManager
+import io.spaceisstrange.opencoches.data.api.ApiConstants
 import io.spaceisstrange.opencoches.data.api.ApiUtils
 import io.spaceisstrange.opencoches.data.api.thread.ThreadInfo
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
+import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
+import io.spaceisstrange.opencoches.util.IntentUtils
 import kotlinx.android.synthetic.main.activity_thread.*
 
 /**
@@ -105,6 +111,23 @@ class ThreadActivity : BaseActivity() {
                     // Nada, silenciamos
                 }
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.thread_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val itemId = item?.itemId
+
+        when (itemId) {
+            //R.id.menu_search -> onSearch()
+            R.id.menu_share -> onShare()
+            R.id.menu_open_in_browser -> onOpenBrowser()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     /**
@@ -242,5 +265,36 @@ class ThreadActivity : BaseActivity() {
         threadLastPage.isEnabled = enabled
         threadNextPage.isEnabled = enabled
         threadPreviousPage.isEnabled = enabled
+    }
+
+    /**
+     * Llamado cuando el usuario pulsa el botón de búsqueda.
+     */
+    fun onSearch() {
+        //Bus.instance.publish(ThreadPageSearchEvent(link))
+    }
+
+    /**
+     * Llamado cuando el usuario pulsa el botón de compartir hilo.
+     */
+    fun onShare() {
+        // Compartimos el link del hilo
+        val sharingIntent = IntentUtils.createTextShareIntent(ApiUtils.getUrlFromEndpoint(link),
+                getString(R.string.thread_menu_share))
+        startActivity(sharingIntent)
+    }
+
+    /**
+     * Llamado cuando el usuario pulsa el botón de abrir en navegador.
+     */
+    fun onOpenBrowser() {
+        // Abrimos el enlace del hilo actual
+        val browserIntent = IntentUtils.createBrowserIntentChooser(this, ApiConstants.BASE_URL + link)
+
+        if (browserIntent != null) {
+            startActivity(browserIntent)
+        } else {
+            Toast.makeText(this, getString(R.string.general_no_browser), Toast.LENGTH_LONG).show()
+        }
     }
 }

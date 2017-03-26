@@ -193,8 +193,10 @@ class ThreadFragment : Fragment() {
                     event ->
 
                     // Mostramos la barra de búsqueda al ser notificados
-                    if (event is ThreadPageSearchEvent && event.link == link) {
-                        postContent.showFindDialog("", false)
+                    if (event is ThreadPageSearchEvent && link.contains(event.link)) {
+                        //postContent.showFindDialog("", false)
+                        // Lo anterior no funciona muy bien en versiones 7.1 y superiores por lo que se ve.
+                        // como no es algo excesivamente primordial lo dejamos fuera por ahora
                     }
 
                     // Recargamos la página si el usuario ha respondido al hilo
