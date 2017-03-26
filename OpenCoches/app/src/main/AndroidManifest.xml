@@ -53,5 +53,8 @@
             android:name=".ui.favorites.FavoritesActivity"
             android:theme="@style/Theme.Sliding"/>
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"/>
+
     </application>
 </manifest>

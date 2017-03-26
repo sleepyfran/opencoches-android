@@ -21,6 +21,8 @@ package io.spaceisstrange.opencoches.ui
 import android.app.Application
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.spaceisstrange.opencoches.data.database.DatabaseManager
+import io.spaceisstrange.opencoches.data.database.model.Settings
 
 /**
  * Creo que no hace falta explicar esto.
@@ -35,5 +37,14 @@ class App : Application() {
         // TODO: Seguir la guía de migración: https://realm.io/docs/java/latest/#migrations
         val config = RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build()
         Realm.setDefaultConfiguration(config)
+
+        // Creamos los ajustes por defecto de la aplicación si no hay nada guardado
+        if (!DatabaseManager.hasSettings()) {
+            val settings = Settings()
+                    .forceTextColor(false)
+                    .showSticky(true)
+
+            DatabaseManager.saveSettings(settings)
+        }
     }
 }

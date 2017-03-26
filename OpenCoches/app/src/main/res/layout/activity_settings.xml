@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Ajustes visuales -->
+            <LinearLayout
+                android:id="@+id/settingsVisual"
+                style="@style/SettingsCard">
+
+                <TextView
+                    style="@style/SettingsCard_OptionButton_Text"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/settings.visual.title"
+                    android:textStyle="bold"/>
+
+                <!-- Forzar color de texto -->
+                <LinearLayout
+                    android:id="@+id/settingsForceTextcolor"
+                    style="@style/SettingsCard_OptionButton"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/SettingsCard_OptionButton_Text"
+                            android:text="@string/settings.visual.force_white_text"/>
+
+                        <TextView
+                            style="@style/SettingsCard_OptionButton_SubText"
+                            android:text="@string/settings.visual.force_white_text.description"/>
+
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/forceTextColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"/>
+
+                </LinearLayout>
+
+                <!-- Mostrar u ocultar los hilos sticky -->
+                <LinearLayout
+                    android:id="@+id/settingsShowSticky"
+                    style="@style/SettingsCard_OptionButton"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/SettingsCard_OptionButton_Text"
+                            android:text="@string/settings.visual.show_sticky"/>
+
+                        <TextView
+                            style="@style/SettingsCard_OptionButton_SubText"
+                            android:text="@string/settings.visual.show_sticky.description"/>
+
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/showSticky"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="true"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Ajustes generales -->
+            <LinearLayout
+                android:id="@+id/settingsGeneral"
+                style="@style/SettingsCard">
+
+                <TextView
+                    style="@style/SettingsCard_OptionButton_Text"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/settings.general.title"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/signOut"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings.general.sign_out"
+                    android:textColor="@color/accent"/>
+
+            </LinearLayout>
+
+            <!-- Versión e información varia -->
+            <LinearLayout
+                android:id="@+id/settingsAbout"
+                style="@style/SettingsCard">
+
+                <TextView
+                    style="@style/SettingsCard_OptionButton_Text"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/settings.about.title"
+                    android:textStyle="bold"/>
+
+                <!-- Versión de nuestra queridísima app -->
+                <LinearLayout
+                    android:id="@+id/aboutApp"
+                    style="@style/SettingsCard_OptionButton"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsCard_OptionButton_Text"
+                        android:text="@string/settings.about.version.title"/>
+
+                    <TextView
+                        android:id="@+id/appVersion"
+                        style="@style/SettingsCard_OptionButton_SubText"
+                        android:text="@string/settings.about.version.release"/>
+
+                </LinearLayout>
+
+                <!-- Licencias y cosas varias -->
+                <LinearLayout
+                    android:id="@+id/settingsLicenses"
+                    style="@style/SettingsCard_OptionButton"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsCard_OptionButton_Text"
+                        android:text="@string/settings.about.licenses.title"/>
+
+                    <TextView
+                        style="@style/SettingsCard_OptionButton_SubText"
+                        android:text="@string/settings.about.licenses.description"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

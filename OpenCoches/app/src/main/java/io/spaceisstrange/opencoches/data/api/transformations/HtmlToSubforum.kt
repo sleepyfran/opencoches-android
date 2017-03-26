@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.data.api.transformations
 
 import io.spaceisstrange.opencoches.data.api.ApiConstants
+import io.spaceisstrange.opencoches.data.database.DatabaseManager
 import io.spaceisstrange.opencoches.data.model.Thread
 import org.jsoup.nodes.Document
 
@@ -34,29 +35,34 @@ class HtmlToSubforum {
             // Lista donde almacenaremos cada hilo
             val threadList: MutableList<Thread> = mutableListOf()
 
-            // Obtenemos primero los hilos con chincheta
-            try {
-                val pinnedThreadsBody = document.select("tbody[id^=collapseobj_st_]")[0]
-                val pinnedThreads = pinnedThreadsBody.select("tr")
+            // Nos indica si el mostrar con chincheta está o no habilitado
+            val isStickyEnabled = DatabaseManager.settings().showSticky!!
 
-                // Eliminamos los que no nos interesan
-                pinnedThreads.removeAt(pinnedThreads.size - 1)
+            // Obtenemos primero los hilos con chincheta, sólo si el usuario los tiene habilitados
+            if (isStickyEnabled) {
+                try {
+                    val pinnedThreadsBody = document.select("tbody[id^=collapseobj_st_]")[0]
+                    val pinnedThreads = pinnedThreadsBody.select("tr")
 
-                for (thread in pinnedThreads) {
-                    val isSticky = true
-                    val threadInfo = thread.select("a[id^=" + ApiConstants.THREAD_TITLE_KEY + "]")[0]
-                    val threadPages = thread.select("a[href^=" + ApiConstants.THREAD_PAGES_KEY + "]")[0].text()
-                    val threadTitle = threadInfo.text()
-                    val threadLink = threadInfo.attr("href")
+                    // Eliminamos los que no nos interesan
+                    pinnedThreads.removeAt(pinnedThreads.size - 1)
 
-                    // Añadimos el nuevo thread a la lista
-                    threadList.add(Thread(threadTitle,
-                            threadLink,
-                            Thread.pagesFromMessages(threadPages),
-                            isSticky))
+                    for (thread in pinnedThreads) {
+                        val isSticky = true
+                        val threadInfo = thread.select("a[id^=" + ApiConstants.THREAD_TITLE_KEY + "]")[0]
+                        val threadPages = thread.select("a[href^=" + ApiConstants.THREAD_PAGES_KEY + "]")[0].text()
+                        val threadTitle = threadInfo.text()
+                        val threadLink = threadInfo.attr("href")
+
+                        // Añadimos el nuevo thread a la lista
+                        threadList.add(Thread(threadTitle,
+                                threadLink,
+                                Thread.pagesFromMessages(threadPages),
+                                isSticky))
+                    }
+                } catch (exception: IndexOutOfBoundsException) {
+                    // Hay algunos subforos que no tienen temas con chincheta, así que a silenciar se ha dicho
                 }
-            } catch (exception: IndexOutOfBoundsException) {
-                // Hay algunos subforos que no tienen temas con chincheta, así que a silenciar se ha dicho
             }
 
             // Y después los que no tienen chincheta

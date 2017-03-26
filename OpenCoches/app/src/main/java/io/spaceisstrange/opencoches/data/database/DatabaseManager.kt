@@ -21,6 +21,7 @@ package io.spaceisstrange.opencoches.data.database
 import io.realm.Realm
 import io.realm.RealmChangeListener
 import io.spaceisstrange.opencoches.data.database.model.FavoriteThread
+import io.spaceisstrange.opencoches.data.database.model.Settings
 import io.spaceisstrange.opencoches.data.database.model.UserData
 
 /**
@@ -29,6 +30,13 @@ import io.spaceisstrange.opencoches.data.database.model.UserData
  */
 class DatabaseManager {
     companion object {
+        /**
+         * Retorna la instancia de Realm para cuando sea necesaria.
+         */
+        fun realmInstance(): Realm {
+            return Realm.getDefaultInstance()
+        }
+
         /**
          * Verifica si tenemos datos del usuario guardados en la base de datos.
          */
@@ -110,6 +118,40 @@ class DatabaseManager {
             realm.executeTransaction {
                 results.deleteAllFromRealm()
             }
+        }
+
+        /**
+         * Verifica si tenemos datos del usuario guardados en la base de datos.
+         */
+        fun hasSettings(): Boolean {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            val hasSettings = !realm.where(Settings::class.java)
+                    .findAll()
+                    .isEmpty()
+
+            return hasSettings
+        }
+
+        /**
+         * Guarda los ajustes en la base de datos.
+         */
+        fun saveSettings(settings: Settings) {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            realm.executeTransaction {
+                realm.copyToRealmOrUpdate(settings)
+            }
+        }
+
+        /**
+         * Retorna los ajustes de la base de datos.
+         */
+        fun settings(): Settings {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            return realm.where(Settings::class.java)
+                    .findFirst()
         }
 
         /**
