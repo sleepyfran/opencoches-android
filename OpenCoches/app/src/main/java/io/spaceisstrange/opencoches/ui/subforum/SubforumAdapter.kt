@@ -27,7 +27,7 @@ import io.spaceisstrange.opencoches.data.model.Thread
 import kotlinx.android.synthetic.main.list_item_subforum_thread.view.*
 
 /**
- * Adapter de un subforo específico
+ * Adapter de un subforo específico.
  */
 class SubforumAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adapter<SubforumAdapter.SubforumHolder>() {
     /**
@@ -72,7 +72,7 @@ class SubforumAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adap
     }
 
     /**
-     * View Holder con la información de un subforo.
+     * View Holder con la información de un hilo del subforo.
      */
     class SubforumHolder(val view: View) : RecyclerView.ViewHolder(view) {
         /**
