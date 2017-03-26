@@ -34,11 +34,14 @@ import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
+import io.spaceisstrange.opencoches.data.database.DatabaseManager
+import io.spaceisstrange.opencoches.data.database.model.FavoriteThread
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
 import io.spaceisstrange.opencoches.util.IntentUtils
+import io.spaceisstrange.opencoches.util.RegexUtil
 import kotlinx.android.synthetic.main.activity_thread.*
 
 /**
@@ -75,6 +78,11 @@ class ThreadActivity : BaseActivity() {
      * Página actual en el hilo.
      */
     var currentPage = 1
+
+    /**
+     * Instancia donde almacenaremos el hilo para posterior uso una vez cargado
+     */
+    var thread: Thread? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,9 +130,10 @@ class ThreadActivity : BaseActivity() {
         val itemId = item?.itemId
 
         when (itemId) {
-            //R.id.menu_search -> onSearch()
+        //R.id.menu_search -> onSearch()
             R.id.menu_share -> onShare()
             R.id.menu_open_in_browser -> onOpenBrowser()
+            R.id.menu_add_to_favorites -> onSaveFavorite()
         }
 
         return super.onOptionsItemSelected(item)
@@ -170,6 +179,8 @@ class ThreadActivity : BaseActivity() {
         ThreadInfo(link).observable().subscribe(
                 {
                     thread ->
+
+                    this.thread = thread
 
                     // Terminamos de configurar la activity
                     setToolbarTitle(thread.title)
@@ -296,5 +307,21 @@ class ThreadActivity : BaseActivity() {
         } else {
             Toast.makeText(this, getString(R.string.general_no_browser), Toast.LENGTH_LONG).show()
         }
+    }
+
+    /**
+     * Llamado cuando el usuario pulsa el botón de guardar favorito.
+     */
+    fun onSaveFavorite() {
+        val currentThread = thread ?: return
+
+        // Guardamos el hilo en la base de datos
+        val threadId = RegexUtil.threadIdFromLink().find(currentThread.link)?.groups?.get(1)?.value
+        val favoriteThread = FavoriteThread()
+                .id(threadId)
+                .title(currentThread.title)
+                .link(currentThread.link)
+
+        DatabaseManager.saveFavoriteThread(favoriteThread)
     }
 }

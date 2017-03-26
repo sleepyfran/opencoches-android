@@ -5,6 +5,7 @@
     <string name="general_menu.messages">Privados</string>
     <string name="general_menu.notifications">Notificaciones</string>
     <string name="general_menu.search">Buscar en el foro</string>
+    <string name="general_menu.favorites">Hilos favoritos</string>
     <string name="general_menu.settings">Ajustes</string>
     <string name="general.loading">Cargando&#8230;</string>
     <string name="general.no_browser">No hay ningún navegador instalado</string>
@@ -62,6 +63,7 @@
     <string name="thread.menu.search">Buscar en la página actual</string>
     <string name="thread.menu.open_in_browser">Abrir en el navegador</string>
     <string name="thread.menu.share">Compartir hilo</string>
+    <string name="thread.menu.add_to_favorites">Añadir a favoritos</string>
     <string name="thread.reply.bbcode.b">B</string>
     <string name="thread.reply.bbcode.i">I</string>
     <string name="thread.reply.bbcode.u">U</string>
@@ -79,6 +81,14 @@
 
     <!-- Activity de respuesta -->
     <string name="quote_template">[QUOTE=%1$s;%2$s]%3$s[/QUOTE]\n</string>
+
+    <!-- Activity de favoritos -->
+    <string name="favorites.title">Hilos favoritos</string>
+    <string name="favorites.empty">Esto está vacío. Aquí se mostrarán tus hilos favoritos que vayas añadiendo desde la opción \"Añadir a favoritos\"</string>
+    <string name="favorites.remove_dialog.title">Borrar hilo de favoritos</string>
+    <string name="favorites.remove_dialog.message">¿Estás seguro de que quieres borrar el hilo de tu lista de favoritos?</string>
+    <string name="favorites.remove_dialog.yes">A la hoguera</string>
+    <string name="favorites.remove_dialog.no">Nah</string>
 
     <!-- Selección de foto -->
     <string name="image_upload.source">Incluir imagen</string>

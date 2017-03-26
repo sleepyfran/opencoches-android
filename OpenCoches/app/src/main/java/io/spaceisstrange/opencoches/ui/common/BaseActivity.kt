@@ -18,6 +18,7 @@
 
 package io.spaceisstrange.opencoches.ui.common
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -25,6 +26,7 @@ import android.support.v7.app.AppCompatDelegate
 import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
+import io.spaceisstrange.opencoches.ui.favorites.FavoritesActivity
 
 /**
  * Activity que sirve de base para todas las demás activities que quieran implementar la Toolbar por defecto.
@@ -51,6 +53,10 @@ open class BaseActivity : AppCompatActivity() {
             // TODO: Iniciar activity de ajustes
         } else if (selectedId == R.id.menu_search) {
             // TODO: Iniciar activity de búsqueda
+        } else if (selectedId == R.id.menu_favorites) {
+            // Iniciamos la activity de favoritos
+            val favoritesIntent = Intent(this, FavoritesActivity::class.java)
+            startActivity(favoritesIntent)
         }
 
         // TODO: Hacerse cargo del resto del menú

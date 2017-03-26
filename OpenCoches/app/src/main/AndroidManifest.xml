@@ -49,5 +49,9 @@
             android:name=".ui.views.editor.smilies.SmiliesActivity"
             android:theme="@style/Theme.Sliding"/>
 
+        <activity
+            android:name=".ui.favorites.FavoritesActivity"
+            android:theme="@style/Theme.Sliding"/>
+
     </application>
 </manifest>

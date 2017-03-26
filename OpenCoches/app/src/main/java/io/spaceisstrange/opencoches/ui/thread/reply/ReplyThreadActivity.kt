@@ -137,7 +137,7 @@ class ReplyThreadActivity : SlidingActivity() {
                             ?: throw IllegalArgumentException("La URL del hilo no es válida")
 
                     // Obtenemos el ID del usuario
-                    val userId = DatabaseManager.getUserData()?.id!!
+                    val userId = DatabaseManager.userData()?.id!!
 
                     ThreadReply(securityToken, threadId, reply, userId).observable().subscribe(
                             {

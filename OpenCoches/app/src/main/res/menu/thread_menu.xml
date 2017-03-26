@@ -18,4 +18,10 @@
         android:icon="@drawable/ic_open_in_browser_white"
         android:title="@string/thread.menu.open_in_browser"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_add_to_favorites"
+        android:icon="@drawable/ic_star_white"
+        android:title="@string/thread.menu.add_to_favorites"
+        app:showAsAction="never"/>
 </menu>

@@ -19,6 +19,8 @@
 package io.spaceisstrange.opencoches.data.database
 
 import io.realm.Realm
+import io.realm.RealmChangeListener
+import io.spaceisstrange.opencoches.data.database.model.FavoriteThread
 import io.spaceisstrange.opencoches.data.database.model.UserData
 
 /**
@@ -54,11 +56,78 @@ class DatabaseManager {
         /**
          * Retorna los datos del usuario de la base de datos.
          */
-        fun getUserData(): UserData? {
+        fun userData(): UserData? {
             val realm: Realm = Realm.getDefaultInstance()
 
             return realm.where(UserData::class.java)
                     .findFirst()
+        }
+
+        /**
+         * Borra los datos del usuario de la base de datos.
+         */
+        fun removeUserData() {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            val userData = realm.where(UserData::class.java).findAll()
+
+            realm.executeTransaction {
+                userData.deleteAllFromRealm()
+            }
+        }
+
+        /**
+         * Guarda un nuevo hilo favorito en la base de datos.
+         */
+        fun saveFavoriteThread(thread: FavoriteThread) {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            realm.executeTransaction {
+                realm.copyToRealmOrUpdate(thread)
+            }
+        }
+
+        /**
+         * Retorna los hilos favoritos de la base de datos.
+         */
+        fun favoriteThreads(): List<FavoriteThread> {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            return realm.where(FavoriteThread::class.java)
+                    .findAll()
+        }
+
+        /**
+         * Elimina el hilo especificado de la base de datos.
+         */
+        fun removeFavoriteThread(thread: FavoriteThread) {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            val results = realm.where(FavoriteThread::class.java)
+                    .equalTo("id", thread.id)
+                    .findAll()
+
+            realm.executeTransaction {
+                results.deleteAllFromRealm()
+            }
+        }
+
+        /**
+         * Añade un listener a la base de datos.
+         */
+        fun addListener(listener: RealmChangeListener<Realm>) {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            realm.addChangeListener(listener)
+        }
+
+        /**
+         * Elimina un listener de la base de datos.
+         */
+        fun removeListener(listener: RealmChangeListener<Realm>) {
+            val realm: Realm = Realm.getDefaultInstance()
+
+            realm.removeChangeListener(listener)
         }
 
         /**

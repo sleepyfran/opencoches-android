@@ -73,7 +73,7 @@ class AccountManager {
          * Loguea al usuario con los datos guardados en la base de datos y retorna el resultado.
          */
         fun loginWithSavedCredentials(): Observable<Boolean> {
-            val userData = DatabaseManager.getUserData()!!
+            val userData = DatabaseManager.userData()!!
             val username = userData.username!!
             val password = userData.password!!
 
