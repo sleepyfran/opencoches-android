@@ -40,4 +40,28 @@ open class UserData : RealmObject() {
      * Contraseña que usaremos para iniciar sesión.
      */
     open var password: String? = null
+
+    /**
+     * Establece el ID del objeto.
+     */
+    fun id(id: String): UserData {
+        this.id = id
+        return this
+    }
+
+    /**
+     * Establece el nombre de usuario del objeto.
+     */
+    fun username(username: String): UserData {
+        this.username = username
+        return this
+    }
+
+    /**
+     * Establece la contraseña del objeto.
+     */
+    fun password(password: String): UserData {
+        this.password = password
+        return this
+    }
 }

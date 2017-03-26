@@ -48,9 +48,9 @@ class AccountManager {
                         userId ->
 
                         val userData = UserData()
-                        userData.username = username
-                        userData.password = password
-                        userData.id = userId
+                                .id(userId)
+                                .username(username)
+                                .password(password)
 
                         DatabaseManager.saveUserData(userData)
                     }
