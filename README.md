@@ -5,6 +5,8 @@
 
 Para el funcionamiento de la misma, dado que ilitri no quiere darnos herramientas para acceder al contenido del foro de forma digna, imito el acceso desde un navegador y parseo los datos para que sean más fáciles de leer dentro de la aplicación.
 
+**NOTA**: En **ningún** momento se recopilan los datos del usuario. Como se puede ver en el código los datos de la cuenta que se introducen en la aplicación no se usan para nada más que loguearnos en la web.
+
 ## A dónde va el proyecto
 Básicamente este proyecto lo he hecho en mi tiempo libre como forma de entretenimiento además de como proyecto personal para poder acceder al foro de una forma más cómoda.
 
