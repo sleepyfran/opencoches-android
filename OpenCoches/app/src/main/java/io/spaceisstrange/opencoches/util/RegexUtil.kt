@@ -38,20 +38,6 @@ class RegexUtil {
         }
 
         /**
-         * Retorna un Regex que saca el ID de un usuario de su link completo de escritorio.
-         */
-        fun userIdFromFullDesktopLink(): Regex {
-            return "http://www\\.forocoches\\.com/foro/member\\.php\\?u=(\\d+)".toRegex()
-        }
-
-        /**
-         * Retorna un Regex que saca el ID de un usuario de su link completo de móvil.
-         */
-        fun userIdFromFullMobileLink(): Regex {
-            return "http://m\\.forocoches\\.com/foro/member\\.php\\?u=(\\d+)".toRegex()
-        }
-
-        /**
          * Retorna un Regex que saca el ID de un subforo de su link.
          */
         fun subforumIdFromLink(): Regex {

@@ -26,7 +26,7 @@ import io.spaceisstrange.opencoches.util.RegexUtil
 class ApiUtils {
     companion object {
         /**
-         * Devuelve una URL "real" de una "fake". Básicamente en ciertas partes FC nos devuelve una URL comenando
+         * Devuelve una URL "real" de una "fake". Básicamente en ciertas partes FC nos devuelve una URL comenzando
          * por // en lugar de por http://, así que tenemos que lidiar con eso.
          */
         fun getRealUrl(fakeUrl: String): String {
@@ -54,13 +54,7 @@ class ApiUtils {
          * Obtiene el ID de un usuario de una URL completa (sea de escritorio o móvil).
          */
         fun getIdFromUrl(url: String): String? {
-            if (url.startsWith("http://www.")) {
-                return RegexUtil.userIdFromFullDesktopLink().matchEntire(url)?.groups?.get(1)?.value!!
-            } else if (url.startsWith("http://m.")) {
-                return RegexUtil.userIdFromFullMobileLink().matchEntire(url)?.groups?.get(1)?.value!!
-            }
-
-            return null
+            return RegexUtil.userIdFromLink().find(url)?.groups?.get(1)?.value
         }
 
         /**
