@@ -41,4 +41,5 @@ Esta es una de las muchas chorradas que se me han ocurrido mientras desarrollaba
 - [†††: Crosses](https://www.youtube.com/watch?v=92dXztDGYdM)
 - [Caligula's Horse: The Tide, the Thief & River's End](https://www.youtube.com/watch?v=2f8w-Fowepc&list=PLo2XzIBaNAUILDjJtJ4jy39Rk4VDZYvsp)
 - [Rishloo: Living As Ghosts With Buildings As Teeth](https://www.youtube.com/watch?v=6UpXjBOBQB8)
+- [Pain Of Salvation: In The Passing Light Of Day](https://www.youtube.com/watch?v=BjtkaaBfNRk)
 - *Más próximamente (o quizá no, depende de la pereza que me de)*
