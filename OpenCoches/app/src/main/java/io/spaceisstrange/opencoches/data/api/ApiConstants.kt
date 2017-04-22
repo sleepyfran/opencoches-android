@@ -45,6 +45,8 @@ class ApiConstants {
         const val THREAD_MAX_POSTS_PER_PAGE = 30.toDouble()
         const val THREAD_TITLE_KEY = "thread_title_"
         const val THREAD_PAGES_KEY = "misc.php?do=whoposted&t="
+        const val THREAD_STICKY_KEY = "collapseobj_st_"
+        const val THREAD_NO_STICKY_KEY = "threadbits_forum_"
         const val SUBFORO_LINK_KEY = "forumdisplay.php?f="
         const val TD_THREAD_TITLE_KEY = "td_threadtitle"
         const val THREAD_POST_KEY = "td_post_"
