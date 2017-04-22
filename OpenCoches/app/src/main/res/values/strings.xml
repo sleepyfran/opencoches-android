@@ -108,7 +108,7 @@
     <string name="settings.visual.force_white_text">Forzar color de texto</string>
     <string name="settings.visual.force_white_text.description">Fuerza el color del texto de los posts a blanco. Si tienes problemas de visualización en algunos hilos activa esta opción. Disponible próximamente</string>
     <string name="settings.visual.show_sticky">Mostrar hilos con chincheta</string>
-    <string name="settings.visual.show_sticky.description">Muestra u oculta los hilos con chincheta en los subforos. Es necesario reiniciar la aplicación para aplicar los cambios.</string>
+    <string name="settings.visual.show_sticky.description">Muestra u oculta los hilos con chincheta en los subforos.</string>
     <string name="settings.dialog.sign_out.title">¿Seguro que quieres cerrar sesión?</string>
     <string name="settings.about.title">Sobre&#8230;</string>
     <string name="settings.about.version.title">Versión</string>

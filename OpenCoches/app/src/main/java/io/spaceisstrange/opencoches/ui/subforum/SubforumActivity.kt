@@ -26,6 +26,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.api.subforum.Subforum
+import io.spaceisstrange.opencoches.data.database.DatabaseManager
 import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.thread.ThreadActivity
@@ -154,7 +155,15 @@ class SubforumActivity : BaseActivity() {
      * Sustituye los hilos actuales (si hay algunos) con los cargados
      */
     fun showThreads(threads: List<Thread>) {
-        adapter.update(threads)
+        // Si el usuario tiene deshabilitados los hilos con chincheta, los ocultamos
+        val stickyEnabled = DatabaseManager.settings().showSticky!!
+
+        if (!stickyEnabled) {
+            val filteredThreads = threads.filterNot { it.isSticky }
+            adapter.update(filteredThreads)
+        } else {
+            adapter.update(threads)
+        }
     }
 
     /**
