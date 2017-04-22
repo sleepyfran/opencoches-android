@@ -31,22 +31,9 @@ open class Settings : RealmObject() {
     @PrimaryKey open var id = 0
 
     /**
-     * Campo que indica el valor de forzar el color del texto.
-     */
-    open var forceTextColor: Boolean? = null
-
-    /**
      * Campo que indica el valor de mostrar hilos con chincheta.
      */
     open var showSticky: Boolean? = null
-
-    /**
-     * Establece el valor de forzar el color del texto del objeto.
-     */
-    fun forceTextColor(forceTextColor: Boolean): Settings {
-        this.forceTextColor = forceTextColor
-        return this
-    }
 
     /**
      * Establece el valor de mostrar hilos con chincheta del objeto.

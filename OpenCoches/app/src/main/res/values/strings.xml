@@ -115,6 +115,8 @@
     <string name="settings.about.version.release">v%1$s</string>
     <string name="settings.about.licenses.title">Licencias</string>
     <string name="settings.about.licenses.description">Atribuciones de las librerías</string>
+    <string name="settings.about.gh.title">Repositorio de OpenCoches</string>
+    <string name="settings.about.gh.description">La aplicación es totalmente código libre. Desde aquí puedes consultar el código fuente.</string>
 
     <!-- Datos de ejemplo para rellenar -->
     <string name="dummy.subforo_icon">G</string>

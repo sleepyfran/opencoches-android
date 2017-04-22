@@ -41,7 +41,6 @@ class App : Application() {
         // Creamos los ajustes por defecto de la aplicación si no hay nada guardado
         if (!DatabaseManager.hasSettings()) {
             val settings = Settings()
-                    .forceTextColor(false)
                     .showSticky(true)
 
             DatabaseManager.saveSettings(settings)

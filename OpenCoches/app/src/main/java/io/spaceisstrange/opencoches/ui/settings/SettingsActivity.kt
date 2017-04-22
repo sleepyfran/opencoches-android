@@ -19,6 +19,7 @@
 package io.spaceisstrange.opencoches.ui.settings
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AlertDialog
@@ -50,15 +51,13 @@ class SettingsActivity : BaseActivity() {
         ViewCompat.setElevation(settingsAbout, 5.toFloat())
         updateUi()
 
-        //settingsForceTextcolor.setOnClickListener { forceTextColor.isChecked = !forceTextColor.isChecked }
-        forceTextColor.setOnCheckedChangeListener { buttonView, isChecked -> onForceTextColor(isChecked) }
-
         settingsShowSticky.setOnClickListener { showSticky.isChecked = !showSticky.isChecked }
         showSticky.setOnCheckedChangeListener { buttonView, isChecked -> onShowSticky(isChecked) }
 
         signOut.setOnClickListener { onSignOut() }
 
         settingsLicenses.setOnClickListener { onLicenses() }
+        settingsGhRepository.setOnClickListener { onRepository() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -75,18 +74,7 @@ class SettingsActivity : BaseActivity() {
 
         val settings = DatabaseManager.settings()
 
-        forceTextColor.isChecked = settings.forceTextColor!!
         showSticky.isChecked = settings.showSticky!!
-    }
-
-    /**
-     * Llamado cuando el campo de forzar el color del texto es pulsado.
-     */
-    fun onForceTextColor(isChecked: Boolean) {
-        DatabaseManager.realmInstance().executeTransaction {
-            val settings = DatabaseManager.settings()
-            settings.forceTextColor = isChecked
-        }
     }
 
     /**
@@ -131,5 +119,13 @@ class SettingsActivity : BaseActivity() {
                 .setNotices(R.raw.notices)
                 .build()
                 .show()
+    }
+
+    /**
+     * Llamado cuando el botón de ver el código fuente es pulsado.
+     */
+    fun onRepository() {
+        val repositoryIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/spaceisstrange/opencoches"))
+        startActivity(repositoryIntent)
     }
 }
