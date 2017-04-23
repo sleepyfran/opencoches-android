@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Comprobamos si el usuario se ha logueado anteriormente
-        if (AccountManager.isUserLoggedIn()) {
+        if (AccountManager.hasUserData()) {
             // Intentamos loguearnos con los datos que tenemos guardados
             AccountManager.loginWithSavedCredentials().subscribe(
                     {

@@ -30,9 +30,17 @@ import rx.Observable
 class AccountManager {
     companion object {
         /**
-         * Verifica si el usuario ha iniciado sesión anteriormente o no.
+         * Verifica si el usuario está o no logueado.
          */
         fun isUserLoggedIn(): Boolean {
+            val cookies = CookiesCache.cookies
+            return cookies != null && cookies.isNotEmpty()
+        }
+
+        /**
+         * Verifica si tenemos guardado los datos de inicio de sesión del usuario.
+         */
+        fun hasUserData(): Boolean {
             return DatabaseManager.hasUserData()
         }
 

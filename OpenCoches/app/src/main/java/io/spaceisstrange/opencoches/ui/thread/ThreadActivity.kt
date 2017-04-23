@@ -40,6 +40,7 @@ import io.spaceisstrange.opencoches.data.model.Thread
 import io.spaceisstrange.opencoches.ui.common.BaseActivity
 import io.spaceisstrange.opencoches.ui.login.LoginActivity
 import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
+import io.spaceisstrange.opencoches.util.ActivityUtils
 import io.spaceisstrange.opencoches.util.IntentUtils
 import io.spaceisstrange.opencoches.util.RegexUtil
 import kotlinx.android.synthetic.main.activity_thread.*
@@ -92,11 +93,11 @@ class ThreadActivity : BaseActivity() {
 
         // Dado que esta activity puede ser abierta sin necesidad de que el usuario esté logueado
         // lo comprobamos antes de continuar. Si no está logueado, lo mandamos a hacerlo
-        if (AccountManager.isUserLoggedIn()) {
-            attemptLogin()
-        } else {
-            showLogin()
+        if (!AccountManager.isUserLoggedIn()) {
+            ActivityUtils.attemptLogin(this)
         }
+
+        loadThreadFromIntent()
 
         // Configuramos el bus de la aplicación
         Bus.instance.observable().subscribe(
@@ -140,35 +141,27 @@ class ThreadActivity : BaseActivity() {
     }
 
     /**
-     * Intenta loguear al usuario para poder continuar con la ejecución.
+     * Carga los datos de los extras del intent y termina de configurar la activity.
      */
-    fun attemptLogin() {
-        AccountManager.loginWithSavedCredentials().subscribe(
-                {
-                    loggedIn ->
+    fun loadThreadFromIntent() {
+        // Obtenemos los datos de los extras del intent
+        var link = intent.extras?.getString(THREAD_LINK) ?: intent.dataString
 
-                    if (!loggedIn) showLogin()
+        // Dado que los links que nos vienen de un intent filter llevan la URL completa
+        // (con http://forocoches...etc) y para no hacer un cambio completo de la forma
+        // en la que tratamos las URLs en las llamadas a la web mejor curarnos de espanto
+        // y quitarle el prefijo
+        link = ApiUtils.removePrefixFromUrl(link)
 
-                    // Obtenemos los datos de los extras del intent
-                    var link = intent.extras?.getString(THREAD_LINK) ?: intent.dataString
+        // Guardamos el link del hilo ya preparado
+        this.link = link
 
-                    // Dado que los links que nos vienen de un intent filter llevan la URL completa
-                    // (con http://forocoches...etc) y para no hacer un cambio completo de la forma
-                    // en la que tratamos las URLs en las llamadas a la web mejor curarnos de espanto
-                    // y quitarle el prefijo
-                    link = ApiUtils.removePrefixFromUrl(link)
+        // Terminamos de configurar la activity
+        buttonsEnabled(false)
+        setToolbarTitle(getString(R.string.general_loading))
 
-                    // Guardamos el link del hilo ya preparado
-                    this.link = link
-
-                    // Terminamos de configurar la activity
-                    buttonsEnabled(false)
-                    setToolbarTitle(getString(R.string.general_loading))
-
-                    // Cargamos los datos del hilo
-                    loadThread()
-                }
-        )
+        // Cargamos los datos del hilo
+        loadThread()
     }
 
     /**
@@ -251,14 +244,6 @@ class ThreadActivity : BaseActivity() {
 
         // Habilitamos los botones de navegación
         buttonsEnabled(true)
-    }
-
-    /**
-     * Muestra la activity de inicio de sesión.
-     */
-    fun showLogin() {
-        val loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
     }
 
     /**

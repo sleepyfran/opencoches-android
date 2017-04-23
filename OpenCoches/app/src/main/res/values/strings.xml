@@ -9,6 +9,7 @@
     <string name="general_menu.settings">Ajustes</string>
     <string name="general.loading">Cargando&#8230;</string>
     <string name="general.no_browser">No hay ningún navegador instalado</string>
+    <string name="general.login_first">Inicia sesión antes de continuar</string>
     <string name="general.yes">Sí</string>
     <string name="general.no">No</string>
 
