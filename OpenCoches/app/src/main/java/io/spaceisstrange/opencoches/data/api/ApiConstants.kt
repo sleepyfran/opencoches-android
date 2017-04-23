@@ -29,14 +29,17 @@ class ApiConstants {
          */
         const val BASE_URL = "http://www.forocoches.com/foro/"
         const val BASE_MOBILE_URL = "http://m.forocoches.com/foro/"
+        const val SEARCH_URL = "http://www.forocoches.com/forocoches_search.php"
         const val LOGIN_URL = "login.php"
         const val SUBFORUM_PAGE_URL = "&page="
         const val THREAD_PAGE_URL = "&page="
+        const val SEARCH_PAGE_URL = "&page="
         const val SMILIES_URL = "misc.php?do=getsmilies&editorid=vB_Editor_001"
         const val REPLY_URL = "newreply.php"
         const val DO_URL = "?do="
         const val T_URL = "&t="
         const val QUOTE_URL = "newreply.php?do=newreply&p="
+        const val USER_PROFILE_URL = "member.php?u="
 
         /**
          * Valores esperados de ciertas secciones del foro, como URLs, por ejemplo.
@@ -111,6 +114,10 @@ class ApiConstants {
         const val PARSE_URL_PARAMETER = "parseurl"
         const val LOGGED_IN_USER_PARAMETER = "loggedinuser"
         const val S_BUTTON_PARAMETER = "sbutton"
+        const val QUERY_PARAMETER = "query"
+        const val OPCION_PARAMETER = "opcion"
+        const val REG_PARAMETER = "reg"
+        const val LB_PARAMETER = "lb"
 
         /**
          * Parámetros de la petición POST de Login.
@@ -131,7 +138,7 @@ class ApiConstants {
         }
 
         /**
-         * Parámetros de la petición POST de envío de una respuesta a un hilo
+         * Parámetros de la petición POST de envío de una respuesta a un hilo.
          */
         fun getThreadReplyParameters(securityToken: String, threadId: String, reply: String, userId: String): Map<String, String> {
             return hashMapOf(
@@ -148,6 +155,18 @@ class ApiConstants {
                     PARSE_URL_PARAMETER to "1",
                     LOGGED_IN_USER_PARAMETER to userId,
                     S_BUTTON_PARAMETER to ""
+            )
+        }
+
+        /**
+         * Parámetros de la petición POST de búsqueda.
+         */
+        fun getSearchParameters(query: String, userId: String): Map<String, String> {
+            return hashMapOf(
+                    QUERY_PARAMETER to query,
+                    OPCION_PARAMETER to "foro",
+                    REG_PARAMETER to userId,
+                    LB_PARAMETER to "Buscar"
             )
         }
     }

@@ -29,6 +29,7 @@ import io.spaceisstrange.opencoches.data.api.thread.ThreadQuote
 import io.spaceisstrange.opencoches.data.bus.Bus
 import io.spaceisstrange.opencoches.data.bus.events.PageScrolledEvent
 import io.spaceisstrange.opencoches.data.bus.events.ThreadPageSearchEvent
+import io.spaceisstrange.opencoches.ui.profile.ProfileActivity
 import io.spaceisstrange.opencoches.ui.thread.reply.ReplyThreadActivity
 import kotlinx.android.synthetic.main.activity_thread.*
 import kotlinx.android.synthetic.main.fragment_thread.*
@@ -153,7 +154,8 @@ class ThreadFragment : Fragment() {
         postContent.onUserClick = {
             posterId ->
 
-            // TODO: Mostrar el perfil de usuario
+            val profileIntent = ProfileActivity.getStartIntent(context, posterId)
+            startActivity(profileIntent)
         }
     }
 

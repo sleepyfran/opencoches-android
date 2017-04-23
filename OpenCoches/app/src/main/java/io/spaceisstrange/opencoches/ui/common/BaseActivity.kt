@@ -27,6 +27,7 @@ import android.view.Menu
 import android.view.MenuItem
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.ui.favorites.FavoritesActivity
+import io.spaceisstrange.opencoches.ui.search.SearchActivity
 import io.spaceisstrange.opencoches.ui.settings.SettingsActivity
 
 /**
@@ -55,14 +56,14 @@ open class BaseActivity : AppCompatActivity() {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
         } else if (selectedId == R.id.menu_search) {
-            // TODO: Iniciar activity de búsqueda
+            // Iniciamos la activity de búsqueda
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
         } else if (selectedId == R.id.menu_favorites) {
             // Iniciamos la activity de favoritos
             val favoritesIntent = Intent(this, FavoritesActivity::class.java)
             startActivity(favoritesIntent)
         }
-
-        // TODO: Hacerse cargo del resto del menú
 
         return super.onOptionsItemSelected(item)
     }
