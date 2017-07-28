@@ -33,6 +33,9 @@ import io.spaceisstrange.opencoches.data.bus.events.RepliedToThreadEvent
 import io.spaceisstrange.opencoches.data.database.DatabaseManager
 import io.spaceisstrange.opencoches.util.RegexUtil
 import kotlinx.android.synthetic.main.activity_reply_thread.*
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Activity que permite enviar una respuesta a un hilo.
@@ -128,6 +131,9 @@ class ReplyThreadActivity : SlidingActivity() {
             return
         }
 
+        // Ocultamos el teclado para que se pueda ver el mensaje de error/éxito
+        hideKeyboard()
+
         SecurityToken(threadLink).observable().subscribe(
                 {
                     securityToken ->
@@ -141,10 +147,7 @@ class ReplyThreadActivity : SlidingActivity() {
 
                     ThreadReply(securityToken, threadId, reply, userId).observable().subscribe(
                             {
-                                pair ->
-
-                                val success = pair.first
-                                val pagesCount = pair.second
+                                (success, pagesCount) ->
 
                                 if (success) {
                                     // Mostramos la Snackbar que indica que se ha enviado la respuesta
@@ -152,7 +155,7 @@ class ReplyThreadActivity : SlidingActivity() {
                                     Snackbar.make(view,
                                             getString(R.string.thread_reply_sent),
                                             Snackbar.LENGTH_SHORT)
-                                            .setCallback(object : Snackbar.Callback() {
+                                            .addCallback(object : Snackbar.Callback() {
                                                 override fun onDismissed(snackbar: Snackbar?, event: Int) {
                                                     super.onDismissed(snackbar, event)
 
@@ -173,6 +176,20 @@ class ReplyThreadActivity : SlidingActivity() {
                     showError(true)
                 }
         )
+    }
+
+    /**
+     * Oculta el teclado de la pantalla.
+     */
+    fun hideKeyboard() {
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        var view = currentFocus
+        if (view == null) {
+            view = View(this)
+        }
+
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     /**
