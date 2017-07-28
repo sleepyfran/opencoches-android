@@ -51,9 +51,6 @@ dependencies {
     compile 'com.klinkerapps:sliding-activity:1.4.3'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
-    compile('com.mikepenz:materialdrawer:5.9.4@aar') {
-        transitive = true
-    }
 
     /**
      * Módulos de Firebase. Para compilar el proyecto sin tener que añadir los servicios de Firebase
