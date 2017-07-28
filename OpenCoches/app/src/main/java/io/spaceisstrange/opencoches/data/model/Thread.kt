@@ -41,4 +41,13 @@ data class Thread(val title: String,
             return pagesNumber.toInt()
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null) return false
+        if (other.javaClass != this.javaClass) return false
+
+        val otherThread = other as Thread
+
+        return otherThread.link == this.link
+    }
 }

@@ -49,6 +49,7 @@ class SubforumAdapter(val onClick: (thread: Thread) -> Unit) : RecyclerView.Adap
      */
     fun addThreads(threads: List<Thread>) {
         subforums.addAll(threads)
+        subforums.distinct()
         notifyDataSetChanged()
     }
 
