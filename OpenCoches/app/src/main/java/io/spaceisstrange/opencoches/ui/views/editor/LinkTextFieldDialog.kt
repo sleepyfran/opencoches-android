@@ -57,7 +57,7 @@ class LinkTextFieldDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_text_field, null, false)
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(activity!!)
                 .setView(view)
                 .setTitle(getString(R.string.link_text_field_description))
                 .setPositiveButton(android.R.string.ok, null)

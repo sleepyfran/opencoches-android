@@ -62,7 +62,7 @@ class ImageSelectionDialog : BottomSheetDialog() {
                         // Nos vale cualquier cosa
                         true
                     }
-            ).show(activity.supportFragmentManager, null)
+            ).show(activity?.supportFragmentManager, null)
         }
     }
 

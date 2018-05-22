@@ -34,6 +34,7 @@ import io.spaceisstrange.opencoches.data.database.DatabaseManager
 import io.spaceisstrange.opencoches.util.RegexUtil
 import kotlinx.android.synthetic.main.activity_reply_thread.*
 import android.app.Activity
+import android.support.design.widget.FloatingActionButton
 import android.view.inputmethod.InputMethodManager
 
 
@@ -151,7 +152,7 @@ class ReplyThreadActivity : SlidingActivity() {
 
                                 if (success) {
                                     // Mostramos la Snackbar que indica que se ha enviado la respuesta
-                                    val view = findViewById(android.R.id.content)
+                                    val view: View = findViewById(android.R.id.content)
                                     Snackbar.make(view,
                                             getString(R.string.thread_reply_sent),
                                             Snackbar.LENGTH_SHORT)
@@ -196,7 +197,7 @@ class ReplyThreadActivity : SlidingActivity() {
      * Habilita o deshabilita el FAB de enviar.
      */
     fun enableFab(enable: Boolean) {
-        val fab = findViewById(R.id.fab)
+        val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.isEnabled = enable
     }
 
@@ -219,7 +220,7 @@ class ReplyThreadActivity : SlidingActivity() {
      * Muestra un mensaje indicando que no se ha podido enviar respuesta.
      */
     fun showCouldNotSendReply() {
-        val view = findViewById(android.R.id.content)
+        val view: View = findViewById(android.R.id.content)
         Snackbar.make(view, getString(R.string.thread_reply_error), Snackbar.LENGTH_LONG).show()
 
         // Habilitamos el fab otra vez por si quieren volver a intentarlo

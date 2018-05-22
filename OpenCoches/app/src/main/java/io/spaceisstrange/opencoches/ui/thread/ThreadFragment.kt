@@ -70,7 +70,7 @@ class ThreadFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_thread, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Configuramos el fragment
@@ -139,10 +139,10 @@ class ThreadFragment : Fragment() {
 
             if (oldY - y <= 0) {
                 // Ocultamos el fab
-                activity.fab.hide()
+                activity?.fab?.hide()
             } else {
                 // Mostramos el fab
-                activity.fab.show()
+                activity?.fab?.show()
             }
         }
     }
@@ -154,7 +154,7 @@ class ThreadFragment : Fragment() {
         postContent.onUserClick = {
             posterId ->
 
-            val profileIntent = ProfileActivity.getStartIntent(context, posterId)
+            val profileIntent = ProfileActivity.getStartIntent(context!!, posterId)
             startActivity(profileIntent)
         }
     }
@@ -173,7 +173,7 @@ class ThreadFragment : Fragment() {
                         quote ->
 
                         // Mostramos la activity de respuesta con nuestra cita
-                        val quoteIntent = ReplyThreadActivity.quoteStartIntent(activity, title, link, quote)
+                        val quoteIntent = ReplyThreadActivity.quoteStartIntent(activity!!, title, link, quote)
                         startActivity(quoteIntent)
                     },
                     {

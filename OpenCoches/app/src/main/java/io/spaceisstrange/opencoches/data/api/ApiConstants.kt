@@ -27,9 +27,9 @@ class ApiConstants {
          * Constantes de URLs donde hacer peticiones.
          * (ejemplo: http://www.forocoches.com/foro/forumdisplay.php?f= para los subforos).
          */
-        const val BASE_URL = "http://www.forocoches.com/foro/"
-        const val BASE_MOBILE_URL = "http://m.forocoches.com/foro/"
-        const val SEARCH_URL = "http://www.forocoches.com/forocoches_search.php"
+        const val BASE_URL = "https://www.forocoches.com/foro/"
+        const val BASE_MOBILE_URL = "https://m.forocoches.com/foro/"
+        const val SEARCH_URL = "https://www.forocoches.com/forocoches_search.php"
         const val LOGIN_URL = "login.php"
         const val SUBFORUM_PAGE_URL = "&page="
         const val THREAD_PAGE_URL = "&page="

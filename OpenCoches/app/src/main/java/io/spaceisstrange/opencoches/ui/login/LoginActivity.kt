@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import io.spaceisstrange.opencoches.R
 import io.spaceisstrange.opencoches.data.AccountManager
@@ -78,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 {
                     error ->
 
+                    Log.i("Error del login", error.toString())
                     showLoading(false)
                     showWrongDataError()
                 }
@@ -115,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
      * Muestra un error indicando que los datos son incorrectos.
      */
     fun showWrongDataError() {
-        val view = findViewById(android.R.id.content)
+        val view: View = findViewById(android.R.id.content)
         Snackbar.make(view, getString(R.string.error_login_message), Snackbar.LENGTH_LONG).show()
     }
 }
